@@ -30,8 +30,8 @@
                     </a>
                     <ul class="list-unstyled navbar__sub-list js-sub-list">
                         <li>
-                            <a href="index.php?page=parcel">
-                                <i class="fas fa-tachometer-alt"></i>Add New</a>
+                            <a href="index.php?page=new_parcel">
+                                <i class="fas fa-tachometer-alt"></i>New Request</a>
                         </li>
                         <li>
                             <a href="index.php?page=all_list">
@@ -40,10 +40,6 @@
                         <li>
                             <a href="index.php?page=parcel_status">
                                 <i class="fas fa-tachometer-alt"></i>Updates</a>
-                        </li>
-                        <li>
-                            <a href="index.php?page=rate_courier">
-                                <i class="fas fa-tachometer-alt"></i>Rate Courier</a>
                         </li>
                     </ul>
                 </li>   

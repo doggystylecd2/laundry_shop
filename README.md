@@ -101,3 +101,10 @@ CoolAdmin is licensed under The MIT License (MIT). Which means that you can use,
 copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
 final products. But you always need to state that Colorlib is the original
 author of this template.
+
+<!-- HOW TO START THE PROJECT -->
+1) Download the Apache Server PHP
+2) Pull the project
+3) Migrate the Database
+4) Change the file config two file API config and index config
+5) then run the application using the Apache Server

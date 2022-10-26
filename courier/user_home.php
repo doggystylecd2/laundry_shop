@@ -12,13 +12,13 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
 <div class="page-wrapper">
     
     <!-- SIDE BAR MOBILE AND DESKTOP -->
-    <?php include('./users/side_bar.php');?>
+    <?php include('./courier/side_bar.php');?>
     <!-- END SIDE BAR MOBILE AND DESKTOP -->
 
     <!-- PAGE CONTAINER-->
     <div class="page-container2">
        
-        <?php include('./users/header.php');?>
+        <?php include('./courier/header.php');?>
 
         <!-- BREADCRUMB-->
         <section class="au-breadcrumb m-t-75">

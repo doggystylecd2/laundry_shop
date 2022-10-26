@@ -19,15 +19,26 @@
             "users" =>[
                 "user_home",
                 "parcel",
+                "all_list",
+                "parcel_status",
+                "rate_courier",
+            ],
+            "courier" => [
+                "user_home",
+                "new_parcel",
+                "all_list",
+                "parcel_status"
             ]
         ];
         $accessable = ["logout"];
         $home_page = $_SESSION["user_type"] == 1 ? 'home' : 'user_home';
+        $home_page = $_SESSION["user_type"] == 3 ? 'user_home' : $home_page;
         $page = isset($_GET['page']) ? $_GET['page'] : $home_page;
         if(!isset($_GET["page"])) {
             header('Location: index.php?page='.$page);//go home
         }
         $folder_type = $_SESSION["user_type"] == 1 ? 'admin/' : 'users/';
+        $folder_type = $_SESSION["user_type"] == 3 ? 'courier/' : $folder_type;
         if(!file_exists($folder_type.$page.".php")){
             if(in_array($page, $accessable)){
                 include $page.'.php';
@@ -44,8 +55,18 @@
                     include '404.html';
                 }
                 
-            } else {
-    
+            }elseif($_SESSION["user_type"] == 3) {
+                $information = getDetailsUsersInformation($db);
+                if(in_array($page, $accessable)){
+                    include $page.'.php';
+                } elseif (in_array($page, $level["courier"])) {
+                    // include $page.'.php';
+                    include('./courier/'.$page.'.php');
+                } else {
+                    include '404.html';
+                }
+            }else {
+                $information = getDetailsUsersInformation($db);
                 if(in_array($page, $accessable)){
                     include $page.'.php';
                 } elseif (in_array($page, $level["users"])) {

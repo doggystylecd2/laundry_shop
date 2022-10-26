@@ -5,7 +5,11 @@ function registerParcel($db, $data){
     if($getID){
         $_SESSION['user_id'] = $getID;
         $_SESSION["user_type"] =  2;
-        if($db->Insert("INSERT INTO personal_info (`user_id`) VALUES (?)", [$getID])){
+        $get_p_info_id = $db->Insert("INSERT INTO personal_info (`user_id`,`image`) VALUES (?,'https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg')", [$getID]);
+        if($get_p_info_id){
+            // if($db->Insert("INSERT INTO address_info (`p_info_id`) VALUES (?)", [$get_p_info_id])){
+            //     return true;
+            // }
             return true;
         }
     }
@@ -17,7 +21,7 @@ function registerCourier($db, $data){
     if($getID){
         $_SESSION['user_id'] = $getID;
         $_SESSION["user_type"] = 3;
-        $get_p_info_id = $db->Insert("INSERT INTO personal_info (`user_id`) VALUES (?)", [$getID]);
+        $get_p_info_id = $db->Insert("INSERT INTO personal_info (`user_id`,`image`) VALUES (?,'https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg')", [$getID]);
         if($get_p_info_id){
             if($db->Insert("INSERT INTO courier_details (`p_info_id`,`resume`,`description`) VALUES (?,?,?)", [$get_p_info_id,$data["resume"],$data["textarea-input"]])){
                 return true;
@@ -53,6 +57,136 @@ function getDetailsUsers($db){
 function getDetailsUsersInformation($db){
     $data = $db->Select("SELECT * FROM users inner join personal_info using(user_id) where user_id = ? limit 1",array($_SESSION["user_id"]) );
     return $data[0];
+}
+
+function updateUSerProfile($db){
+    extract($_POST);
+    try {
+        $folder = "images/profile";
+        $temp = explode(".", $_FILES["image"]["name"]);
+        $newfilename = round(microtime(true)).'.'. end($temp);
+        $db_path ="$folder".$newfilename ;
+        // //remove the .
+        // $listtype = array(
+        // '.jpg'=>'application/jpeg',
+        // '.png'=>'application/png'
+        // ); 
+        if ( is_uploaded_file( $_FILES['image']['tmp_name'] ) )
+        {
+            // if($key = array_search($_FILES['image']['type'],$listtype))
+            // {
+                if (move_uploaded_file($_FILES['image']  ['tmp_name'],"$folder".$newfilename))
+                {
+                    // $path =  $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].'/'.$db_path;
+                    $link = getMyUrl().'/'.$db_path;
+                    // $image = "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg";
+                    $data = $db->Update("update personal_info SET first_name = ?, last_name = ? , middle_name = ?, street = ?, city = ?, province = ?, zip_code = ?, barangay = ?, house_no = ?, discrict_code = ? , birthdate = ?, gender = ?, contact_no = ?, image = ?  WHERE user_id = ? ", array(
+                        $first_name,
+                        $last_name,
+                        $middle_name,
+                        $street,
+                        $city,
+                        $province,
+                        $zip_code,
+                        $barangay,
+                        $house_no,
+                        $discrict_code,
+                        $birthdate,
+                        $gender,
+                        $contact_no,
+                        $link,
+                        $_SESSION["user_id"]));
+
+                   
+                    return true;
+
+                    
+                }
+                return false;
+            // }
+            // else    
+            // {
+            //     // echo "File Type Should Be .Docx or .Pdf or .Rtf Or .Doc";
+            //     return "1";
+            // }
+        } else {
+            $data = $db->Update("update personal_info SET first_name = ?, last_name = ? , middle_name = ?, street = ?, city = ?, province = ?, zip_code = ?, barangay = ?, house_no = ?, discrict_code = ? , birthdate = ?, gender = ?, contact_no = ?  WHERE user_id = ? ", array(
+                $first_name,
+                $last_name,
+                $middle_name,
+                $street,
+                $city,
+                $province,
+                $zip_code,
+                $barangay,
+                $house_no,
+                $discrict_code,
+                $birthdate,
+                $gender,
+                $contact_no,
+                $_SESSION["user_id"]));
+        }
+        return false;
+    } catch(\Exception $e) {
+        // return $e->getMessage();
+        return false;
+    }
+    
+}
+
+function getCourierDetails($db){
+    $data = $db->Select("SELECT * FROM users 
+    inner join personal_info using(user_id) 
+    where status = 1 and user_type = 3  ");
+    return $data;
+    // return $data[0];
+}
+
+function getWeightAmount($db){
+    $data = $db->Select("SELECT * FROM set_weight ");
+    return $data;
+}
+
+function getaddressOptional($db){
+    $data = $db->Select("select * from address_info where user_id = ? ", array($_SESSION["user_id"]));
+    return $data;
+}
+
+function addParcelUsers($db){
+    extract($_POST);
+    try {
+
+        $amount = 50;
+        
+        if(isset($selected_address) && $selected_address == "new"){
+            $address_sender = $address_sender;
+            $db->Insert("INSERT INTO address_info (`user_id`,`address`) VALUES (?,?)", [
+                $_SESSION["user_id"],
+                $address_sender
+            ]);
+        } else {
+            $address_sender  = $selected_address;
+        }
+
+
+        $get_p_info_id = $db->Insert("INSERT INTO parcel_details (`user_id`,`idcourier_details`,`recepient_name`,`recepient_address`,`recepient_contact_no`,`parcel_number`,`type_delivery`,`weight_id`,`amount`,`address_sender`,`parcel_description`) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [
+            $_SESSION["user_id"],
+            $idcourier_details,
+            $recepient_name,
+            $recepient_address,
+            $recepient_contact_no,
+            $parcel_number,
+            $type_delivery,
+            $weight_id,
+            $amount,
+            $address_sender,
+            $parcel_description
+        ]);
+       
+    } catch(\Exception $e) {
+        return $e->getMessage();
+        // return false;
+    }
 }
 
 ?>

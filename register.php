@@ -28,7 +28,7 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
 
             // type of register
             $type = 2; // 2 is parcel , 3 is driver
-            if(isset($_POST["aggree"])) {
+            if(isset($_POST["courier_register"])) {
                 $type = 3;
             }
             include('./database/connection.php');
@@ -132,7 +132,7 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
                                 </div>
                                 <div class="login-checkbox">
                                     <label>
-                                        <input type="checkbox" name="aggree" id="apply_courier" onclick="app_CourierCheck()">Applying for Courier?
+                                        <input type="checkbox" name="courier_register" id="apply_courier" onclick="app_CourierCheck()">Applying for Courier?
                                     </label>
                                 </div>
                                 <div id="for_applying_only" style="display:none;">
