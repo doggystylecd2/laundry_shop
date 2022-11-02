@@ -163,17 +163,7 @@
         );
     }
 
-    // $('#parcel_updates').click(function() {
-    //     let formData = $('#data_pass').serialize();
-    //     $.post(
-    //         "api/routes.php",
-    //         {data :formData,  action:"on_going_transaction",type:"courier"},
-    //         function(data){ 
-    //             // location.reload(true); 
-    //             alert(data);
-    //         }
-    //     );
-    // });
+  
     
     $(document).ready(function (e) {
         $("form#data_pass").on('submit',(function(e) {

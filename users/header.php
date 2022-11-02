@@ -20,12 +20,22 @@
                                     </form>
                                 </div>
                             </div> -->
+                            <?php
+                                $getTotal = $db->select("select count(*) as total from users_notify where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
+                            ?>
                             <div class="header-button-item has-noti js-item-menu">
-                                <i class="zmdi zmdi-notifications"></i>
+                                <!-- <i class="zmdi zmdi-notifications position-relative"></i> -->
+                                <button type="button" class="btn position-relative" style="color:white;">
+                                    <i class="zmdi zmdi-notifications position-relative"></i>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    <?php
+                                            echo $getTotal[0]["total"];
+                                        ?>
+                                    </span>
+                                </button>
                                 <div class="notifi-dropdown js-dropdown">
                                     <div class="notifi__title">
                                         <?php
-                                            $getTotal = $db->select("select count(*) as total from users_notify where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
                                             echo "<p>You have ".$getTotal[0]["total"]." Notifications</p>";
                                         ?>
                                     </div>

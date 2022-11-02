@@ -31,6 +31,13 @@ if(isset($_GET["action"]) ){
                 if($details)
                     echo $details;
             }
+
+            if($action == "rate_courier") {
+                $crud = new UsersControllerClass();
+                $details = $crud->rate_courier();
+                if($details)
+                    echo $details;
+            }
         }
 
         if($_POST["type"] == "courier"){

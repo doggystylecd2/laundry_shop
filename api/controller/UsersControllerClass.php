@@ -53,7 +53,7 @@ class UsersControllerClass {
 			extract($_POST);
 			// $status = $name == "reject" ? 3 : 1;
 			$data = $this->db->select("select recepient_name,recepient_address,recepient_contact_no,parcel_description,type_delivery, pd.created_at,pd.status, pd.amount, sw.description, ps.description as status_parcel, ps.id_status 
-            ,pd.recipient_image
+            ,pd.recipient_image, pd.idparcel_details
             from parcel_details pd
             inner join users using (user_id)
             inner join set_weight sw using(weight_id) 
@@ -70,7 +70,24 @@ class UsersControllerClass {
             ];
             $status_color = array_key_exists($data[0]["id_status"], $status_color ) ? $status_color[$data[0]["id_status"]] : 'yellow';
 
-            $div = '<div id="parcel_details">Recipient Name: '.$data[0]["recepient_name"].'<br><hr>
+            $details = '';
+            $get_Rate = $this->db->select("select * from rate_courier where parcel_id = ? ", array($data[0]["idparcel_details"]));
+
+            if(count($get_Rate) > 0 ){
+                $details = $get_Rate[0]['rate_type'];
+            } else {
+                $details = '<select name="rate_type">';
+                $details .= '<option value ="select">--Plase select rate--</option>';
+                $details .= '<option value ="1">1</option>';
+                $details .= '<option value ="2">2</option>';
+                $details .= '<option value ="3">3</option>';
+                $details .= '<option value ="4">4</option>';
+                $details .= '<option value ="5">5</option>';
+                $details .= '</select>';
+            }
+
+            $div2 = '<div id="parcel_details">Recipient Name: '.$data[0]["recepient_name"].'<br><hr>
+            <input type="hidden" name="parcel_details_id" value="'.$data[0]["idparcel_details"].'" />
             Recipient Address: '.$data[0]["recepient_address"].'<br><hr>
             Recipient Contact No: '.$data[0]["recepient_contact_no"].'<br><hr>
             Description: '.$data[0]["parcel_description"].'<br><hr>
@@ -80,14 +97,49 @@ class UsersControllerClass {
             Status: <span style="color:'.$status_color.'">'.$data[0]["status_parcel"].'</span><br><hr>
             Amount: '.$data[0]["amount"].'<br><hr>
             Recipient Image: <br><hr><center>
-            <image src="'.$data[0]["recipient_image"].'" alt="recipient-image" width="180" height="160" ></center>
+            <image src="'.$data[0]["recipient_image"].'" alt="recipient-image" width="180" height="160" ></center><br><hr>
+            Validate Courier: '.$details.'
             </div>';
+
+            if(count($get_Rate) > 0 ){
+                $div = '<div id="parcel_details"><div class="modal-body">'.$div2.'</div><div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div></div>';
+            } else {
+                $div = '<div id="parcel_details"><div class="modal-body">'.$div2.'</div><div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" id="parcel_updates" name="confirm">Confirm</button>
+                </div></div>';
+            }
 			echo $div;
 		} catch(\Exception $e) {
 			echo "FAILED";
 		}
 		
 	}
+
+    public function rate_courier(){
+        try {
+			extract($_POST);
+            // echo "<pre>";
+            //     var_dump($_POST);
+            // echo "</pre>";
+            if($rate_type == "select") {
+                echo "select";
+            } else {
+                $get_details = $this->db->Select("select * from parcel_details where idparcel_details = ? limit 1", array($parcel_details_id));
+                $this->db->Insert("INSERT INTO rate_courier (user_id,rate_type,courier_id,parcel_id) VALUES (?,?,?,?) ", 
+                array(
+                $get_details[0]["user_id"], 
+                $rate_type,
+                $get_details[0]["idcourier_details"], 
+                $get_details[0]["idparcel_details"]));
+                echo "SUCCESS";
+            }
+		} catch(\Exception $e) {
+			echo "FAILED";
+		}
+    }
 }
 
 

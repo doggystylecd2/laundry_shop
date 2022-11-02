@@ -163,13 +163,14 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <form  id="data_pass" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="type" value="users" />
+            <input type="hidden" name="action" value="rate_courier" />                        
             <div class="modal-body" id="parcel_modal_body">
                 <div id="parcel_details"></div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <!-- <button type="button" class="btn btn-primary">Confirm</button> -->
-            </div>
+            </form>
+            
         </div>
     </div>
 </div>
@@ -193,4 +194,35 @@
             }
         );
     }
+
+    $(document).ready(function (e) {
+        $("form#data_pass").on('submit',(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url:  "api/routes.php",
+        type: "POST",
+        data:  new FormData(this),
+        contentType: false,
+                cache: false,
+        processData:false,
+        beforeSend : function()
+        {
+            //$("#preview").fadeOut();
+            // $("#err").fadeOut();
+        },
+        success: function(data)
+            {
+                if(data =='select'){
+                    alert('Please Select Type');
+                } else {
+                    location.reload(true); 
+                }
+            },
+            error: function(e) 
+            {
+            //  $("#err").html(e).fadeIn();
+            }          
+            });
+        }));
+    });
 </script>
