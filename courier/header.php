@@ -1,5 +1,5 @@
         <!-- HEADER DESKTOP-->
-        <header class="header-desktop2">
+        <header class="header-desktop2" style="background-color: green!important;">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
                     <div class="header-wrap2">
@@ -24,9 +24,30 @@
                                 <i class="zmdi zmdi-notifications"></i>
                                 <div class="notifi-dropdown js-dropdown">
                                     <div class="notifi__title">
-                                        <p>You have 3 Notifications</p>
+                                        <?php
+                                            $getTotal = $db->select("select count(*) as total from courier_notify where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
+                                            echo "<p>You have ".$getTotal[0]["total"]." Notifications</p>";
+                                        ?>
                                     </div>
-                                    <div class="notifi__item">
+                                    <?php 
+                                        $getNotifcation = $db->select("select * from courier_notify where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
+                                        if(count($getNotifcation)){
+                                            foreach ($getNotifcation as $key => $value){
+                                                ?>
+                                                <div class="notifi__item">
+                                                    <div class="bg-c1 img-cir img-40">
+                                                        <i class="zmdi zmdi-email-open"></i>
+                                                    </div>
+                                                    <div class="content">
+                                                        <p><?php echo $value["description"] ?></p>
+                                                        <span class="date"><?php echo $value["created_at"] ?></span>
+                                                    </div>
+                                                </div>
+                                                <?php
+                                            }
+                                        }
+                                    ?>
+                                    <!-- <div class="notifi__item">
                                         <div class="bg-c1 img-cir img-40">
                                             <i class="zmdi zmdi-email-open"></i>
                                         </div>
@@ -34,8 +55,9 @@
                                             <p>You got a email notification</p>
                                             <span class="date">April 12, 2018 06:50</span>
                                         </div>
-                                    </div>
-                                    <div class="notifi__item">
+                                    </div> -->
+                                    
+                                    <!-- <div class="notifi__item">
                                         <div class="bg-c2 img-cir img-40">
                                             <i class="zmdi zmdi-account-box"></i>
                                         </div>
@@ -52,7 +74,7 @@
                                             <p>You got a new file</p>
                                             <span class="date">April 12, 2018 06:50</span>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="notifi__footer">
                                         <a href="#">All notifications</a>
                                     </div>
@@ -108,20 +130,28 @@
                             </a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
-                                    <a href="index.php?page=parcel">
-                                        <i class="fas fa-tachometer-alt"></i>Add New</a>
+                                    <a href="index.php?page=new_parcel">
+                                        <i class="fas fa-tachometer-alt"></i>New Request</a>
                                 </li>
                                 <li>
                                     <a href="index.php?page=all_list">
-                                        <i class="fas fa-tachometer-alt"></i>All List</a>
+                                        <i class="fas fa-tachometer-alt"></i>All list</a>
                                 </li>
                                 <li>
                                     <a href="index.php?page=parcel_status">
-                                        <i class="fas fa-tachometer-alt"></i>Updates</a>
+                                        <i class="fas fa-tachometer-alt"></i>On Going Transaction</a>
                                 </li>
                                 <li>
-                                    <a href="index.php?page=rate_courier">
-                                        <i class="fas fa-tachometer-alt"></i>Rate Courier</a>
+                                    <a href="index.php?page=denied">
+                                        <i class="fas fa-tachometer-alt"></i>Denied</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=delivered">
+                                        <i class="fas fa-tachometer-alt"></i>Delivered</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=unsccesfull_deliver">
+                                        <i class="fas fa-tachometer-alt"></i>Unsuccessfull Delivery</a>
                                 </li>
                             </ul>
                         </li>  

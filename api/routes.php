@@ -25,6 +25,12 @@ if(isset($_GET["action"]) ){
                 if($details)
                     echo $details;
             }
+            if($action == "get_details_parcel_delivered"){
+                $crud = new UsersControllerClass();
+                $details = $crud->getDetailsParcelDelivered();
+                if($details)
+                    echo $details;
+            }
         }
 
         if($_POST["type"] == "courier"){
@@ -35,10 +41,24 @@ if(isset($_GET["action"]) ){
                 if($details)
                     echo $details;
             }
+
+            if($action == "get_details_parcel_updates"){
+                $crud = new CourierControllerClass();
+                $details = $crud->getDetailParcelUpdates();
+                if($details)
+                    echo $details;
+            }
             
             if($action == "update_parcel"){
                 $crud = new CourierControllerClass();
                 $details = $crud->update_parcel();
+                if($details)
+                    echo $details;
+            }
+
+            if($action == "on_going_transaction"){
+                $crud = new CourierControllerClass();
+                $details = $crud->on_going_transaction();
                 if($details)
                     echo $details;
             }

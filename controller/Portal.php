@@ -5,7 +5,8 @@ function registerParcel($db, $data){
     if($getID){
         $_SESSION['user_id'] = $getID;
         $_SESSION["user_type"] =  2;
-        $get_p_info_id = $db->Insert("INSERT INTO personal_info (`user_id`,`image`) VALUES (?,'https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg')", [$getID]);
+        $image = "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg";
+        $get_p_info_id = $db->Insert("INSERT INTO personal_info (`user_id`,`image`,`city`,`province`,`zip_code`,`barangay`,`zone`,`landmark`) VALUES (?,?,?,?,?,?,?,?)", [$getID,$image,"Anao","Tarlac","2310", $data["barangay"], $data["zone"], $data["landmark"]]);
         if($get_p_info_id){
             // if($db->Insert("INSERT INTO address_info (`p_info_id`) VALUES (?)", [$get_p_info_id])){
             //     return true;
@@ -21,7 +22,8 @@ function registerCourier($db, $data){
     if($getID){
         $_SESSION['user_id'] = $getID;
         $_SESSION["user_type"] = 3;
-        $get_p_info_id = $db->Insert("INSERT INTO personal_info (`user_id`,`image`) VALUES (?,'https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg')", [$getID]);
+        $image = "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg";
+        $get_p_info_id = $db->Insert("INSERT INTO personal_info (`user_id`,`image`,`city`,`province`,`zip_code`,`barangay`,`zone`,`landmark`) VALUES (?,?,?,?,?,?,?,?)", [$getID,$image,"Anao","Tarlac","2310", $data["barangay"], $data["zone"], $data["landmark"]]);
         if($get_p_info_id){
             if($db->Insert("INSERT INTO courier_details (`p_info_id`,`resume`,`description`) VALUES (?,?,?)", [$get_p_info_id,$data["resume"],$data["textarea-input"]])){
                 return true;
@@ -37,7 +39,7 @@ function getMyUrl()
   $protocol = (!empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on' || $_SERVER['HTTPS'] == '1')) ? 'https://' : 'http://';
   $server = $_SERVER['SERVER_NAME'];
   $port = $_SERVER['SERVER_PORT'] ? ':'.$_SERVER['SERVER_PORT'] : '';
-  return $protocol.$server.$port;
+  return $protocol.$server;
 }
 
 function insertToken($db){
@@ -50,7 +52,12 @@ function getDetailsUsers($db){
     $data = $db->Select("SELECT * FROM access_token
     inner join users using(user_id)
      where access_token = ?  order by token_id desc limit 1", array($_SESSION["access_token"]));
-    return $data[0];
+    if(count($data) > 0){
+        return $data[0];
+    } else {
+        return false;
+    }
+    
 }
 
 
@@ -80,21 +87,21 @@ function updateUSerProfile($db){
                     // $path =  $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].'/'.$db_path;
                     $link = getMyUrl().'/'.$db_path;
                     // $image = "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg";
-                    $data = $db->Update("update personal_info SET first_name = ?, last_name = ? , middle_name = ?, street = ?, city = ?, province = ?, zip_code = ?, barangay = ?, house_no = ?, discrict_code = ? , birthdate = ?, gender = ?, contact_no = ?, image = ?  WHERE user_id = ? ", array(
+                    $data = $db->Update("update personal_info SET first_name = ?, last_name = ? , middle_name = ?, zone = ?, city = ?, province = ?, zip_code = ?, barangay = ?, house_no = ?, birthdate = ?, gender = ?, contact_no = ?, image = ?, landmark = ?  WHERE user_id = ? ", array(
                         $first_name,
                         $last_name,
                         $middle_name,
-                        $street,
+                        $zone,
                         $city,
                         $province,
                         $zip_code,
                         $barangay,
                         $house_no,
-                        $discrict_code,
                         $birthdate,
                         $gender,
                         $contact_no,
                         $link,
+                        $landmark,
                         $_SESSION["user_id"]));
 
                    
@@ -110,17 +117,17 @@ function updateUSerProfile($db){
             //     return "1";
             // }
         } else {
-            $data = $db->Update("update personal_info SET first_name = ?, last_name = ? , middle_name = ?, street = ?, city = ?, province = ?, zip_code = ?, barangay = ?, house_no = ?, discrict_code = ? , birthdate = ?, gender = ?, contact_no = ?  WHERE user_id = ? ", array(
+            $data = $db->Update("update personal_info SET first_name = ?, last_name = ? , middle_name = ?, zone = ?, city = ?, province = ?, zip_code = ?, barangay = ?, house_no = ?, landmark = ? , birthdate = ?, gender = ?, contact_no = ?  WHERE user_id = ? ", array(
                 $first_name,
                 $last_name,
                 $middle_name,
-                $street,
+                $zone,
                 $city,
                 $province,
                 $zip_code,
                 $barangay,
                 $house_no,
-                $discrict_code,
+                $landmark,
                 $birthdate,
                 $gender,
                 $contact_no,
@@ -159,7 +166,8 @@ function addParcelUsers($db){
         $amount = 50;
         
         if(isset($selected_address) && $selected_address == "new"){
-            $address_sender = $address_sender;
+            // $address_sender = $address_sender;
+            $address_sender = $zone. ' '.$barangay.', '."Anao City". ", Tarlac". " 2310 "; 
             $db->Insert("INSERT INTO address_info (`user_id`,`address`) VALUES (?,?)", [
                 $_SESSION["user_id"],
                 $address_sender
@@ -168,20 +176,30 @@ function addParcelUsers($db){
             $address_sender  = $selected_address;
         }
 
-
-        $get_p_info_id = $db->Insert("INSERT INTO parcel_details (`user_id`,`idcourier_details`,`recepient_name`,`recepient_address`,`recepient_contact_no`,`parcel_number`,`type_delivery`,`weight_id`,`amount`,`address_sender`,`parcel_description`) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [
-            $_SESSION["user_id"],
-            $idcourier_details,
-            $recepient_name,
-            $recepient_address,
-            $recepient_contact_no,
-            $parcel_number,
-            $type_delivery,
-            $weight_id,
-            $amount,
-            $address_sender,
-            $parcel_description
-        ]);
+        $get_parcel = $db->SELECT("select * from parcel_details where parcel_number = ? ", [$parcel_number]);
+        if(count($get_parcel) > 0){
+            echo "FAILED";
+        } else {
+            $get_p_info_id = $db->Insert("INSERT INTO parcel_details (`user_id`,`idcourier_details`,`recepient_name`,`recepient_address`,`recepient_contact_no`,`parcel_number`,`type_delivery`,`weight_id`,`amount`,`address_sender`,`parcel_description`) VALUES (?,?,?,?,?,?,?,?,?,?,?)", [
+                $_SESSION["user_id"],
+                $idcourier_details,
+                $recepient_name,
+                $recepient_address,
+                $recepient_contact_no,
+                $parcel_number,
+                $type_delivery,
+                $weight_id,
+                $amount,
+                $address_sender,
+                $parcel_description
+            ]);
+            $description = "You got New Parcel # ".$parcel_number." ".date('y-m-d h:m:s');
+            $db->Insert("INSERT INTO courier_notify (`user_id`,`description`) VALUES (?,?)", [
+                $idcourier_details,
+                $description
+            ]);
+        }
+        
        
     } catch(\Exception $e) {
         return $e->getMessage();

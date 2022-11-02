@@ -1,12 +1,12 @@
 
-<div class="page-wrapper">
+<div class="page-wrapper" style="background-color: rgb(28 163 55);">
     
     <!-- SIDE BAR MOBILE AND DESKTOP -->
     <?php include('./users/side_bar.php');?>
     <!-- END SIDE BAR MOBILE AND DESKTOP -->
 
     <!-- PAGE CONTAINER-->
-    <div class="page-container2">
+    <div class="page-container2" style="background-color: rgb(28 163 55);">
        
         <?php include('./users/header.php');?>
 
@@ -54,7 +54,7 @@
                     //    updateUSerProfile($db);
                        if(addParcelUsers($db)){
                             $message = "Successfuly Update";
-                            header('location:index.php?page=parcel');
+                            header('location:index.php?page=pending');
                        }
                         // echo "<pre>";
                         //     var_dump($_POST);    
@@ -65,18 +65,18 @@
                     <form  action="<?php echo $_SERVER['PHP_SELF'];?>?page=parcel" id="add_parcel"  method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="cc-first_name" class="control-label mb-1">Name:</label>
-                            <input id="cc-first_name"  type="text" class="form-control"  value="<?php echo ucfirst($information["first_name"])." ".ucfirst(substr($information["middle_name"],0,1)). ". ".ucfirst($information["last_name"]) ;  ?>" disabled>
+                            <input id="cc-first_name"  type="text" class="form-control"  value="<?php echo ucfirst($information["first_name"])." ".ucfirst(substr($information["middle_name"],0,1)). ". ".ucfirst($information["last_name"]) ;  ?>" >
                         </div>
                         <!-- <div class="form-group has-success">
                             <label for="cc-address" class="control-label mb-1">Address</label>
-                            <input id="cc-address" name="cc-address" type="text" class="form-control cc-address valid" value="<?php echo ucfirst($information["street"]).", ".ucfirst($information["barangay"]). ", ".ucfirst($information["city"]). ", ".ucfirst($information["province"]). ", ".ucfirst($information["zip_code"]) ;  ?>" disabled>
+                            <input id="cc-address" name="cc-address" type="text" class="form-control cc-address valid" value="<?php echo $information["street"].", ".$information["barangay"]. ", ".$information["city"]. ", ".$information["province"]. ", ".$information["zip_code"] ;  ?>" disabled>
                         </div> -->
                         <div class="form-group">
                             <label class=" form-control-label">Address:</label>
                                 <div class="form-check">
                                     <div class="radio">
                                         <label for="radio1" class="form-check-label " >
-                                            <input type="radio" id="radio1" name="selected_address" value="<?php echo ucfirst($information["street"]).", ".ucfirst($information["barangay"]). ", ".ucfirst($information["city"]). ", ".ucfirst($information["province"]). ", ".ucfirst($information["zip_code"]) ;  ?>" checked class="form-check-input"><?php echo ucfirst($information["street"]).", ".ucfirst($information["barangay"]). ", ".ucfirst($information["city"]). ", ".ucfirst($information["province"]). ", ".ucfirst($information["zip_code"]) ;  ?>
+                                            <input type="radio" id="radio1" name="selected_address" value="<?php echo $information["street"].", ".$information["barangay"]. ", ".$information["city"]. ", ".$information["province"]. ", ".$information["zip_code"] ;  ?>" checked class="form-check-input"><?php echo $information["street"].", ".$information["barangay"]. ", ".$information["city"]. ", ".$information["province"]. ", ".$information["zip_code"] ;  ?>
                                         </label>
                                     </div>
                                     <?php
@@ -86,7 +86,7 @@
                                                 ?>
                                                     <div class="radio">
                                                         <label for="radio1" class="form-check-label">
-                                                        <input type="radio" id="radio2" name="selected_address" value="<?php echo ucfirst($value["address"]) ;  ?>"  class="form-check-input"><?php echo ucfirst($value["address"]) ;  ?>
+                                                        <input type="radio" id="radio2" name="selected_address" value="<?php echo $value["address"] ;  ?>"  class="form-check-input">&nbsp; <?php echo $value["address"] ;  ?>
                                                         </label>
                                                     </div>
                                                 <?php
@@ -96,27 +96,66 @@
                                     ?>
                                     <div class="radio">
                                         <label for="radio1" class="form-check-label" style="width:100%" >
-                                            <input type="radio" id="radio3" name="selected_address" value="new"  class="form-check-input"> 
-                                            <input id="cc-other_address" name="address_sender" type="text" class="form-control " value="" placeholder="Other address">
+                                            <input type="radio" id="radio3" name="selected_address" value="new"  class="form-check-input">&nbsp; Add other Address
+                                            <!-- <input id="cc-other_address" name="address_sender" type="text" class="form-control " value="" placeholder="Other address"> -->
                                         </label>
                                     </div>
                                     
                                 </div>
                         </div>
-                       
+                        <div id="new_address_option">
+                            <div class="form-group">
+                                <label for="Province" class="control-label mb-1">Province</label>
+                                <input id="province" name="province" type="text" class="form-control " value="<?php echo $information["province"]?>" disabled>
+                            </div>  
+                            <div class="form-group">
+                                <label for="city" class="control-label mb-1">City</label>
+                                <input id="city" name="city" type="text" class="form-control " value="<?php echo $information["city"]?>" disabled>
+                            </div>  
+                            <div class="form-group">
+                                <label for="zipcode" class="control-label mb-1">Zip Code</label>
+                                <input id="zipcode" name="zipcode" type="text" class="form-control " value="<?php echo $information["zip_code"]?>" disabled>
+                            </div>  
+                            <div class="form-group">
+                                <label for="barangay" class="control-label mb-1">Barangay</label>
+                                <select name="barangay" id="barangay" class="form-control">
+                                    <?php 
+                                        $db = new DatabaseClass();
+                                        $data = $db->Select("SELECT * FROM barangay order by name asc  ");
+                                        $option = '';
+                                        if(count($data) > 0) {
+                                        foreach ($data as $key => $value) {
+                                            $selected = '';
+                                            if ($value["name"] == $information["barangay"]){
+                                                $selected = 'selected';
+                                            }
+                                            $option .= "<option value='".$value["name"]."' ".$selected.">".$value["name"]."</option>";
+                                        }
+                                        echo $option;
+                                        } else {
+                                        echo "<option>N/A</option>";
+                                        }
+                                    ?>
+                                </select>
+                            </div>  
+                            <div class="form-group">
+                                <label for="zone" class="control-label mb-1">Zone #</label>
+                                <input id="zone" name="zone" type="text" class="form-control " value="<?php echo $information["zone"]?>" >
+                            </div>  
+                        </div>
                         <div class="form-group">
                             <label for="parcel_number" class="control-label mb-1">Parcel number</label>
-                            <input id="parcel_number" name="parcel_number" type="tel" class="form-control " value="" >
+                            <input id="parcel_number" name="parcel_number" type="text" class="form-control " value="" >
                             <!-- <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span> -->
                         </div>
                         <div class="form-group">
                             <label for="parcel_description" class="control-label mb-1">Parcel Description</label>
-                            <input id="parcel_description" name="parcel_description" type="tel" class="form-control " value="">
+                            <input id="parcel_description" name="parcel_description" type="text" class="form-control " value="">
                             <!-- <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span> -->
                         </div>
                         <div class="form-group">
                             <label for="cc-number" class="control-label mb-1">Contact NO.</label>
-                            <input id="cc-number" type="tel" class="form-control " value="<?php echo $information["contact_no"] ?>" disabled>
+                            <input id="cc-number" type="text" class="form-control " value="<?php echo $information["contact_no"] ?>" disabled>
                             <!-- <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span> -->
                         </div>
                        
@@ -232,3 +271,16 @@
 
 </div>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+    $("#new_address_option").hide();
+    $("input[name$='selected_address']").click(function() {
+        var test = $(this).val();
+        if(test == 'new'){
+            $("#new_address_option").show();
+        } else {
+            $("#new_address_option").hide();
+        }
+    }); 
+});
+</script>

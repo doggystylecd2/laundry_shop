@@ -1,6 +1,6 @@
 <!-- MENU SIDEBAR-->
 <aside class="menu-sidebar2">
-    <div class="logo">
+    <div class="logo" style="background-color: green!important;">
         <a href="#">
             <!-- <img src="images/icon/logo-white.png" alt="Cool Admin" /> -->
             <!-- <img src="images/icon/logo_courier.png" alt="CoolAdmin" style="height: 70px; weight: 300px;"/> -->
@@ -38,8 +38,24 @@
                                 <i class="fas fa-tachometer-alt"></i>All list</a>
                         </li>
                         <li>
-                            <a href="index.php?page=parcel_status">
-                                <i class="fas fa-tachometer-alt"></i>Updates</a>
+                            <a href="index.php?page=pending">
+                                <i class="fas fa-tachometer-alt"></i>Waiting for Approval</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=on_process">
+                                <i class="fas fa-tachometer-alt"></i>On Going Transaction</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=denied">
+                                <i class="fas fa-tachometer-alt"></i>Denied</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=delivered">
+                                <i class="fas fa-tachometer-alt"></i>Delivered</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=unsccesfull_deliver">
+                                <i class="fas fa-tachometer-alt"></i>Unsuccessfull Delivery</a>
                         </li>
                         <li>
                             <a href="index.php?page=rate_courier">

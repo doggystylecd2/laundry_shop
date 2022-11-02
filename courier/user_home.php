@@ -9,14 +9,14 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
    }
 }
 ?>
-<div class="page-wrapper">
+<div class="page-wrapper" style="background-color: rgb(28 163 55);">
     
     <!-- SIDE BAR MOBILE AND DESKTOP -->
     <?php include('./courier/side_bar.php');?>
     <!-- END SIDE BAR MOBILE AND DESKTOP -->
 
     <!-- PAGE CONTAINER-->
-    <div class="page-container2">
+    <div class="page-container2" style="background-color: rgb(28 163 55);">
        
         <?php include('./courier/header.php');?>
 
@@ -52,7 +52,7 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
         <form  action="<?php echo $_SERVER['PHP_SELF'];?>?page=user_home" id="manage_user"  method="post" enctype="multipart/form-data">
         <div class="col-lg-12" style="margin-top:20px;">
             <div class="card">
-                <div class=" rounded bg-white mt-5 mb-5 mr-5 mf-5">
+                <div class="rounded bg-white">
                     <div class="row">
                             <div class="col-md-3 border-right">
                                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
@@ -86,15 +86,17 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
                                         <div class="col-md-6"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value="<?php echo $information["email"];  ?>" name="email" disabled></div>
                                     </div>
                                     <div class="row mt-2">
-                                        <div class="col-md-4"><label class="labels">Street</label><input type="text" class="form-control" placeholder="Street Address" value="<?php echo $information["street"];  ?>" name="street"></div>
-                                        <div class="col-md-4"><label class="labels">Barangay</label><input type="text" class="form-control" placeholder="Barangay" value="<?php echo $information["barangay"];  ?>" name="barangay"></div>
+                                        <div class="col-md-4"><label class="labels">Province</label><input type="text" class="form-control" placeholder="Province" value="<?php echo $information["province"];  ?>" name="province"></div>
+                                        <div class="col-md-4"><label class="labels">Zip Code</label><input type="text" class="form-control" placeholder="Zip Code" value="<?php echo $information["zip_code"];  ?>" name="zip_code"></div>
                                         <div class="col-md-4"><label class="labels">City</label><input type="text" class="form-control" placeholder="City" value="<?php echo $information["city"];  ?>" name="city"></div>
                                     </div>
                                     <div class="row mt-2">
-                                        <div class="col-md-4"><label class="labels">Province</label><input type="text" class="form-control" placeholder="Province" value="<?php echo $information["province"];  ?>" name="province"></div>
-                                        <div class="col-md-4"><label class="labels">Zip Code</label><input type="text" class="form-control" placeholder="Zip Code" value="<?php echo $information["zip_code"];  ?>" name="zip_code"></div>
-                                        <div class="col-md-2"><label class="labels">House #</label><input type="text" class="form-control" placeholder="House #" value="<?php echo $information["house_no"];  ?>" name="house_no"></div>
-                                        <div class="col-md-2"><label class="labels">District Code</label><input type="text" class="form-control" placeholder="District Code" value="<?php echo $information["discrict_code"];  ?>" name="discrict_code"></div>
+                                        <div class="col-md-4"><label class="labels">Zone</label><input type="text" class="form-control" placeholder="Zone #" value="<?php echo $information["zone"];  ?>" name="zone"></div>
+                                        <div class="col-md-4"><label class="labels">Barangay</label><input type="text" class="form-control" placeholder="Barangay" value="<?php echo $information["barangay"];  ?>" name="barangay"></div>
+                                        <div class="col-md-4"><label class="labels">House #</label><input type="text" class="form-control" placeholder="House #" value="<?php echo $information["house_no"];  ?>" name="house_no"></div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-md-12"><label class="labels">Landmark</label><input type="text" class="form-control" placeholder="Landmark" value="<?php echo $information["landmark"];  ?>" name="landmark"></div>
                                     </div>
                                     <div class="mt-5 text-center">
                                         <input  class="btn btn-primary profile-button" type="submit" name="submit" value="Save Profile">

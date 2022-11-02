@@ -41,14 +41,14 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
    
 }
 ?>
-    <div class="page-wrapper">
-        <div class="page-content--bge5">
+    <div>
+        <div class="page-content" style="background-color: #59bd60;height:130vh">
             <div class="container">
                 <div class="login-wrap">
                     <div class="login-content">
                         <div class="login-logo">
                             <a href="#">
-                                <img src="images/icon/logo_courier.png" alt="pasuyo" style="height: 300px"/>
+                                <img src="images/icon/logo_courier.png" alt="pasuyo" style="height: 200px"/>
                             </a>
                         </div>
                         <div class="login-form">
@@ -84,6 +84,5 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
                 </div>
             </div>
         </div>
-
     </div>
 <?php include('./pages/footer.php') ?>

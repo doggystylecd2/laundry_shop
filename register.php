@@ -1,5 +1,6 @@
 <?php include('./pages/header.php') ?>
 <?php 
+include('./database/connection.php');
 session_start();
 
 if(isset($_SESSION['access_token']))
@@ -31,19 +32,24 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
             if(isset($_POST["courier_register"])) {
                 $type = 3;
             }
-            include('./database/connection.php');
             include('./controller/Portal.php');
             $db = new DatabaseClass();
             $data = $db->Select("SELECT * FROM users where email = ?  ", [$email]);
             if(count($data) > 0) {
                 $message = "Email Already Exist!..";
             }else {
+                $barangay = isset($_POST["list-barangay"]) ? $_POST["list-barangay"] : '';
+                $zone =  isset($_POST["zone_number"]) ? $_POST["zone_number"] : '';
+                $landmark = isset($_POST["landmark"]) ? $_POST["landmark"] : '';
                 if ($type == 2){
                     // $register = new Portal();
                     $data_post = [
                         "username" => $usernaem,
                         "email" => $email,
                         "password" => $password,
+                        "barangay" => $barangay,
+                        "zone" => $zone,
+                        "landmark" => $landmark,
                         "type" => 2,
                     ];
                     if(registerParcel($db, $data_post)){
@@ -80,6 +86,9 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
                                     "password" => $password,
                                     "resume" => $link ,
                                     "textarea-input" => $_POST["textarea-input"],
+                                    "barangay" => $barangay,
+                                    "zone" => $zone,
+                                    "landmark" => $landmark,
                                     "type" => 3,
                                 ];
                                 if(registerCourier($db, $data_post)){
@@ -106,14 +115,15 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
    
 }
 ?>
-    <div class="page-wrapper">
-        <div class="page-content--bge5">
+    <div class="page-wrapper" style="background-color: #59bd60;">
+        <div class="page-content" style="height: 210vh;">
             <div class="container">
                 <div class="login-wrap">
                     <div class="login-content">
                         <div class="login-logo">
                             <a href="#">
                                 <!-- <img src="images/icon/logo.png" alt="CoolAdmin"> -->
+                                <img src="images/icon/logo_courier.png" alt="pasuyo" style="height: 160px"/>
                             </a>
                         </div>
                         <div class="login-form">
@@ -129,6 +139,44 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
                                 <div class="form-group">
                                     <label>Password</label>
                                     <input class="au-input au-input--full" type="password" name="password" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <label>City</label>
+                                    <input class="au-input au-input--full" type="text" placeholder="Anao" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label>Province</label>
+                                    <input class="au-input au-input--full" type="text" placeholder="Tarlac" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label>Zip Code</label>
+                                    <input class="au-input au-input--full" type="number" placeholder="2310" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label>Barangay</label>
+                                    <select name="list-barangay" id="list-barangay" class="form-control">
+                                        <?php 
+                                         $db = new DatabaseClass();
+                                         $data = $db->Select("SELECT * FROM barangay order by name asc  ");
+                                         $option = '';
+                                         if(count($data) > 0) {
+                                            foreach ($data as $key => $value) {
+                                                $option .= "<option value='".$value["name"]."'>".$value["name"]."</option>";
+                                            }
+                                            echo $option;
+                                         } else {
+                                            echo "<option>N/A</option>";
+                                         }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Zone</label>
+                                    <input class="au-input au-input--full" type="text" name="zone_number" id="zone_number" placeholder="Zone #">
+                                </div>
+                                <div class="form-group">
+                                    <label>Landmark</label>
+                                    <input class="au-input au-input--full" type="text" name="landmark" id="landmark" placeholder="Landmark(optional)">
                                 </div>
                                 <div class="login-checkbox">
                                     <label>
@@ -174,7 +222,7 @@ function app_CourierCheck() {
     var text = document.getElementById("for_applying_only");
     if (checkBox.checked == true){
         text.style.display = "block";
-        $("#for_applying_only").append('<div id="removetest"><div class="form-group"><label>Upload Resume :</label><input type="file" id="file-input" name="file-input" class="form-control-file" require></div><div class="form-group"><label>Tell me about yourself.</label><textarea name="textarea-input" id="textarea-input" rows="9" placeholder="Content..."  class="au-input au-input--full" require></textarea></div></div>');
+        $("#for_applying_only").append('<div id="removetest"><div class="form-group"><label>Upload Resume :</label><input type="file" id="file-input" name="file-input" class="form-control-file" require></div><div class="form-group"><label>Tell me about yourself.</label><textarea name="textarea-input" id="textarea-input" rows="9" placeholder="Content..."  require></textarea></div></div>');
     } else {
         text.style.display = "none";
         $("#removetest").remove();

@@ -1,12 +1,12 @@
 
-<div class="page-wrapper">
+<div class="page-wrapper" style="background-color: rgb(28 163 55);">
     
     <!-- SIDE BAR MOBILE AND DESKTOP -->
     <?php include('./users/side_bar.php');?>
     <!-- END SIDE BAR MOBILE AND DESKTOP -->
 
     <!-- PAGE CONTAINER-->
-    <div class="page-container2">
+    <div class="page-container2" style="background-color: rgb(28 163 55);height:150vh;">
        
         <?php include('./users/header.php');?>
 
@@ -91,7 +91,7 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                    $parcel = $db->select("SELECT * FROM parcel_details where user_id = ? ", array($_SESSION["user_id"]));
+                                    $parcel = $db->select("SELECT * FROM parcel_details where user_id = ?  order by created_at desc", array($_SESSION["user_id"]));
                                     if(count($parcel) > 0){
                                         foreach ($parcel as $key => $value) {
                                             ?>

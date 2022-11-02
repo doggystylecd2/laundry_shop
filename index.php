@@ -4,7 +4,11 @@
 <?php include('./controller/Portal.php') ?>
 <?php include('./pages/header.php') ?>
 <?php $db = new DatabaseClass(); // initialize db?>
-<?php $users_details = getDetailsUsers($db); ?>
+<?php $users_details = getDetailsUsers($db); 
+    if(!$users_details){
+        header("location:logout.php");
+    }
+?>
     <?php 
         $level = [
             "admin" => [
@@ -22,12 +26,21 @@
                 "all_list",
                 "parcel_status",
                 "rate_courier",
+                "pending",
+                "on_process",
+                "denied",
+                "delivered",
+                "unsccesfull_deliver",
+                "rate_courier",
             ],
             "courier" => [
                 "user_home",
                 "new_parcel",
                 "all_list",
-                "parcel_status"
+                "parcel_status",
+                "denied",
+                "delivered",
+                "unsccesfull_deliver",
             ]
         ];
         $accessable = ["logout"];
