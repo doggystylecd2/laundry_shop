@@ -54,7 +54,12 @@
                                 <i class="fas fa-tachometer-alt"></i>Unsuccessfull Delivery</a>
                         </li>
                     </ul>
-                </li>   
+                </li>
+                <li class="<?php if($_GET["page"] == 'list_nofity') {echo "active";}?>">
+                    <a href="index.php?page=list_nofity">
+                        <i class="fas fa-user-md"></i>Notifications
+                    </a>
+                </li>      
             </ul>
         </nav>
     </div>

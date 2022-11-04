@@ -1,12 +1,12 @@
 
-<div class="page-wrapper" style="background-color: rgb(28 163 55);height:150vh;">
+<div class="page-wrapper" style="height:150vh;">
     
     <!-- SIDE BAR MOBILE AND DESKTOP -->
     <?php include('./users/side_bar.php');?>
     <!-- END SIDE BAR MOBILE AND DESKTOP -->
 
     <!-- PAGE CONTAINER-->
-    <div class="page-container2" style="background-color: rgb(28 163 55);height:150vh;">
+    <div class="page-container2" style="height:150vh;">
        
         <?php include('./users/header.php');?>
 

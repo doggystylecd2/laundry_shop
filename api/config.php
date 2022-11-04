@@ -3,5 +3,8 @@
     define('DBPWD','');
     define('DBHOST','localhost');
     define('DBNAME','courier_management');
-    // define('HOST','http://localhost:7070');
+    define('URL_HOST','http://localhost:7070');
+    define('SID','AC5abc09ad72f3e8650d6f9f820adaea27');
+    define('Token','926bc7c3731552ed65b34297547f8933');
+    define('TWILLO_NUMBER','+13023432171');
 ?>

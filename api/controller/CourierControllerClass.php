@@ -200,6 +200,12 @@ class CourierControllerClass {
       $port = $_SERVER['SERVER_PORT'] ? ':'.$_SERVER['SERVER_PORT'] : '';
       return $protocol.$server.$port;
     } 
+
+    public function update_notify_courier(){
+        extract($_POST);
+        $data = $this->db->Update("update courier_notify SET status = 1 WHERE id = ? ", array($id));
+        echo $this->getMyUrl().'/index.php?page=new_parcel'; 
+    }
 }
 
 

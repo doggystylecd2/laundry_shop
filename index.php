@@ -32,6 +32,7 @@
                 "delivered",
                 "unsccesfull_deliver",
                 "rate_courier",
+                "list_nofity",
             ],
             "courier" => [
                 "user_home",
@@ -41,6 +42,7 @@
                 "denied",
                 "delivered",
                 "unsccesfull_deliver",
+                "list_nofity",
             ]
         ];
         $accessable = ["logout"];

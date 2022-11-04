@@ -140,6 +140,21 @@ class UsersControllerClass {
 			echo "FAILED";
 		}
     }
+
+    
+    private static function getMyUrl()
+    {
+      $protocol = (!empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on' || $_SERVER['HTTPS'] == '1')) ? 'https://' : 'http://';
+      $server = $_SERVER['SERVER_NAME'];
+      $port = $_SERVER['SERVER_PORT'] ? ':'.$_SERVER['SERVER_PORT'] : '';
+      return $protocol.$server.$port;
+    } 
+
+    public function update_notify_courier(){
+        extract($_POST);
+        $data = $this->db->Update("update users_notify SET status = 1 WHERE id_notify = ? ", array($id));
+        echo $this->getMyUrl().'/index.php?page=all_list'; 
+    }
 }
 
 

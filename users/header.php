@@ -49,8 +49,10 @@
                                                         <i class="zmdi zmdi-email-open"></i>
                                                     </div>
                                                     <div class="content">
+                                                        <button type="button" id="<?php echo $value["id_notify"] ?>" onclick="updateNotify(this.id)">
                                                         <p><?php echo $value["description"] ?></p>
                                                         <span class="date"><?php echo $value["created_at"] ?></span>
+                                                        </button>
                                                     </div>
                                                 </div>
                                                 <?php
@@ -58,7 +60,7 @@
                                         }
                                     ?>
                                     <div class="notifi__footer">
-                                        <a href="#">All notifications</a>
+                                        <a href="index.php?page=list_nofity">All notifications</a>
                                     </div>
                                 </div>
                             </div>
@@ -139,14 +141,32 @@
                                     <a href="index.php?page=unsccesfull_deliver">
                                         <i class="fas fa-tachometer-alt"></i>Unsuccessfull Delivery</a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="index.php?page=rate_courier">
                                         <i class="fas fa-tachometer-alt"></i>Rate Courier</a>
-                                </li>
+                                </li> -->
                             </ul>
                         </li>  
+                        <li class="<?php if($_GET["page"] == 'list_nofity') {echo "active";}?>">
+                            <a href="index.php?page=list_nofity">
+                                <i class="fas fa-user-md"></i>Notifications
+                            </a>
+                        </li>   
                     </ul>
                 </nav>
             </div>
         </aside>
         <!-- END HEADER DESKTOP-->
+<script>
+    function updateNotify(id){
+        $.post(
+            "api/routes.php",
+            {id: id, action:"update_notify_courier",type:"users"},
+            function(data){ 
+                // location.reload(true); 
+                window.location.href = data; 
+                // $('#parcel_modal_body').append(data);
+            }
+        );
+    }
+</script>

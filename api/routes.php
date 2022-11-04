@@ -38,6 +38,12 @@ if(isset($_GET["action"]) ){
                 if($details)
                     echo $details;
             }
+            if($action == "update_notify_courier"){
+                $crud = new UsersControllerClass();
+                $details = $crud->update_notify_courier();
+                if($details)
+                    echo $details;
+            }
         }
 
         if($_POST["type"] == "courier"){
@@ -70,6 +76,12 @@ if(isset($_GET["action"]) ){
                     echo $details;
             }
             
+            if($action == "update_notify_courier"){
+                $crud = new CourierControllerClass();
+                $details = $crud->update_notify_courier();
+                if($details)
+                    echo $details;
+            }
         }
         
     }
