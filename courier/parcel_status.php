@@ -167,7 +167,10 @@
     
     $(document).ready(function (e) {
         $("form#data_pass").on('submit',(function(e) {
+           
         e.preventDefault();
+
+       
         $.ajax({
             url:  "api/routes.php",
         type: "POST",
@@ -185,10 +188,10 @@
                 location.reload(true); 
                 // alert(data);
             },
-            error: function(e) 
-            {
-            //  $("#err").html(e).fadeIn();
-            }          
+        error: function(e) 
+        {
+        //  $("#err").html(e).fadeIn();
+        }          
             });
         }));
     });

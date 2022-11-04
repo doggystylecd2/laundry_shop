@@ -1,5 +1,11 @@
 <?php 
-   
+
+// Required if your environment does not handle autoloading
+require  './../vendor/autoload.php';
+
+// Use the REST API Client to make requests to the Twilio REST API
+use Twilio\Rest\Client;
+
 class CourierControllerClass {
     private $db;
     public function __construct() {
@@ -158,6 +164,30 @@ class CourierControllerClass {
                         if(count($get_details) > 0){
                             $description = $get_details[0]["parcel_number"]. " Has been ".$status_description[0]["description"];
                             $this->db->Insert("INSERT INTO users_notify (description,user_id,status) VALUES (?,?,0) ", array($description, $get_details[0]["user_id"] ));
+
+                            if($status == 7) {// if equal to Delivered sent sms to receiver
+                   
+                                // Your Account SID and Auth Token from twilio.com/console
+                                $sid = TWILLO_SID;
+                                $token = TWILLO_Token;
+                                $twillo_number =  TWILLO_NUMBER;
+                                $client = new Client($sid, $token);
+            
+                                // Use the client to do fun stuff like send text messages!
+                                $getinfoUsers = $this->db->Select("select * from personal_info where user_id = ? limit 1", array($get_details[0]["user_id"]));
+                                $phone_number = '+63'.$getinfoUsers[0]["contact_no"];
+                                $client->messages->create(
+                                    // the number you'd like to send the message to
+                                    $phone_number,
+                                    [
+                                        // A Twilio phone number you purchased at twilio.com/console
+                                        'from' => $twillo_number,
+                                        // the body of the text message you'd like to send
+                                        'body' => "Good day, Ma'am/Sir ".ucwords($getinfoUsers[0]["last_name"])." Your parcel # ".$get_details[0]["parcel_number"]." Have been succesfully Delivered to ".ucwords($get_details[0]["recepient_name"])." Thank you for your choosing us!.."
+                                    ]
+                                );
+                            }
+                            
                             echo "SUCCESS";
                         }
                         
@@ -177,6 +207,33 @@ class CourierControllerClass {
                     $this->db->Insert("INSERT INTO users_notify (description,user_id,status) VALUES (?,?,0) ", array($description, $get_details[0]["user_id"] ));
                     echo "SUCCESS";
                 }
+
+                if($status == 5) {// if equal to In-Transit sent sms to receiver
+                   
+                    // Your Account SID and Auth Token from twilio.com/console
+                    $sid = TWILLO_SID;
+                    $token = TWILLO_Token;
+                    $client = new Client($sid, $token);
+
+                    // Use the client to do fun stuff like send text messages!
+                    $twillo_number =  TWILLO_NUMBER;
+                    $phone_number = '+63'.$get_details[0]["recepient_contact_no"];
+                    $client->messages->create(
+                        // the number you'd like to send the message to
+                        $phone_number,
+                        [
+                            // A Twilio phone number you purchased at twilio.com/console
+                            'from' => $twillo_number,
+                            // the body of the text message you'd like to send
+                            'body' => "Good day, Ma'am/Sir ".ucwords($get_details[0]["recepient_name"])." The parcel # ".$get_details[0]["parcel_number"]." ".$get_details[0]["parcel_description"]." will be Arrived to day. 
+                            Please prepare the exact amount. Total : ".$get_details[0]["amount"]." Thank you have a nice day!.."
+                        ]
+                    );
+                }
+
+                
+
+
                 echo "SUCCESS";
             }
             
