@@ -264,6 +264,54 @@ class CourierControllerClass {
         $data = $this->db->Update("update courier_notify SET status = 1 WHERE id = ? ", array($id));
         echo $this->getMyUrl().'/index.php?page=new_parcel'; 
     }
+
+    private static function getBalance(){
+
+        $client = new \GuzzleHttp\Client();
+
+        $response = $client->request('POST', getenv('MOVIDER_URL_BALANCE'), [
+            'headers' => [
+                'accept' => 'application/json',
+                'content-type' => 'application/x-www-form-urlencoded',
+            ],
+            'form_params' => [
+                'api_key' => getenv('MOVIDER_KEY'),
+                'api_secret' => getenv('MOVIDER_SECRET'),
+            ]
+        ]);
+
+        $data = json_decode($response->getBody());
+
+        return $data->amount > 0.100 ? true : false;
+    }
+
+    private static function sentMessage($to,$text){
+
+        if($this->getBalance()){
+
+            $client = new \GuzzleHttp\Client();
+            $to = '+63'.$to;
+            $response = $client->request('POST', getenv('MOVIDER_URL_SMS'), [
+                'headers' => [
+                    'accept' => 'application/json',
+                    'content-type' => 'application/x-www-form-urlencoded',
+                ],
+                'form_params' => [
+                    'api_key' => getenv('MOVIDER_KEY'),
+                    'api_secret' => getenv('MOVIDER_SECRET'),
+                    'from' => getenv('MOVIDER_FROM'),
+                    'to' => $to,
+                    'text' => $text,
+                ]
+            ]);
+
+            $data = json_decode($response->getBody());
+            return true;
+        }
+
+        return false;
+        
+    }
 }
 
 
