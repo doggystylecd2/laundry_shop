@@ -103,8 +103,10 @@ final products. But you always need to state that Colorlib is the original
 author of this template.
 
 <!-- HOW TO START THE PROJECT -->
-1) Download the Apache Server PHP
-2) Pull the project
-3) Migrate the Database
-4) Change the file config two file API config and index config
-5) then run the application using the Apache Server
+#Required
+1) PHP >= version 7.4 
+2) Composer version 2.4.4
+3) pull project (copy the link/download the project)
+4) Set up the .env
+5) Migrate the Database 
+5) Then you can run the Application

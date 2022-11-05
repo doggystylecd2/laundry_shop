@@ -11,10 +11,12 @@ $repository = Dotenv\Repository\RepositoryBuilder::createWithNoAdapters()
 $dotenv = Dotenv\Dotenv::create($repository, __DIR__);
 $dotenv->load();
 
+include('./database/connection.php');
+include('./controller/security.php');
+include('./controller/Portal.php');
+
 ?>
-<?php include('./database/connection.php') ?>
-<?php include('./controller/security.php') ?>
-<?php include('./controller/Portal.php') ?>
+
 <?php include('./pages/header.php') ?>
 <?php $db = new DatabaseClass(); // initialize db?>
 <?php $users_details = getDetailsUsers($db); 
