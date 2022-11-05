@@ -65,7 +65,7 @@
                                                 <td>
                                                     <div class="table-data-feature">
                                                         <button class="item" data-toggle="tooltip" data-placement="top" title="View" type="button"  id="<?php echo $value["parcel_number"]; ?>" onclick="showModal(this.id)">
-                                                            <i class="zmdi zmdi-eye"></i>
+                                                        <i class="zmdi zmdi-eye" style="color:green"></i>
                                                         </button>
                                                     </div>
                                                 </td>

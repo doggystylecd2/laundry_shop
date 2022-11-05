@@ -3,6 +3,17 @@
 //     var_dump($_POST);
 // echo "</pre>";
 
+require '../vendor/autoload.php';
+
+$repository = Dotenv\Repository\RepositoryBuilder::createWithNoAdapters()
+->addAdapter(Dotenv\Repository\Adapter\EnvConstAdapter::class)
+->addWriter(Dotenv\Repository\Adapter\PutenvAdapter::class)
+->immutable()
+->make();
+
+$dotenv = Dotenv\Dotenv::create($repository, '../');
+$dotenv->load();
+
 if(isset($_GET["action"]) ){
     $action = $_GET['action'];
 } elseif (isset($_POST["action"])) {
@@ -44,6 +55,8 @@ if(isset($_GET["action"]) ){
                 if($details)
                     echo $details;
             }
+
+           
         }
 
         if($_POST["type"] == "courier"){
@@ -81,6 +94,13 @@ if(isset($_GET["action"]) ){
                 $details = $crud->update_notify_courier();
                 if($details)
                     echo $details;
+            }
+        }
+
+        if($_POST["type"] == "review"){
+            if($action == "get_review_courier"){
+                require '../database/connection.php';
+                include('controller/ReviewCourier.php');
             }
         }
         

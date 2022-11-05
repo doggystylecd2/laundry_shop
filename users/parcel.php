@@ -190,6 +190,7 @@
                                 <?php 
                                     $list_courier = getCourierDetails($db);
                                     if(count($list_courier) > 0){
+                                        echo "<option value='none'>--SELECT COURIER--</option>";
                                         foreach ($list_courier as $key => $value) {
                                             ?>
                                             <option value="<?php echo $value["user_id"] ?>"><?php echo ucfirst($value["first_name"])." ".ucfirst(substr($value["middle_name"],0,1)). ". ".ucfirst($value["last_name"]);  ?></option>
@@ -203,6 +204,9 @@
                                     }
                                 ?>
                             </select>
+                        </div>
+                        <div id="show_review_courier">
+                            <!-- REVIEW DETAILS COURIER -->
                         </div>
                         <div class="form-group">
                             <label for="cc-number" class="control-label mb-1">Type</label>
@@ -274,6 +278,8 @@
 <script type="text/javascript">
 $(document).ready(function(){ 
     $("#new_address_option").hide();
+    $("#show_review_courier").hide();
+    
     $("input[name$='selected_address']").click(function() {
         var test = $(this).val();
         if(test == 'new'){
@@ -282,5 +288,24 @@ $(document).ready(function(){
             $("#new_address_option").hide();
         }
     }); 
+
+    $('#idcourier_details').on('change', function() {
+        // alert( this.value );
+        $("#show_review_courier").show();
+        $('#details_review_courier').remove();
+        if(this.value == 'none' || this.value == "" || this.value == "none"){
+            // alert('Please select courier!..');
+            console.log('Not found!..');
+        } else {
+            $.post(
+                "api/routes.php",
+                {id_courier: this.value,action:"get_review_courier",type:"review"},
+                function(data){ 
+                    $('#show_review_courier').append(data);
+                }
+            );
+        }
+      
+    });
 });
 </script>

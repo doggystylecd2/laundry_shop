@@ -39,7 +39,8 @@ function getMyUrl()
   $protocol = (!empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on' || $_SERVER['HTTPS'] == '1')) ? 'https://' : 'http://';
   $server = $_SERVER['SERVER_NAME'];
   $port = $_SERVER['SERVER_PORT'] ? ':'.$_SERVER['SERVER_PORT'] : '';
-  return $protocol.$server.$port;
+//   return $protocol.$server.$port;
+    return getenv('URL_HOST');
 }
 
 function insertToken($db){
@@ -144,7 +145,7 @@ function updateUSerProfile($db){
 function getCourierDetails($db){
     $data = $db->Select("SELECT * FROM users 
     inner join personal_info using(user_id) 
-    where status = 1 and user_type = 3  ");
+    where status = 1 and user_type = 3 and first_name is not null and last_name is not null and middle_name is not null  ");
     return $data;
     // return $data[0];
 }

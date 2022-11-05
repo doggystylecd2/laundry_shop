@@ -1,20 +1,31 @@
 <?php
-include('config.php');
+// include('config.php');
+
+// require  'vendor/autoload.php';
 
 class DatabaseClass{	
 	
+    
+
     private $connection = null;
 
-    private $dbhost = DBHOST; // Ip Address of database if external connection.
-    private $dbuser = DBUSER; // Username for DB
-    private $dbpass = DBPWD; // Password for DB
-    private $dbname = DBNAME; // DB Name
+    private $dbhost = ""; // Ip Address of database if external connection.
+    private $dbuser = ""; // Username for DB
+    private $dbpass = ""; // Password for DB
+    private $dbname = ""; // DB Name
 
     // this function is called everytime this class is instantiated		
     public function __construct(){
 
         try{
-        
+            
+           
+
+            $this->dbhost = getenv('DBHOST'); // Ip Address of database if external connection.
+            $this->dbuser = getenv('DBUSER'); // Username for DB
+            $this->dbpass = getenv('DBPWD'); // Password for DB
+            $this->dbname = getenv('DBNAME'); // DB Name
+
             $this->connection = new PDO("mysql:host={$this->dbhost};dbname={$this->dbname};", $this->dbuser, $this->dbpass);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
