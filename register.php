@@ -10,7 +10,6 @@ $repository = Dotenv\Repository\RepositoryBuilder::createWithNoAdapters()
 
 $dotenv = Dotenv\Dotenv::create($repository, __DIR__);
 $dotenv->load();
-echo var_dump($_ENV);
 include('./pages/header.php'); 
 
 include('./database/connection.php');

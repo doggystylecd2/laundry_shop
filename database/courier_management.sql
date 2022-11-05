@@ -1,23 +1,4 @@
--- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               8.0.30 - MySQL Community Server - GPL
--- Server OS:                    Win64
--- HeidiSQL Version:             12.1.0.6537
--- --------------------------------------------------------
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
-
--- Dumping database structure for courier_management
-CREATE DATABASE IF NOT EXISTS `courier_management` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `courier_management`;
 
 -- Dumping structure for table courier_management.access_token
 DROP TABLE IF EXISTS `access_token`;
@@ -28,8 +9,6 @@ CREATE TABLE IF NOT EXISTS `access_token` (
   PRIMARY KEY (`token_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=156 DEFAULT CHARSET=utf8mb4 ;
 
--- Dumping data for table courier_management.access_token: ~9 rows (approximately)
-DELETE FROM `access_token`;
 INSERT INTO `access_token` (`token_id`, `access_token`, `user_id`) VALUES
 	(131, '7df537ec1cf01c0590d3b118fa18b977', 46),
 	(132, 'a9028c12bb31f804b5ad38ac4cda3eb6', 43),
@@ -69,8 +48,7 @@ CREATE TABLE IF NOT EXISTS `address_info` (
   PRIMARY KEY (`id_address_info`)
 ) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 ;
 
--- Dumping data for table courier_management.address_info: ~2 rows (approximately)
-DELETE FROM `address_info`;
+
 INSERT INTO `address_info` (`id_address_info`, `user_id`, `address`, `contact_no`, `created_at`, `updated_at`) VALUES
 	(35, 44, '55 Casili, Anao City, Tarlac 2310 ', NULL, '2022-11-01 05:00:59', '2022-11-01 05:00:59'),
 	(36, 45, '585 Don Ramon, Anao City, Tarlac 2310 ', NULL, '2022-11-01 08:34:06', '2022-11-01 08:34:06'),
@@ -84,8 +62,7 @@ CREATE TABLE IF NOT EXISTS `approval_users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 ;
 
--- Dumping data for table courier_management.approval_users: ~4 rows (approximately)
-DELETE FROM `approval_users`;
+
 INSERT INTO `approval_users` (`id`, `type`) VALUES
 	(1, 'Confirmed'),
 	(2, 'Enable'),
@@ -100,8 +77,7 @@ CREATE TABLE IF NOT EXISTS `barangay` (
   PRIMARY KEY (`barangay_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 ;
 
--- Dumping data for table courier_management.barangay: ~8 rows (approximately)
-DELETE FROM `barangay`;
+
 INSERT INTO `barangay` (`barangay_id`, `name`) VALUES
 	(1, 'Baguindoc'),
 	(2, 'Bantog'),
@@ -122,8 +98,7 @@ CREATE TABLE IF NOT EXISTS `courier_details` (
   PRIMARY KEY (`idcourier_details`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 ;
 
--- Dumping data for table courier_management.courier_details: ~0 rows (approximately)
-DELETE FROM `courier_details`;
+
 INSERT INTO `courier_details` (`idcourier_details`, `p_info_id`, `resume`, `description`) VALUES
 	(11, 26, 'http://localhost:7070/Resume/1667277983.pdf', 'Hi good day team, we would like to enter your office sir.'),
 	(12, 32, 'http://localhost:7070/Resume/1667570537.pdf', 'sadfdasfdasfsdafdasf'),
@@ -140,8 +115,7 @@ CREATE TABLE IF NOT EXISTS `courier_notify` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 ;
 
--- Dumping data for table courier_management.courier_notify: ~0 rows (approximately)
-DELETE FROM `courier_notify`;
+
 INSERT INTO `courier_notify` (`id`, `description`, `status`, `user_id`, `created_at`) VALUES
 	(5, 'You got New Parcel # 7894561 22-11-03 01:11:29', 1, 43, '2022-11-03 01:17:29'),
 	(6, 'You got New Parcel # 54489 22-11-04 01:11:38', 1, 43, '2022-11-04 01:20:38'),
@@ -172,8 +146,7 @@ CREATE TABLE IF NOT EXISTS `parcel_details` (
   PRIMARY KEY (`idparcel_details`)
 ) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 ;
 
--- Dumping data for table courier_management.parcel_details: ~5 rows (approximately)
-DELETE FROM `parcel_details`;
+
 INSERT INTO `parcel_details` (`idparcel_details`, `user_id`, `idcourier_details`, `recepient_name`, `recepient_address`, `recepient_contact_no`, `parcel_number`, `parcel_description`, `type_delivery`, `weight_id`, `created_at`, `status`, `amount`, `address_sender`, `recipient_image`) VALUES
 	(26, 44, 43, 'Sender seder Recipient', 'Tarlac City Anao', '9755983121', '123213', 'This is testing', 'Delivery', 2, '2022-11-01 04:52:07', 7, 50.00, ', Campos, Anao, Tarlac, 2310', 'http://localhost:7070/api/images/recipient/recipient1667372264.jpg'),
 	(27, 44, 43, 'Sender to Sender', 'Tomas Cabili Avenue', '9755983121', '13212414141321321', 'sadfa', 'Delivery', 3, '2022-11-01 05:00:59', 7, 50.00, '55 Casili, Anao City, Tarlac 2310 ', 'http://localhost:7070/api/images/recipient/recipient1667371602.jpg'),
@@ -196,8 +169,7 @@ CREATE TABLE IF NOT EXISTS `parcel_status` (
   PRIMARY KEY (`id_status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 ;
 
--- Dumping data for table courier_management.parcel_status: ~12 rows (approximately)
-DELETE FROM `parcel_status`;
+
 INSERT INTO `parcel_status` (`id_status`, `description`) VALUES
 	(1, 'Pending Request'),
 	(2, 'Parcel Accepted by Courier'),
@@ -238,8 +210,6 @@ CREATE TABLE IF NOT EXISTS `personal_info` (
   PRIMARY KEY (`p_info_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 ;
 
--- Dumping data for table courier_management.personal_info: ~8 rows (approximately)
-DELETE FROM `personal_info`;
 INSERT INTO `personal_info` (`p_info_id`, `user_id`, `first_name`, `last_name`, `middle_name`, `street`, `city`, `province`, `zip_code`, `zone`, `landmark`, `barangay`, `house_no`, `discrict_code`, `birthdate`, `gender`, `contact_no`, `image`, `created_at`, `updated_at`) VALUES
 	(26, 43, 'Courier', 'Courier', 'Courier', NULL, 'Anao', 'Tarlac', '2310', '44', '3213213', 'Carmen', '41241412412', NULL, '2022-11-02', 'male', '9755983121', 'http://localhost:7070/images/profile1667279916.jpg', '2022-11-01 04:46:23', '2022-11-04 03:22:51'),
 	(27, 44, 'users1', 'users1', 'users1', NULL, 'Anao', 'Tarlac', '2310', '24', 'test', 'Campos', '32', NULL, '2022-11-09', 'Male', '9755983121', 'http://localhost:7070/images/profile1667278247.jpg', '2022-11-01 04:49:12', '2022-11-04 03:22:51'),
@@ -262,8 +232,7 @@ CREATE TABLE IF NOT EXISTS `rate_courier` (
   PRIMARY KEY (`id_rate`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 ;
 
--- Dumping data for table courier_management.rate_courier: ~2 rows (approximately)
-DELETE FROM `rate_courier`;
+
 INSERT INTO `rate_courier` (`id_rate`, `user_id`, `rate_type`, `courier_id`, `parcel_id`, `created_at`) VALUES
 	(1, 44, '1', 43, '27', '2022-11-02 10:03:36'),
 	(2, 44, '5', 43, '26', '2022-11-02 10:07:43'),
@@ -282,8 +251,7 @@ CREATE TABLE IF NOT EXISTS `set_weight` (
   PRIMARY KEY (`weight_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 ;
 
--- Dumping data for table courier_management.set_weight: ~3 rows (approximately)
-DELETE FROM `set_weight`;
+
 INSERT INTO `set_weight` (`weight_id`, `description`, `amount`) VALUES
 	(1, 'Small', 50.00),
 	(2, 'Medium', 100.00),
@@ -303,8 +271,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 ;
 
--- Dumping data for table courier_management.users: ~9 rows (approximately)
-DELETE FROM `users`;
+
 INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `status`, `user_type`, `created_at`, `updated_at`) VALUES
 	(1, 'admin', 'admin@gmail.com', 'admin123', '1', '1', '2022-09-23 02:36:01', '2022-09-23 02:36:01'),
 	(43, 'courier', 'courier@gmail.com', 'marvin123', '1', '3', '2022-11-01 12:46:23', '2022-11-01 12:47:47'),
@@ -327,8 +294,7 @@ CREATE TABLE IF NOT EXISTS `users_notify` (
   PRIMARY KEY (`id_notify`)
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 ;
 
--- Dumping data for table courier_management.users_notify: ~2 rows (approximately)
-DELETE FROM `users_notify`;
+
 INSERT INTO `users_notify` (`id_notify`, `description`, `status`, `user_id`, `created_at`) VALUES
 	(13, '7894561 Has been Parcel Accepted by Courier', '0', 47, '2022-11-03 01:18:43'),
 	(14, '7894561 Has been Delivered', '0', 47, '2022-11-03 01:20:27'),
@@ -356,9 +322,3 @@ INSERT INTO `users_notify` (`id_notify`, `description`, `status`, `user_id`, `cr
 	(36, '5324324 Has been Delivered', '1', 48, '2022-11-04 04:13:00'),
 	(37, '78945611 Has been In-Transit', '1', 44, '2022-11-05 00:45:48'),
 	(38, '78945611 Has been Delivered', '1', 44, '2022-11-05 00:45:57');
-
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
