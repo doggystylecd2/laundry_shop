@@ -5,7 +5,7 @@
                     <div class="header-wrap2">
                         <div class="logo d-block d-lg-none">
                             <a href="#">
-                                <!-- <img src="images/icon/logo_courier.png" alt="CoolAdmin" style="height: 70px; "/> -->
+                                <img src="images/icon/log_header.jpg" alt="Pasuyo Delivery" style="height: 70px; "/>
                             </a>
                         </div>
                         <div class="header-button2">
@@ -85,10 +85,10 @@
             </div>
         </header>
         <aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none" >
-            <div class="logo" >
-                <a href="#">
-                    <img src="images/icon/logo-white.png" alt="Cool Admin" />
-                </a>
+            <div class="logo" style="background-color: green!important;" >
+                <!-- <a href="#"> -->
+                    <!-- <img src="images/icon/logo-white.png" alt="Cool Admin" /> -->
+                <!-- </a> -->
             </div>
             <div class="menu-sidebar2__content js-scrollbar2">
                 <div class="account2">

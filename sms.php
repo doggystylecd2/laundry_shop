@@ -27,6 +27,8 @@ $response = $client->request('POST', getenv('MOVIDER_URL_SMS'), [
     ]
 ]);
 
-// $data = json_decode($response->getBody());
-echo $response->getBody();
-// return $data->amount > 0.100 ? "true" : "false";
+$data = json_decode($response->getBody());
+if(isset($data->remaining_balance)){
+    echo json_encode($data);
+}
+echo "false";

@@ -77,6 +77,23 @@ class CourierControllerClass {
                 $description = $get_details[0]["parcel_number"]. " Has been ".$status_description[0]["description"];
                 $this->db->Insert("INSERT INTO users_notify (description,user_id,status) VALUES (?,?,0) ", array($description, $get_details[0]["user_id"] ));
                 echo "SUCCESS";
+
+                if($status == 2){
+                    $getinfoUsers = $this->db->Select("select * from personal_info where user_id = ? limit 1", array($get_details[0]["user_id"]));
+                    $phone_number = '+63'.$getinfoUsers[0]["contact_no"];
+                    $text = "Good day, Ma'am/Sir ".ucwords($getinfoUsers[0]["last_name"])." Your parcel # ".$get_details[0]["parcel_number"]." has been Accepted by Courier. Recipient name:  ".ucwords($get_details[0]["recepient_name"]).". Thank you for your choosing us!..";
+                    $this->savelog($text);
+                    $this->sentMessage($phone_number,$text);
+                }
+
+                if($status == 12) {
+                    $getinfoUsers = $this->db->Select("select * from personal_info where user_id = ? limit 1", array($get_details[0]["user_id"]));
+                    $phone_number = '+63'.$getinfoUsers[0]["contact_no"];
+                    $text = "Good day, Ma'am/Sir ".ucwords($getinfoUsers[0]["last_name"])." Your parcel # ".$get_details[0]["parcel_number"]." has been Denied by Courier. Thank you for your choosing us!..";
+                    $this->savelog($text);
+                    $this->sentMessage($phone_number,$text);
+                }
+
             }
 
 		} catch(\Exception $e) {
@@ -141,7 +158,7 @@ class CourierControllerClass {
 
     public function on_going_transaction(){
         // print_r($_POST);
-        print_r($_FILES);
+        // print_r($_FILES);
         extract($_POST);
       
         // echo $_FILES["images"];
@@ -166,7 +183,11 @@ class CourierControllerClass {
                             $this->db->Insert("INSERT INTO users_notify (description,user_id,status) VALUES (?,?,0) ", array($description, $get_details[0]["user_id"] ));
 
                             if($status == 7) {// if equal to Delivered sent sms to receiver
-                   
+                                $getinfoUsers = $this->db->Select("select * from personal_info where user_id = ? limit 1", array($get_details[0]["user_id"]));
+                                $phone_number = '+63'.$getinfoUsers[0]["contact_no"];
+                                $text = "Good day, Ma'am/Sir ".ucwords($getinfoUsers[0]["last_name"])." Your parcel # ".$get_details[0]["parcel_number"]." Have been succesfully Delivered to ".ucwords($get_details[0]["recepient_name"])." Thank you for your choosing us!..";
+                                $this->savelog($text);
+                                $this->sentMessage($phone_number,$text);
                                 // Your Account SID and Auth Token from twilio.com/console
                                 // $sid = getenv('TWILLO_SID');
                                 // $token = getenv('TWILLO_Token');
@@ -209,7 +230,17 @@ class CourierControllerClass {
                 }
 
                 if($status == 5) {// if equal to In-Transit sent sms to receiver
-                   
+                    try {
+                        $phone_number = '+63'.$get_details[0]["recepient_contact_no"];
+                        $text = "Good day, Ma'am/Sir ".ucwords($get_details[0]["recepient_name"])." The parcel # ".$get_details[0]["parcel_number"]." ".$get_details[0]["parcel_description"]." will be Arrived to day. Please prepare the exact amount. Total : ".$get_details[0]["amount"]." Thank you have a nice day!..";
+                        $this->savelog($text);
+                        // $this->getBalance();
+                        $this->sentMessage($phone_number,$text);
+                    } catch (\Exception $e) {
+                        $text = $e->getMessage();
+                        $this->savelog($text);
+                    }
+                    
                     // Your Account SID and Auth Token from twilio.com/console
                     // $sid = getenv('TWILLO_SID');
                     // $token = getenv('TWILLO_Token');
@@ -265,33 +296,11 @@ class CourierControllerClass {
         echo $this->getMyUrl().'/index.php?page=new_parcel'; 
     }
 
-    private static function getBalance(){
-
-        $client = new \GuzzleHttp\Client();
-
-        $response = $client->request('POST', getenv('MOVIDER_URL_BALANCE'), [
-            'headers' => [
-                'accept' => 'application/json',
-                'content-type' => 'application/x-www-form-urlencoded',
-            ],
-            'form_params' => [
-                'api_key' => getenv('MOVIDER_KEY'),
-                'api_secret' => getenv('MOVIDER_SECRET'),
-            ]
-        ]);
-
-        $data = json_decode($response->getBody());
-
-        return $data->amount > 0.100 ? true : false;
-    }
-
-    private static function sentMessage($to,$text){
-
-        if($this->getBalance()){
-
+    private function getBalance(){
+        try {
             $client = new \GuzzleHttp\Client();
-            $to = '+63'.$to;
-            $response = $client->request('POST', getenv('MOVIDER_URL_SMS'), [
+
+            $response = $client->request('POST', getenv('MOVIDER_URL_BALANCE'), [
                 'headers' => [
                     'accept' => 'application/json',
                     'content-type' => 'application/x-www-form-urlencoded',
@@ -299,18 +308,56 @@ class CourierControllerClass {
                 'form_params' => [
                     'api_key' => getenv('MOVIDER_KEY'),
                     'api_secret' => getenv('MOVIDER_SECRET'),
-                    'from' => getenv('MOVIDER_FROM'),
-                    'to' => $to,
-                    'text' => $text,
                 ]
             ]);
-
+            $this->savelog($response->getBody());
             $data = json_decode($response->getBody());
-            return true;
+            if(isset($data->amount)){
+                return $data->amount > 0.100 ? true : false;
+             }
+            return false;
+        } catch(\Exception $e) {
+            $data = $e->getMessage();
+            $this->savelog($data);
+        }
+        
+    }
+
+    private function sentMessage($to,$text){
+
+        if($this->getBalance()){
+
+            $client = new \GuzzleHttp\Client();
+            $form_params =[
+                'api_key' => getenv('MOVIDER_KEY'),
+                'api_secret' => getenv('MOVIDER_SECRET'),
+                'from' => getenv('MOVIDER_FROM'),
+                'to' => $to,
+                'text' => $text,
+            ];
+            $this->savelog(json_encode($form_params));
+            $response = $client->request('POST', getenv('MOVIDER_URL_SMS'), [
+                'headers' => [
+                    'accept' => 'application/json',
+                    'content-type' => 'application/x-www-form-urlencoded',
+                ],
+                'form_params' => $form_params
+            ]);
+            $this->savelog($response->getBody());
+            $data = json_decode($response->getBody());
+            if(isset($data->remaining_balance)){
+                return true;
+            }
+            return false;
         }
 
         return false;
         
+    }
+
+    private function savelog($data){
+        // $this->db->Insert()
+        $this->db->Insert("INSERT INTO error_logs (descriptions) VALUES (?) ", array($data ));
     }
 }
 
