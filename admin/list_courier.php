@@ -5,7 +5,7 @@
     <!-- END SIDE BAR MOBILE AND DESKTOP -->
 
     <!-- PAGE CONTAINER-->
-    <div class="page-container">
+    <div class="page-container2">
         <!-- HEADER DESKTOP-->
             <?php include('./pages/header_account.php') ?>
         <!-- HEADER DESKTOP-->
@@ -68,7 +68,7 @@
                                                 <th>email</th>
                                                 <th>Details</th>
                                                 <th>status</th>
-                                                <th>Action</th>
+                                                <!-- <th>Action</th> -->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -90,12 +90,12 @@
                                                             <td>
                                                                 <span class="status--process">Active</span>
                                                             </td>
-                                                            <td>
+                                                            <!-- <td> -->
                                                                 <!-- <button type="button" class="btn btn-outline-danger" id="<?php echo $value["user_id"] ?>" onclick="updateStatus(this.id, this.name)" name="reject">
                                                                     <i class="fa fa-map-marker"></i>&nbsp; Reject</button>
                                                                 <button type="button" class="btn btn-outline-warning" id="<?php echo $value["user_id"] ?>" onclick="updateStatus(this.id, this.name)" name="approved">
                                                                     <i class="fa fa-map-marker"></i>&nbsp; Confirm</button> -->
-                                                                <div class="table-data-feature">
+                                                                <!-- <div class="table-data-feature">
                                                                     <button class="item" data-toggle="tooltip" data-placement="top" title="View">
                                                                         <i class="zmdi zmdi-eye"></i>
                                                                     </button>
@@ -108,8 +108,8 @@
                                                                     <button class="item" data-toggle="tooltip" data-placement="top" title="More">
                                                                         <i class="zmdi zmdi-more"></i>
                                                                     </button>
-                                                                </div>
-                                                            </td>
+                                                                </div> -->
+                                                            <!-- </td> -->
                                                         </tr>
                                                         <tr class="spacer"></tr>
                                                         <?php
@@ -149,13 +149,3 @@
     </div>
 
 </div>
-<script>
- function updateStatus(user_id, name) 
-  {
-    $.post("api/routes.php",{user_id: user_id, name: name,action:"courier_approval"}, function(data) 
-    { 
-        location.reload(true); 
-    }
-    );
-  }
-</script>

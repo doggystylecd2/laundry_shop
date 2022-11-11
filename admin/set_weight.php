@@ -5,7 +5,7 @@
     <!-- END SIDE BAR MOBILE AND DESKTOP -->
 
     <!-- PAGE CONTAINER-->
-    <div class="page-container">
+    <div class="page-container2" >
         <!-- HEADER DESKTOP-->
             <?php include('./pages/header_account.php') ?>
         <!-- HEADER DESKTOP-->

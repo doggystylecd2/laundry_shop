@@ -5,7 +5,7 @@
     <!-- END SIDE BAR MOBILE AND DESKTOP -->
 
     <!-- PAGE CONTAINER-->
-    <div class="page-container">
+    <div class="page-container2" >
         <!-- HEADER DESKTOP-->
             <?php include('./pages/header_account.php') ?>
         <!-- HEADER DESKTOP-->
@@ -54,80 +54,46 @@
                                     </div>
                                 </div> -->
                                 <div class="table-responsive table-responsive-data2">
-                                    <table class="table table-data2" id="table_list">
+                                    <table class="table table-data2">
                                         <thead>
                                             <tr>
-                                                <!-- <th>
-                                                    <label class="au-checkbox">
-                                                        <input type="checkbox">
-                                                        <span class="au-checkmark"></span>
-                                                    </label>
-                                                </th> -->
-                                                <th>date</th>
-                                                <th>name</th>
-                                                <th>email</th>
-                                                <th>Details</th>
-                                                <th>status</th>
-                                                <th>Action</th>
+                                                <th>Date</th>
+                                                <th>Parcel #</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
-                                                $user_to_verify = $db->select("SELECT * FROM users 
-                                                INNER JOIN personal_info using(user_id)
-                                                INNER JOIN courier_details using(p_info_id)
-                                                where status = 0 and user_type = 3");
-                                                if(count($user_to_verify) > 0){
-                                                    foreach ($user_to_verify as $key => $value) {
-                                                        ?>
-                                                        <tr class="tr-shadow">
-                                                            <td><?php echo $value["created_at"]; ?></td>
-                                                            <td><?php echo ucfirst($value["username"]); ?></td>
-                                                            <td>
-                                                                <span class="block-email"><?php echo $value["email"]; ?></span>
-                                                            </td>
-                                                            <td><a href="<?php echo $value["resume"]; ?>"  target="_blank"><?php echo $value["resume"]; ?></a></td>
-                                                            <td>
-                                                                <span class="status--process">Active</span>
-                                                            </td>
-                                                            <td>
-                                                                <!-- <button type="button" class="btn btn-outline-danger" id="<?php echo $value["user_id"] ?>" onclick="updateStatus(this.id, this.name)" name="reject">
-                                                                    <i class="fa fa-map-marker"></i>&nbsp; Reject</button>
-                                                                <button type="button" class="btn btn-outline-warning" id="<?php echo $value["user_id"] ?>" onclick="updateStatus(this.id, this.name)" name="approved">
-                                                                    <i class="fa fa-map-marker"></i>&nbsp; Confirm</button> -->
-                                                                <div class="table-data-feature">
-                                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-                                                                        <i class="zmdi zmdi-mail-send"></i>
-                                                                    </button>
-                                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                                        <i class="zmdi zmdi-edit"></i>
-                                                                    </button>
-                                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                                        <i class="zmdi zmdi-delete"></i>
-                                                                    </button>
-                                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                                        <i class="zmdi zmdi-more"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="spacer"></tr>
-                                                        <?php
-                                                    }
-                                                    
-                                                } else {
+                                        <?php
+                                            $parcel = $db->select("SELECT * FROM parcel_details  order by created_at desc");
+                                            if(count($parcel) > 0){
+                                                foreach ($parcel as $key => $value) {
                                                     ?>
                                                     <tr class="tr-shadow">
-                                                        <td colspan="7">
-                                                            No data found!
+                                                        <td><?php echo $value["created_at"]; ?></td>
+                                                        <td><?php echo ucfirst($value["parcel_number"]); ?></td>
+                                                        <td>
+                                                            <div class="table-data-feature">
+                                                                <button class="item" data-toggle="tooltip" data-placement="top" title="View" type="button"  id="<?php echo $value["parcel_number"]; ?>" onclick="showModal(this.id)">
+                                                                    <i class="zmdi zmdi-eye" style="color:green"></i>
+                                                                </button>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                     <tr class="spacer"></tr>
                                                     <?php
                                                 }
-                                            ?>
-                                           
-                                            
+                                                
+                                            } else {
+                                                ?>
+                                                <tr class="tr-shadow">
+                                                    <td colspan="7">
+                                                        No data found!
+                                                    </td>
+                                                </tr>
+                                                <tr class="spacer"></tr>
+                                                <?php
+                                            }
+                                        ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -149,13 +115,49 @@
     </div>
 
 </div>
+
+<!-- modal scroll -->
+<div class="modal fade" id="scrollmodal" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="scrollmodalLabel" >
+                    <div id="pacel_no">
+                         <span id="parcel_no_value"></span>
+                    </div>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="parcel_modal_body">
+                <div id="parcel_details"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <!-- <button type="button" class="btn btn-primary">Confirm</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
- function updateStatus(user_id, name) 
-  {
-    $.post("api/routes.php",{user_id: user_id, name: name,action:"courier_approval"}, function(data) 
-    { 
-        location.reload(true); 
+    function showModal(parcel_ID){
+    //    $('#scrollmodal').toggle();
+    //    alert('dafdaf');
+        $('#scrollmodal').modal('show')
+        $('#parcel_no_value').remove();
+        $('#parcel_details').remove();
+
+        $('#pacel_no').append('<span id="parcel_no_value">Pacel #: '+ parcel_ID +'</span>');
+        // $('#parcel_modal_body').append('<div id="parcel_details">Name: Marvin villanea</div>');
+        $.post(
+            "api/routes.php",
+            {parcel_ID: parcel_ID,action:"get_details_parcel",type:"users"},
+            function(data){ 
+                // location.reload(true); 
+                $('#parcel_modal_body').append(data);
+            }
+        );
     }
-    );
-  }
 </script>

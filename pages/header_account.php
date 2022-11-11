@@ -1,17 +1,18 @@
-<header class="header-desktop">
-    <div class="section__content section__content--p30">
-        <div class="container-fluid">
-            <div class="header-wrap">
+<header class="header-desktop2" style="background-color:white;">
+    <div class="section__content section__content--p30" >
+        <div class="container-fluid" >
+            <div class="header-wrap2">
                 <form class="form-header" action="" method="POST">
-                    <input class="au-input au-input--xl" type="text" name="search" placeholder="Search for datas &amp; reports..." />
+                   
+                    <!-- <input class="au-input au-input--xl" type="text" name="search" placeholder="Search for datas &amp; reports..." />
                     <button class="au-btn--submit" type="submit">
                         <i class="zmdi zmdi-search"></i>
-                    </button>
+                    </button> -->
                 </form>
-                <div class="header-button">
+                <div class="header-button2">
                     <div class="noti-wrap">
                         <div class="noti__item js-item-menu">
-                            <i class="zmdi zmdi-notifications"></i>
+                            <!-- <i class="zmdi zmdi-notifications"></i>
                             <span class="quantity">3</span>
                             <div class="mess-dropdown js-dropdown">
                                 <div class="notifi__title">
@@ -47,7 +48,7 @@
                                 <div class="notifi__footer">
                                     <a href="#">All notifications</a>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="account-wrap">
@@ -74,17 +75,25 @@
                                 </div>
                                 <div class="account-dropdown__body">
                                     <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-account"></i>Account</a>
+                                         <a href="index.php?page=home">
+                                            <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                                     </div>
                                     <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-settings"></i>Setting</a>
+                                        <a href="index.php?page=list_courier">
+                                            <i class="fas fa-tachometer-alt"></i>Active Courier</a>
                                     </div>
-                                    <!-- <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-money-box"></i>Billing</a>
-                                    </div> -->
+                                    <div class="account-dropdown__item">
+                                        <a href="index.php?page=disapproved_courier">
+                                            <i class="fas fa-tachometer-alt"></i>Disapproved Courier</a>
+                                    </div>
+                                    <div class="account-dropdown__item">
+                                        <a href="index.php?page=users">
+                                            <i class="fas fa-tachometer-alt"></i>Users</a>
+                                    </div>
+                                    <div class="account-dropdown__item">
+                                        <a href="index.php?page=tracking_parcel">
+                                            <i class="fas fa-tachometer-alt"></i>Tracking Parcel</a>
+                                    </div>
                                 </div>
                                 <div class="account-dropdown__footer">
                                     <a href="index.php?page=logout">

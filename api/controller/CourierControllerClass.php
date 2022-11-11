@@ -164,108 +164,77 @@ class CourierControllerClass {
         // echo $_FILES["images"];
         try {
             if($this->check_file_uploaded_name($_FILES["images"]["name"])){
-                $destination_path = getcwd().DIRECTORY_SEPARATOR;
-                $folder = $destination_path."/images/recipient/recipient";
-                $temp = explode(".", $_FILES["images"]["name"]);
-                $newfilename = round(microtime(true)).'.'. end($temp);
-                $db_path = $folder.$newfilename ;
-                if ( is_uploaded_file( $_FILES['images']['tmp_name'] ) )
-                {
-                    if (move_uploaded_file($_FILES['images']['tmp_name'],$db_path))
+                if($status == 7) {
+                    $destination_path = getcwd().DIRECTORY_SEPARATOR;
+                    $folder = $destination_path."/images/recipient/recipient";
+                    $temp = explode(".", $_FILES["images"]["name"]);
+                    $newfilename = round(microtime(true)).'.'. end($temp);
+                    $db_path = $folder.$newfilename ;
+                    if ( is_uploaded_file( $_FILES['images']['tmp_name'] ) )
                     {
-                        $link = $this->getMyUrl().'/api/images/recipient/recipient'.$newfilename;
-                        $data = $this->db->Update("update parcel_details SET status = ?, recipient_image = ? WHERE idparcel_details = ? ", array($status,$link,$parcel_details_id));
-                        
-                        $get_details = $this->db->Select("select * from parcel_details where idparcel_details = ? limit 1", array($parcel_details_id));
-                        $status_description = $this->db->Select("select * from parcel_status where id_status = ? limit 1", array($status));
-                        if(count($get_details) > 0){
-                            $description = $get_details[0]["parcel_number"]. " Has been ".$status_description[0]["description"];
-                            $this->db->Insert("INSERT INTO users_notify (description,user_id,status) VALUES (?,?,0) ", array($description, $get_details[0]["user_id"] ));
+                        if (move_uploaded_file($_FILES['images']['tmp_name'],$db_path))
+                        {
+                            $link = $this->getMyUrl().'/api/images/recipient/recipient'.$newfilename;
+                            $data = $this->db->Update("update parcel_details SET status = ?, recipient_image = ? WHERE idparcel_details = ? ", array($status,$link,$parcel_details_id));
+                            
+                            $get_details = $this->db->Select("select * from parcel_details where idparcel_details = ? limit 1", array($parcel_details_id));
+                            $status_description = $this->db->Select("select * from parcel_status where id_status = ? limit 1", array($status));
+                            if(count($get_details) > 0){
+                                $description = $get_details[0]["parcel_number"]. " Has been ".$status_description[0]["description"];
+                                $this->db->Insert("INSERT INTO users_notify (description,user_id,status) VALUES (?,?,0) ", array($description, $get_details[0]["user_id"] ));
 
-                            if($status == 7) {// if equal to Delivered sent sms to receiver
                                 $getinfoUsers = $this->db->Select("select * from personal_info where user_id = ? limit 1", array($get_details[0]["user_id"]));
                                 $phone_number = '+63'.$getinfoUsers[0]["contact_no"];
                                 $text = "Good day, Ma'am/Sir ".ucwords($getinfoUsers[0]["last_name"])." Your parcel # ".$get_details[0]["parcel_number"]." Have been succesfully Delivered to ".ucwords($get_details[0]["recepient_name"])." Thank you for your choosing us!..";
                                 $this->savelog($text);
                                 $this->sentMessage($phone_number,$text);
-                                // Your Account SID and Auth Token from twilio.com/console
-                                // $sid = getenv('TWILLO_SID');
-                                // $token = getenv('TWILLO_Token');
-                                // $twillo_number =  getenv('TWILLO_NUMBER');
-                                // $client = new Client($sid, $token);
-            
-                                // // Use the client to do fun stuff like send text messages!
-                                // $getinfoUsers = $this->db->Select("select * from personal_info where user_id = ? limit 1", array($get_details[0]["user_id"]));
-                                // $phone_number = '+63'.$getinfoUsers[0]["contact_no"];
-                                // $client->messages->create(
-                                //     // the number you'd like to send the message to
-                                //     $phone_number,
-                                //     [
-                                //         // A Twilio phone number you purchased at twilio.com/console
-                                //         'from' => $twillo_number,
-                                //         // the body of the text message you'd like to send
-                                //         'body' => "Good day, Ma'am/Sir ".ucwords($getinfoUsers[0]["last_name"])." Your parcel # ".$get_details[0]["parcel_number"]." Have been succesfully Delivered to ".ucwords($get_details[0]["recepient_name"])." Thank you for your choosing us!.."
-                                //     ]
-                                // );
+                                
+                                echo "SUCCESS";
                             }
                             
-                            echo "SUCCESS";
+                        } else {
+                            echo "FALSE";
                         }
-                        
                     } else {
                         echo "FALSE";
                     }
                 } else {
                     echo "FALSE";
                 }
-            } else {
-                $data = $this->db->Update("update parcel_details SET status = ? WHERE idparcel_details = ? ", array($status,$parcel_details_id));
                 
-                $get_details = $this->db->Select("select * from parcel_details where idparcel_details = ? limit 1", array($parcel_details_id));
-                $status_description = $this->db->Select("select * from parcel_status where id_status = ? limit 1", array($status));
-                if(count($get_details) > 0){
-                    $description = $get_details[0]["parcel_number"]. " Has been ".$status_description[0]["description"];
-                    $this->db->Insert("INSERT INTO users_notify (description,user_id,status) VALUES (?,?,0) ", array($description, $get_details[0]["user_id"] ));
-                    echo "SUCCESS";
-                }
+            } else {
 
-                if($status == 5) {// if equal to In-Transit sent sms to receiver
-                    try {
+                if($status != 7) {
+                    $data = $this->db->Update("update parcel_details SET status = ? WHERE idparcel_details = ? ", array($status,$parcel_details_id));
+                    
+                    $get_details = $this->db->Select("select * from parcel_details where idparcel_details = ? limit 1", array($parcel_details_id));
+                    $status_description = $this->db->Select("select * from parcel_status where id_status = ? limit 1", array($status));
+                    if(count($get_details) > 0){
+                        $description = $get_details[0]["parcel_number"]. " Has been ".$status_description[0]["description"];
+                        $this->db->Insert("INSERT INTO users_notify (description,user_id,status) VALUES (?,?,0) ", array($description, $get_details[0]["user_id"] ));
+                        echo "SUCCESS";
+                    }
+
+                    if($status == 5) {// if equal to In-Transit sent sms to receiver
                         $phone_number = '+63'.$get_details[0]["recepient_contact_no"];
                         $text = "Good day, Ma'am/Sir ".ucwords($get_details[0]["recepient_name"])." The parcel # ".$get_details[0]["parcel_number"]." ".$get_details[0]["parcel_description"]." will be Arrived to day. Please prepare the exact amount. Total : ".$get_details[0]["amount"]." Thank you have a nice day!..";
+                    } else {
+                        $phone_number = '+63'.$get_details[0]["recepient_contact_no"];
+                        $text = "Good day, Ma'am/Sir ".ucwords($get_details[0]["recepient_name"]).". ".$status_description[0]["details"]." Parcel #: ".$get_details[0]["parcel_number"].". Please prepare the exact amount. Total : ".$get_details[0]["amount"]." Thank you have a nice day!..";
+                    }
+
+                    try {
                         $this->savelog($text);
-                        // $this->getBalance();
                         $this->sentMessage($phone_number,$text);
                     } catch (\Exception $e) {
                         $text = $e->getMessage();
                         $this->savelog($text);
                     }
-                    
-                    // Your Account SID and Auth Token from twilio.com/console
-                    // $sid = getenv('TWILLO_SID');
-                    // $token = getenv('TWILLO_Token');
-                    // $client = new Client($sid, $token);
-
-                    // // Use the client to do fun stuff like send text messages!
-                    // $twillo_number =  getenv('TWILLO_NUMBER');
-                    // $phone_number = '+63'.$get_details[0]["recepient_contact_no"];
-                    // $client->messages->create(
-                    //     // the number you'd like to send the message to
-                    //     $phone_number,
-                    //     [
-                    //         // A Twilio phone number you purchased at twilio.com/console
-                    //         'from' => $twillo_number,
-                    //         // the body of the text message you'd like to send
-                    //         'body' => "Good day, Ma'am/Sir ".ucwords($get_details[0]["recepient_name"])." The parcel # ".$get_details[0]["parcel_number"]." ".$get_details[0]["parcel_description"]." will be Arrived to day. 
-                    //         Please prepare the exact amount. Total : ".$get_details[0]["amount"]." Thank you have a nice day!.."
-                    //     ]
-                    // );
+                    echo "SUCCESS";
+                } else {
+                    echo "FALSE";
                 }
-
-                
-
-
-                echo "SUCCESS";
+               
             }
             
         } catch(\Exception $e) {
