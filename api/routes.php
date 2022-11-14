@@ -27,6 +27,30 @@ if(isset($_GET["action"]) ){
             echo $approvalRegister;
     }
 
+    if($action == "getDetailsCourier"){
+        include('controller/ActionAdminClass.php');
+        $crud = new ActionAdminClass();
+        $approvalRegister = $crud->getDetailsCourier();
+        if($approvalRegister)
+            echo $approvalRegister;
+    }
+
+    if($action == "get_details_courier"){
+        include('controller/ActionAdminClass.php');
+        $crud = new ActionAdminClass();
+        $approvalRegister = $crud->viewDetailsCourierStatus();
+        if($approvalRegister)
+            echo $approvalRegister;
+    }
+
+    if($action == "get_details_users"){
+        include('controller/ActionAdminClass.php');
+        $crud = new ActionAdminClass();
+        $approvalRegister = $crud->get_details_users();
+        if($approvalRegister)
+            echo $approvalRegister;
+    }
+
     if(isset($_POST["type"])){
         if($_POST["type"] == "users"){
             include('controller/UsersControllerClass.php');

@@ -57,7 +57,7 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
 }
 ?>
     <div>
-        <div class="page-content" style="background-color: #59bd60;height:130vh">
+        <div class="page-content" style="height:130vh">
             <div class="container">
                 <div class="login-wrap">
                     <div class="login-content">
@@ -65,6 +65,10 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
                             <a href="#">
                                 <img src="images/icon/logo_courier.png" alt="pasuyo" style="height: 200px"/>
                             </a>
+
+                        </div>
+                        <div class="text-center title-3 " style="padding-bottom: 20px;">
+                            <span>Hi! Welcome to Pasuyo Delivery</span>
                         </div>
                         <div class="login-form">
                             <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
@@ -85,7 +89,7 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
                                     </label> -->
                                 </div>
                                 <!-- <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit" >sign in</button> -->
-                                <input  class="au-btn au-btn--block au-btn--green m-b-20" type="submit" name="submit" value="sing in">
+                                <input  class="au-btn au-btn--block au-btn--green m-b-20" type="submit" name="submit" value="sign in">
                                 <center><?php echo $message; ?></center>
                             </form>
                             <div class="register-link">

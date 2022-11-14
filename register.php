@@ -116,9 +116,9 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
                         }
                         else    
                         {
-                            // echo "File Type Should Be .Docx or .Pdf or .Rtf Or .Doc";
+                           $message = "File Type Should Be .Docx or .Pdf or .Rtf Or .Doc";
                         }
-                    }
+                    } 
                 }
                 
             }
@@ -127,8 +127,8 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
    
 }
 ?>
-    <div class="page-wrapper" style="background-color: #59bd60;">
-        <div class="page-content" style="height: 210vh;">
+    <div class="page-wrapper">
+        <div class="page-content" style="height: 250vh;">
             <div class="container">
                 <div class="login-wrap">
                     <div class="login-content">
@@ -137,6 +137,9 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
                                 <!-- <img src="images/icon/logo.png" alt="CoolAdmin"> -->
                                 <img src="images/icon/logo_courier.png" alt="pasuyo" style="height: 160px"/>
                             </a>
+                        </div>
+                        <div class="text-center title-3 p-5">
+                            <span>Hi! Welcome to Pasuyo Delivery</span>
                         </div>
                         <div class="login-form">
                             <form action="" method="post" enctype="multipart/form-data">

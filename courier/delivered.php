@@ -147,7 +147,7 @@
         $('#parcel_details').remove();
         $('#parcel_details2').remove();
 
-        $('#pacel_no').append('<span id="parcel_no_value">Pacel #: '+ parcel_ID +'</span>');
+        $('#pacel_no').append('<span id="parcel_no_value">Parcel #: '+ parcel_ID +'</span>');
         // $('#parcel_modal_body').append('<div id="parcel_details">Name: Marvin villanea</div>');
         $.post(
             "api/routes.php",

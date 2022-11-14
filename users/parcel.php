@@ -54,8 +54,10 @@
                     //    updateUSerProfile($db);
                        if(addParcelUsers($db)){
                             $message = "Successfuly Update";
-                            header('location:index.php?page=pending');
+                           
                        }
+
+                        header('location:index.php?page=pending');
                         // echo "<pre>";
                         //     var_dump($_POST);    
                         // echo "</pre>";
