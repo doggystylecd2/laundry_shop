@@ -146,8 +146,11 @@
                             </div>  
                         </div>
                         <div class="form-group">
+                            <?php 
+                                $transaction_id = str_replace(".","",microtime(true)).rand(000,999);
+                            ?>
                             <label for="parcel_number" class="control-label mb-1">Parcel number</label>
-                            <input id="parcel_number" name="parcel_number" type="text" class="form-control " value="" >
+                            <input id="parcel_number" name="parcel_number" type="text" class="form-control " value="<?php echo $transaction_id ?>" readonly >
                             <!-- <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span> -->
                         </div>
                         <div class="form-group">
@@ -215,9 +218,9 @@
                             <!-- <input id="cc-number" name="cc-number" type="tel" class="form-control " value="" data-val="true"
                                 data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number"
                                 autocomplete="cc-number"> -->
-                            <select name="type_delivery" id="type_delivery" class="form-control ">
-                                <option value="Pickup">Pick-up</option>
-                                <option value="Delivery">Delivery</option>
+                            <select name="type_delivery" id="type_delivery" class="form-control " readonly>
+                                <!-- <option value="Pickup">Pick-up</option> -->
+                                <option value="Delivery" selected>Delivery</option>
                             </select>
                             <!-- <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span> -->
                         </div>

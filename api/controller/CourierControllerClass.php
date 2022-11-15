@@ -81,7 +81,7 @@ class CourierControllerClass {
                 if($status == 2){
                     $getinfoUsers = $this->db->Select("select * from personal_info where user_id = ? limit 1", array($get_details[0]["user_id"]));
                     $phone_number = '+63'.$getinfoUsers[0]["contact_no"];
-                    $text = "Good day, Ma'am/Sir ".ucwords($getinfoUsers[0]["last_name"])." Your parcel # ".$get_details[0]["parcel_number"]." has been Accepted by Courier. Recipient name:  ".ucwords($get_details[0]["recepient_name"]).". Thank you for your choosing us!..";
+                    $text = "Good day, Ma'am/Sir ".ucwords($getinfoUsers[0]["last_name"])." Your parcel # ".$get_details[0]["parcel_number"]." has been Accepted by Courier. Recipient name:  ".ucwords($get_details[0]["recepient_name"]).". Thank you for choosing us!..";
                     $this->savelog($text);
                     $this->sentMessage($phone_number,$text);
                 }
@@ -185,7 +185,7 @@ class CourierControllerClass {
 
                                 $getinfoUsers = $this->db->Select("select * from personal_info where user_id = ? limit 1", array($get_details[0]["user_id"]));
                                 $phone_number = '+63'.$getinfoUsers[0]["contact_no"];
-                                $text = "Good day, Ma'am/Sir ".ucwords($getinfoUsers[0]["last_name"])." Your parcel # ".$get_details[0]["parcel_number"]." Have been succesfully Delivered to ".ucwords($get_details[0]["recepient_name"])." Thank you for your choosing us!..";
+                                $text = "Good day, Ma'am/Sir ".ucwords($getinfoUsers[0]["last_name"])." Your parcel # ".$get_details[0]["parcel_number"]." Have been succesfully Delivered to ".ucwords($get_details[0]["recepient_name"])." Thank you for choosing us!..";
                                 $this->savelog($text);
                                 $this->sentMessage($phone_number,$text);
                                 
@@ -217,7 +217,7 @@ class CourierControllerClass {
 
                     if($status == 5) {// if equal to In-Transit sent sms to receiver
                         $phone_number = '+63'.$get_details[0]["recepient_contact_no"];
-                        $text = "Good day, Ma'am/Sir ".ucwords($get_details[0]["recepient_name"])." The parcel # ".$get_details[0]["parcel_number"]." ".$get_details[0]["parcel_description"]." will be Arrived to day. Please prepare the exact amount. Total : ".$get_details[0]["amount"]." Thank you have a nice day!..";
+                        $text = "Good day, Ma'am/Sir ".ucwords($get_details[0]["recepient_name"])." The parcel # ".$get_details[0]["parcel_number"]." ".$get_details[0]["parcel_description"]." will be Arrived today. Please prepare the exact amount. Total : ".$get_details[0]["amount"]." Thank you have a nice day!..";
                     } else {
                         $phone_number = '+63'.$get_details[0]["recepient_contact_no"];
                         $text = "Good day, Ma'am/Sir ".ucwords($get_details[0]["recepient_name"]).". ".$status_description[0]["details"]." Parcel #: ".$get_details[0]["parcel_number"].". Please prepare the exact amount. Total : ".$get_details[0]["amount"]." Thank you have a nice day!..";
