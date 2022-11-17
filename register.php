@@ -127,20 +127,17 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
    
 }
 ?>
-    <div class="page-wrapper">
+    <div class="page-wrapper"  style="background-image: url('images/icon/background.jpg');height: 100%; background-position: center;background-repeat: no-repeat;background-size: cover;">
         <div class="page-content" style="height: 250vh;">
             <div class="container">
                 <div class="login-wrap">
                     <div class="login-content">
                         <div class="login-logo">
                             <a href="#">
-                                <!-- <img src="images/icon/logo.png" alt="CoolAdmin"> -->
-                                <img src="images/icon/logo_courier.png" alt="pasuyo" style="height: 160px"/>
+                                <img src="images/icon/logo_laundryshop.png" alt="pasuyo" style="height: 200px"/>
                             </a>
                         </div>
-                        <div class="text-center title-3 p-5">
-                            <span>Hi! Welcome to Pasuyo Delivery</span>
-                        </div>
+                       
                         <div class="login-form">
                             <form action="" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
@@ -157,18 +154,18 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
                                 </div>
                                 <div class="form-group">
                                     <label>City</label>
-                                    <input class="au-input au-input--full" type="text" placeholder="Anao" disabled>
+                                    <input class="au-input au-input--full" type="text" placeholder="San Fernando City" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>Province</label>
-                                    <input class="au-input au-input--full" type="text" placeholder="Tarlac" disabled>
+                                    <input class="au-input au-input--full" type="text" placeholder="La Union" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>Zip Code</label>
-                                    <input class="au-input au-input--full" type="number" placeholder="2310" disabled>
+                                    <input class="au-input au-input--full" type="number" placeholder="2500" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <label>Barangay</label>
+                                    <label>District</label>
                                     <select name="list-barangay" id="list-barangay" class="form-control">
                                         <?php 
                                          $db = new DatabaseClass();
@@ -186,8 +183,8 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Zone</label>
-                                    <input class="au-input au-input--full" type="text" name="zone_number" id="zone_number" placeholder="Zone #">
+                                    <label>Barangay</label>
+                                    <input class="au-input au-input--full" type="text" name="zone_number" id="zone_number" placeholder="Barangay">
                                 </div>
                                 <div class="form-group">
                                     <label>Landmark</label>
@@ -196,6 +193,11 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
                                 <div class="login-checkbox">
                                     <label>
                                         <input type="checkbox" name="courier_register" id="apply_courier" onclick="app_CourierCheck()">Applying for Courier?
+                                    </label>
+                                </div>
+                                <div class="login-checkbox">
+                                    <label>
+                                        <input type="checkbox" name="courier_register" id="apply_seller" onclick="app_CourierCheck()">Register Shop?
                                     </label>
                                 </div>
                                 <div id="for_applying_only" style="display:none;">
@@ -215,7 +217,7 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
                                 </div>
                                
                                 <!-- <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">register</button> -->
-                                <input  class="au-btn au-btn--block au-btn--green m-b-20" type="submit" name="submit" value="register">
+                                <input  class="au-btn au-btn--block au-btn--blue m-b-20" type="submit" name="submit" value="register">
                                 <center><?php echo $message; ?></center>
                             </form>
                             <div class="register-link">

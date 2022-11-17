@@ -1,10 +1,10 @@
 <!-- MENU SIDEBAR-->
 <aside class="menu-sidebar2">
-    <div class="logo" style="background-color: green!important;">
+    <div class="logo" style="background: rgb(24,239,247);background: linear-gradient(90deg, rgba(24,239,247,1) 0%, rgba(148,255,245,1) 53%, rgba(192,251,245,1) 100%);">
         <a href="#">
             <!-- <img src="images/icon/logo-white.png" alt="Cool Admin" /> -->
             <!-- <img src="images/icon/logo_courier.png" alt="CoolAdmin" style="height: 70px; weight: 300px;"/> -->
-            <img src="images/icon/log_header.jpg" alt="Pasuyo Delivery" style="height: 70px; "/>
+            <img src="images/icon/logo_laundryshop.png" alt="laundry shop" style="height: 70px; "/>
         </a>
     </div>
     <div class="menu-sidebar2__content js-scrollbar1">
@@ -20,6 +20,11 @@
                 <li class="<?php if($_GET["page"] == 'user_home') {echo "active";}?>">
                     <a href="index.php?page=user_home">
                         <i class="fas fa-user-md"></i>My Profile
+                    </a>
+                </li>
+                <li class="<?php if($_GET["page"] == 'laundry_shop') {echo "active";}?>">
+                    <a href="index.php?page=laundry_shop">
+                        <i class="fas fa-user-md"></i>Laundry Shops
                     </a>
                 </li>
                 <li class="<?php if($_GET["page"] == 'parcel') {echo "active";}?>">

@@ -275,8 +275,8 @@ section {
 /*Page Objects*/
 .page-wrapper {
     overflow: hidden;
-    background: #e5e5e5;
-    padding-bottom: 8vh;
+   /* background: #e5e5e5;
+    padding-bottom: 8vh;*/
 }
 
 @media (max-width: 991px) {
@@ -5993,6 +5993,17 @@ section {
 .switch-dark-outline-alt > .switch-input:checked ~ .switch-handle {
     background: #343a40 !important;
     border-color: #343a40;
+}
+.section__content .container-fluid .row .hover {
+  transition: all .2s ease-in-out;
+}
+.section__content .container-fluid .row .hover:hover {
+  transform: scale(1.1);
+  border-radius: 10px;
+    cursor: pointer;
+ /*  -webkit-box-shadow: 0px 0px 30px 4px rgba(0,0,0,0.43);
+    -moz-box-shadow: 0px 0px 30px 4px rgba(0,0,0,0.43);
+    box-shadow: 0px 0px 30px 4px rgba(0,0,0,0.43);*/
 }
 
 /*-----------------------------------------------------*/

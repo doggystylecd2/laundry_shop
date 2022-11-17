@@ -1,11 +1,13 @@
-<div class="page-wrapper">
-    
+<div class="page-wrapper" >
+     
     <!-- SIDE BAR MOBILE AND DESKTOP -->
     <?php include('./admin/side_bar.php');?>
     <!-- END SIDE BAR MOBILE AND DESKTOP -->
 
     <!-- PAGE CONTAINER-->
-   <div class="page-container2">
+   <div class="page-container2" style="background-image: url('images/icon/background.jpg');height: 100%; background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;">
         <!-- HEADER DESKTOP-->
             <?php include('./pages/header_account.php') ?>
         <!-- HEADER DESKTOP-->
@@ -159,13 +161,7 @@
                                 <!-- END DATA TABLE -->
                             </div>
                         </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="copyright">
-                                <!-- <p>Copyright © 2018 Colorlib. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p> -->
-                            </div>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </div>

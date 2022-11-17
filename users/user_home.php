@@ -9,14 +9,14 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
    }
 }
 ?>
-<div class="page-wrapper">
+<div class="page-wrapper" >
     
     <!-- SIDE BAR MOBILE AND DESKTOP -->
     <?php include('./users/side_bar.php');?>
     <!-- END SIDE BAR MOBILE AND DESKTOP -->
 
     <!-- PAGE CONTAINER-->
-    <div class="page-container2">
+    <div class="page-container2" style="background-image: url('images/icon/background.jpg');height: 100%; background-position: center;background-repeat: no-repeat;background-size: cover;">
        
         <?php include('./users/header.php');?>
 

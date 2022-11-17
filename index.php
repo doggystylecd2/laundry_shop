@@ -37,6 +37,7 @@ include('./controller/Portal.php');
             ],
             "users" =>[
                 "user_home",
+                "laundry_shop",
                 "parcel",
                 "all_list",
                 "parcel_status",

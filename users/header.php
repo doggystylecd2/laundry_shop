@@ -1,11 +1,12 @@
         <!-- HEADER DESKTOP-->
-        <header class="header-desktop2" style="background-color: green!important;">
+        <header class="header-desktop2" style="background: rgb(192,251,245);
+background: linear-gradient(90deg, rgba(192,251,245,1) 0%, rgba(148,255,245,1) 53%, rgba(24,239,247,1) 100%);">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
                     <div class="header-wrap2">
                         <div class="logo d-block d-lg-none">
                             <a href="#">
-                                <img src="images/icon/log_header.jpg" alt="Pasuyo Delivery" style="height: 70px; "/>
+                                <img src="images/icon/logo_laundryshop.png" alt="laundry shop" style="height: 70px; "/>
                             </a>
                         </div>
                         <div class="header-button2">
@@ -85,7 +86,7 @@
             </div>
         </header>
         <aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none" >
-            <div class="logo" style="background-color: green!important;" >
+            <div class="logo" style="background-image: url('images/icon/background.jpg');background-position: center;background-repeat: no-repeat;background-size: cover;">
                 <!-- <a href="#"> -->
                     <!-- <img src="images/icon/logo-white.png" alt="Cool Admin" /> -->
                 <!-- </a> -->
