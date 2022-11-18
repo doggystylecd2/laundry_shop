@@ -29,16 +29,12 @@
                 </li>
                 <li class="<?php if($_GET["page"] == 'parcel') {echo "active";}?>">
                     <a class="js-arrow" href="#">
-                        <i class="fas  fa-list"></i>Parcels
+                        <i class="fas  fa-list"></i>Laundry
                         <span class="arrow">
                             <i class="fas fa-angle-down"></i>
                         </span>
                     </a>
                     <ul class="list-unstyled navbar__sub-list js-sub-list">
-                        <li>
-                            <a href="index.php?page=parcel">
-                                <i class="fas fa-tachometer-alt"></i>Add New</a>
-                        </li>
                         <li>
                             <a href="index.php?page=all_list">
                                 <i class="fas fa-tachometer-alt"></i>All list</a>
@@ -59,14 +55,6 @@
                             <a href="index.php?page=delivered">
                                 <i class="fas fa-tachometer-alt"></i>Delivered</a>
                         </li>
-                        <li>
-                            <a href="index.php?page=unsccesfull_deliver">
-                                <i class="fas fa-tachometer-alt"></i>Unsuccessfull Delivery</a>
-                        </li>
-                        <!-- <li>
-                            <a href="index.php?page=rate_courier">
-                                <i class="fas fa-tachometer-alt"></i>Rate Courier</a>
-                        </li> -->
                     </ul>
                 </li>
                 <li class="<?php if($_GET["page"] == 'list_nofity') {echo "active";}?>">

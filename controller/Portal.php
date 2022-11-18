@@ -1,12 +1,14 @@
 <?php 
 
-function registerParcel($db, $data){
+function registerUsers($db, $data){
     $getID = $db->Insert("INSERT INTO users (username,email,`password`,`status`,user_type) VALUES (?,?,?,?,?)", array($data["username"],$data["email"],$data["password"], 1,2) );
     if($getID){
         $_SESSION['user_id'] = $getID;
         $_SESSION["user_type"] =  2;
+        $systemDetails = getSystemDetails($db);
         $image = "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg";
-        $get_p_info_id = $db->Insert("INSERT INTO personal_info (`user_id`,`image`,`city`,`province`,`zip_code`,`barangay`,`zone`,`landmark`) VALUES (?,?,?,?,?,?,?,?)", [$getID,$image,"Anao","Tarlac","2310", $data["barangay"], $data["zone"], $data["landmark"]]);
+        $get_p_info_id = $db->Insert("INSERT INTO personal_info (`user_id`,`image`,`city`,`province`,`zip_code`,`barangay`,`zone`,`landmark`, `first_name`, `last_name`, `middle_name`, `contact_no`)
+         VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", [$getID,$image,$systemDetails["city"],$systemDetails["province"],$systemDetails["zip_code"], $data["list_barangay"], $data["zone_number"], $data["landmark"], $data["first_name"], $data["last_name"], $data["middle_name"], $data["contact_no"] ]);
         if($get_p_info_id){
             // if($db->Insert("INSERT INTO address_info (`p_info_id`) VALUES (?)", [$get_p_info_id])){
             //     return true;
@@ -15,6 +17,15 @@ function registerParcel($db, $data){
         }
     }
     return false;
+}
+
+function getSystemDetails($db){
+    $data = $db->Select("SELECT * FROM `system_info` limit 1");
+    if(count($data) > 0){
+        return $data[0];
+    } else {
+        return false;
+    }
 }
 
 function registerCourier($db, $data){

@@ -108,7 +108,7 @@ background: linear-gradient(90deg, rgba(192,251,245,1) 0%, rgba(148,255,245,1) 5
                         </li>
                         <li class="<?php if($_GET["page"] == 'parcel') {echo "active";}?>">
                             <a class="js-arrow" href="#">
-                                <i class="fas  fa-list"></i>Parcels
+                                <i class="fas  fa-list"></i>Laundry
                                 <span class="arrow">
                                     <i class="fas fa-angle-down"></i>
                                 </span>
