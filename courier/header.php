@@ -1,6 +1,5 @@
         <!-- HEADER DESKTOP-->
-        <header class="header-desktop2" style="background: rgb(192,251,245);
-background: linear-gradient(90deg, rgba(192,251,245,1) 0%, rgba(148,255,245,1) 53%, rgba(24,239,247,1) 100%);">
+        <header class="header-desktop2" style="background-color: #5088ff;">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
                     <div class="header-wrap2">
@@ -116,7 +115,7 @@ background: linear-gradient(90deg, rgba(192,251,245,1) 0%, rgba(148,255,245,1) 5
             </div>
         </header>
         <aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none" >
-            <div class="logo" style="background-image: url('images/icon/background.jpg');background-position: center;background-repeat: no-repeat;background-size: cover;">
+            <div class="logo"  style="background-color: #5088ff;">
                 <!-- <a href="#">
                     <img src="images/icon/logo-white.png" alt="Cool Admin" />
                 </a> -->

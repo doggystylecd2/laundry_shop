@@ -1,6 +1,5 @@
         <!-- HEADER DESKTOP-->
-        <header class="header-desktop2" style="background: rgb(192,251,245);
-background: linear-gradient(90deg, rgba(192,251,245,1) 0%, rgba(148,255,245,1) 53%, rgba(24,239,247,1) 100%);">
+        <header class="header-desktop2"  style="background-color: #5088ff;">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
                     <div class="header-wrap2">
@@ -86,7 +85,7 @@ background: linear-gradient(90deg, rgba(192,251,245,1) 0%, rgba(148,255,245,1) 5
             </div>
         </header>
         <aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none" >
-            <div class="logo" style="background-image: url('images/icon/background.jpg');background-position: center;background-repeat: no-repeat;background-size: cover;">
+            <div class="logo"  style="background-color: #5088ff;">
                 <!-- <a href="#"> -->
                     <!-- <img src="images/icon/logo-white.png" alt="Cool Admin" /> -->
                 <!-- </a> -->
@@ -106,48 +105,11 @@ background: linear-gradient(90deg, rgba(192,251,245,1) 0%, rgba(148,255,245,1) 5
                                 <i class="fas fa-user-md"></i>My Profile
                             </a>
                         </li>
-                        <li class="<?php if($_GET["page"] == 'parcel') {echo "active";}?>">
-                            <a class="js-arrow" href="#">
-                                <i class="fas  fa-list"></i>Laundry
-                                <span class="arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </span>
+                        <li class="<?php if($_GET["page"] == 'laundry_shop') {echo "active";}?>">
+                            <a href="index.php?page=laundry_shop">
+                                <i class="fas fa-user-md"></i>Laundry Shops
                             </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="index.php?page=parcel">
-                                        <i class="fas fa-tachometer-alt"></i>Add New</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=all_list">
-                                        <i class="fas fa-tachometer-alt"></i>All list</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=pending">
-                                        <i class="fas fa-tachometer-alt"></i>Waiting for Approval</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=on_process">
-                                        <i class="fas fa-tachometer-alt"></i>On Going Transaction</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=denied">
-                                        <i class="fas fa-tachometer-alt"></i>Denied</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=delivered">
-                                        <i class="fas fa-tachometer-alt"></i>Delivered</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=unsccesfull_deliver">
-                                        <i class="fas fa-tachometer-alt"></i>Unsuccessfull Delivery</a>
-                                </li>
-                                <!-- <li>
-                                    <a href="index.php?page=rate_courier">
-                                        <i class="fas fa-tachometer-alt"></i>Rate Courier</a>
-                                </li> -->
-                            </ul>
-                        </li>  
+                        </li>
                         <li class="<?php if($_GET["page"] == 'list_nofity') {echo "active";}?>">
                             <a href="index.php?page=list_nofity">
                                 <i class="fas fa-user-md"></i>Notifications

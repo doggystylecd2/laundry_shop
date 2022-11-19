@@ -4,7 +4,7 @@
 
 <!-- MENU SIDEBAR-->
 <aside class="menu-sidebar d-none d-lg-block">
-     <div class="logo" style="background: rgb(24,239,247);background: linear-gradient(90deg, rgba(24,239,247,1) 0%, rgba(148,255,245,1) 53%, rgba(192,251,245,1) 100%);">
+     <div class="logo"  style="background-color: #5088ff;">
         <a href="#">
             <img src="images/icon/logo_laundryshop.png" alt="laundry shop" style="height: 70px; "/>
         </a>

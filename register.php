@@ -249,11 +249,11 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
       <link href="css/theme.css" rel="stylesheet" media="all">
       <!-- Title Page-->
       
-      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
-      
+      <script src="https://kit.fontawesome.com/6697841059.js" crossorigin="anonymous"></script>
       <!-- <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script> -->
 
    <style type="text/css">
@@ -328,19 +328,19 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
                        
                         <div class="login-form" style="text-align: center;"> 
                            <h5 style="font-size: 20px;">Register as? </h5>
-                           <button class="btn btn-primary " data-toggle="modal" data-target="#modalUser" style="margin:10px">
+                           <button class="btn" style="background-color: #ff961d;margin: 10px;" data-toggle="modal" data-target="#modalUser" >
                             <a href="register.php?page=user">
-                                <i class='fas fa-users' style='font-size:30px;color:white' data-toggle="tooltip"  title="Register as User"></i>
+                                <i class='fas fa-users' style='font-size:24px;color:white;' data-toggle="tooltip"  title="Register as User"></i>
                             </a>
                            </button>
-                           <button class="btn btn-primary " data-toggle="modal" data-target="#myModal" style="margin:10px">
+                           <button class="btn" style="background-color: #ff961d;margin: 10px;" data-toggle="modal" data-target="#myModal" >
                             <a href="register.php?page=driver">
-                             <i class='fas fa-motorcycle' style='font-size:30px;color:white' data-toggle="tooltip"  title="Register as Rider" ></i>
+                             <i class='fas fa-motorcycle' style='font-size:24px;color:white;' data-toggle="tooltip"  title="Register as Rider" ></i>
                             </a>
                            </button>
-                           <button class="btn btn-primary " data-toggle="modal" data-target="#myModal" style="margin:10px">
+                           <button class="btn" style="background-color: #ff961d;margin: 10px;" data-toggle="modal" data-target="#myModal" >
                             <a href="register.php?page=shop">
-                             <i class='fas fa-cart-plus' style='font-size:30px;color:white' data-toggle="tooltip"  title="Register Shop"></i>
+                             <i class='fas fa-cart-plus' style='font-size:24px;color:white;' data-toggle="tooltip"  title="Register Shop"></i>
                             </a>
                            </button>
 

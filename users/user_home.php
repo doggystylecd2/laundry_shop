@@ -16,7 +16,7 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
     <!-- END SIDE BAR MOBILE AND DESKTOP -->
 
     <!-- PAGE CONTAINER-->
-    <div class="page-container2" style="background-image: url('images/icon/background.jpg');height: 100%; background-position: center;background-repeat: no-repeat;background-size: cover;">
+    <div class="page-container2" >
        
         <?php include('./users/header.php');?>
 

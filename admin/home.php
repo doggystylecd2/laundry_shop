@@ -5,9 +5,7 @@
     <!-- END SIDE BAR MOBILE AND DESKTOP -->
 
     <!-- PAGE CONTAINER-->
-   <div class="page-container2" style="background-image: url('images/icon/background.jpg');height: 100%; background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;">
+   <div class="page-container2">
         <!-- HEADER DESKTOP-->
             <?php include('./pages/header_account.php') ?>
         <!-- HEADER DESKTOP-->
