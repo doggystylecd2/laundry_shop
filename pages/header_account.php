@@ -1,4 +1,5 @@
-<header class="header-desktop2" style="background-color:white;">
+<header class="header-desktop2" style="background: rgb(192,251,245);
+background: linear-gradient(90deg, rgba(192,251,245,1) 0%, rgba(148,255,245,1) 53%, rgba(24,239,247,1) 100%);">
     <div class="section__content section__content--p30" >
         <div class="container-fluid" >
             <div class="header-wrap2">

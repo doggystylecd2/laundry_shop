@@ -76,895 +76,194 @@ $id_courier = 1;
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="card hover" >
-                                <img class="card-img-top" src="images/icon/logo_laundryshop.png" alt="Card image cap">
-                                <div class="card-body">
-                                    <h4 class="card-title mb-3">GOWASH</h4>
-                                    <p class="card-text">Address: National Highway Pagdalagan Norte Crossing Pagdalagan Norte, San Fernando La Union 
-                                    </p>
-                                    <hr>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="ratings">
-                                        <?php $data_rate = $db->Select("select * from rate_courier where courier_id = ? ", array($id_courier)) ;
-                                            if(count($data_rate)>0){
-                                            $stars = round(count($data_rate) / 5);
-                                            $stars = $stars == 0 ? $stars + 1 : $stars;
-                                            for ($i=0; $i < 5; $i++) { 
-                                                if($i < $stars){
-                                                    echo '<i class="fa fa-star rating-color"></i>&nbsp;';
-                                                } else {
-                                                    echo '<i class="fa fa-star"></i>';
-                                                }
-                                                
-                                            }
-                                            ?>
-                                        </div>
-                                        <h5 class="review-count"><?php echo count($data_rate);?> Reviews</h5>
-                                        <?php
-                                            } else {
-                                            ?>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                            <h5 class="review-count">0 Reviews</h5>
-                                            <?php
-                                            }       
-                                        ?>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Excellent</h5>
-                                        <div class="small-ratings">
-                                            <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 5 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                            ?>
-                                        </div>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Good</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 4 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">OK</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 3 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Poor</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 2 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Very bad</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 1 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <button  class="au-btn au-btn--block au-btn--blue m-b-20" type="submit" name="submit" value="" id="1" onclick="showModal(this.id)">Book Now</button>
-                                </div>
-                            </div>
-                        </div>
                         
-                         
-                         
-                        <div class="col-md-4">
-                            <div class="card hover" >
-                                <img class="card-img-top" src="images/icon/logo_laundryshop.png" alt="Card image cap">
-                                <div class="card-body">
-                                    <h4 class="card-title mb-3">GOWASH</h4>
-                                    <p class="card-text">Address: National Highway Pagdalagan Norte Crossing Pagdalagan Norte, San Fernando La Union 
-                                    </p>
-                                    <hr>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="ratings">
-                                        <?php $data_rate = $db->Select("select * from rate_courier where courier_id = ? ", array($id_courier)) ;
-                                            if(count($data_rate)>0){
-                                            $stars = round(count($data_rate) / 5);
-                                            $stars = $stars == 0 ? $stars + 1 : $stars;
-                                            for ($i=0; $i < 5; $i++) { 
-                                                if($i < $stars){
-                                                    echo '<i class="fa fa-star rating-color"></i>&nbsp;';
-                                                } else {
-                                                    echo '<i class="fa fa-star"></i>';
-                                                }
-                                                
-                                            }
-                                            ?>
-                                        </div>
-                                        <h5 class="review-count"><?php echo count($data_rate);?> Reviews</h5>
-                                        <?php
-                                            } else {
-                                            ?>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
+                        <?php 
+                        $shops_details = $db->Select("select * from shops") ;
+                        if(count($shops_details)>0){
+                            foreach ($shops_details as $key => $value) {
+                                ?>
+                                <div class="col-md-4">
+                                    <div class="card hover" >
+                                        <img class="card-img-top" src="<?php echo $value["logo"] ?>" alt="Card image cap" >
+                                        <div class="card-body">
+                                            <h4 class="card-title mb-3"><?php echo $value["name"] ?></h4>
+                                            <p class="card-text"><?php echo $value["descriptions"] ?>
+                                            </p>
+                                            <hr>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="ratings">
+                                                <?php $data_rate = $db->Select("select * from rate_courier where courier_id = ? ", array($value["shop_id"])) ;
+                                                    if(count($data_rate)>0){
+                                                    $stars = round(count($data_rate) / 5);
+                                                    $stars = $stars == 0 ? $stars + 1 : $stars;
+                                                    for ($i=0; $i < 5; $i++) { 
+                                                        if($i < $stars){
+                                                            echo '<i class="fa fa-star rating-color"></i>&nbsp;';
+                                                        } else {
+                                                            echo '<i class="fa fa-star"></i>';
+                                                        }
+                                                        
+                                                    }
+                                                    ?>
+                                                </div>
+                                                <h5 class="review-count"><?php echo count($data_rate);?> Reviews</h5>
+                                                <?php
+                                                    } else {
+                                                    ?>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </div>
+                                                    <h5 class="review-count">0 Reviews</h5>
+                                                    <?php
+                                                    }       
+                                                ?>
                                             </div>
-                                            <h5 class="review-count">0 Reviews</h5>
-                                            <?php
-                                            }       
-                                        ?>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Excellent</h5>
-                                        <div class="small-ratings">
-                                            <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 5 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
+                                            <div class="mt-1 d-flex justify-content-between align-items-center">
+                                                <h5 class="review-stat">Excellent</h5>
+                                                <div class="small-ratings">
+                                                    <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 5 ", array($value["shop_id"])) ;
+                                                    if(count($data_rate_5)>0){
+                                                        
+                                                        $stars = round(count($data_rate_5) / 5);
+                                                        $stars = $stars == 0 ? $stars + 1 : $stars;
+                                                        for ($i=0; $i < 5; $i++) { 
+                                                            if($i < $stars){
+                                                                echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
+                                                            } else {
+                                                                echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
+                                                            }
+                                                        
+                                                        }
+                                                        ?>
+                                                    <?php
                                                     } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                            ?>
-                                        </div>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Good</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 4 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">OK</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 3 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Poor</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 2 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Very bad</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 1 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <button  class="au-btn au-btn--block au-btn--blue m-b-20" type="submit" name="submit" value="" id="1" onclick="showModal(this.id)">Book Now</button>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-4">
-                            <div class="card hover" >
-                                <img class="card-img-top" src="images/icon/logo_laundryshop.png" alt="Card image cap">
-                                <div class="card-body">
-                                    <h4 class="card-title mb-3">GOWASH</h4>
-                                    <p class="card-text">Address: National Highway Pagdalagan Norte Crossing Pagdalagan Norte, San Fernando La Union 
-                                    </p>
-                                    <hr>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="ratings">
-                                        <?php $data_rate = $db->Select("select * from rate_courier where courier_id = ? ", array($id_courier)) ;
-                                            if(count($data_rate)>0){
-                                            $stars = round(count($data_rate) / 5);
-                                            $stars = $stars == 0 ? $stars + 1 : $stars;
-                                            for ($i=0; $i < 5; $i++) { 
-                                                if($i < $stars){
-                                                    echo '<i class="fa fa-star rating-color"></i>&nbsp;';
-                                                } else {
-                                                    echo '<i class="fa fa-star"></i>';
-                                                }
-                                                
-                                            }
-                                            ?>
-                                        </div>
-                                        <h5 class="review-count"><?php echo count($data_rate);?> Reviews</h5>
-                                        <?php
-                                            } else {
-                                            ?>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
+                                                        for ($i=0; $i < 5; $i++) { 
+                                                            echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
+                                                        }
+                                                    }       
+                                                    ?>
+                                                </div>
                                             </div>
-                                            <h5 class="review-count">0 Reviews</h5>
-                                            <?php
-                                            }       
-                                        ?>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Excellent</h5>
-                                        <div class="small-ratings">
-                                            <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 5 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
+                                            <div class="mt-1 d-flex justify-content-between align-items-center">
+                                                <h5 class="review-stat">Good</h5>
+                                                <div class="small-ratings">
+                                                <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 4 ", array($value["shop_id"])) ;
+                                                    if(count($data_rate_5)>0){
+                                                        
+                                                        $stars = round(count($data_rate_5) / 5);
+                                                        $stars = $stars == 0 ? $stars + 1 : $stars;
+                                                        for ($i=0; $i < 5; $i++) { 
+                                                            if($i < $stars){
+                                                                echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
+                                                            } else {
+                                                                echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
+                                                            }
+                                                        
+                                                        }
+                                                        ?>
+                                                    <?php
                                                     } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
+                                                        for ($i=0; $i < 5; $i++) { 
+                                                            echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
+                                                        }
+                                                    }       
                                                 ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                            ?>
-                                        </div>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Good</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 4 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">OK</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 3 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Poor</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 2 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Very bad</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 1 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <button  class="au-btn au-btn--block au-btn--blue m-b-20" type="submit" name="submit" value="" id="1" onclick="showModal(this.id)">Book Now</button>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-4">
-                            <div class="card hover" >
-                                <img class="card-img-top" src="images/icon/logo_laundryshop.png" alt="Card image cap">
-                                <div class="card-body">
-                                    <h4 class="card-title mb-3">GOWASH</h4>
-                                    <p class="card-text">Address: National Highway Pagdalagan Norte Crossing Pagdalagan Norte, San Fernando La Union 
-                                    </p>
-                                    <hr>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="ratings">
-                                        <?php $data_rate = $db->Select("select * from rate_courier where courier_id = ? ", array($id_courier)) ;
-                                            if(count($data_rate)>0){
-                                            $stars = round(count($data_rate) / 5);
-                                            $stars = $stars == 0 ? $stars + 1 : $stars;
-                                            for ($i=0; $i < 5; $i++) { 
-                                                if($i < $stars){
-                                                    echo '<i class="fa fa-star rating-color"></i>&nbsp;';
-                                                } else {
-                                                    echo '<i class="fa fa-star"></i>';
-                                                }
-                                                
-                                            }
-                                            ?>
-                                        </div>
-                                        <h5 class="review-count"><?php echo count($data_rate);?> Reviews</h5>
-                                        <?php
-                                            } else {
-                                            ?>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
+                                                </div>
                                             </div>
-                                            <h5 class="review-count">0 Reviews</h5>
-                                            <?php
-                                            }       
-                                        ?>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Excellent</h5>
-                                        <div class="small-ratings">
-                                            <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 5 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
+                                            <div class="mt-1 d-flex justify-content-between align-items-center">
+                                                <h5 class="review-stat">OK</h5>
+                                                <div class="small-ratings">
+                                                <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 3 ", array($value["shop_id"])) ;
+                                                    if(count($data_rate_5)>0){
+                                                        
+                                                        $stars = round(count($data_rate_5) / 5);
+                                                        $stars = $stars == 0 ? $stars + 1 : $stars;
+                                                        for ($i=0; $i < 5; $i++) { 
+                                                            if($i < $stars){
+                                                                echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
+                                                            } else {
+                                                                echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
+                                                            }
+                                                        
+                                                        }
+                                                        ?>
+                                                    <?php
                                                     } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
+                                                        for ($i=0; $i < 5; $i++) { 
+                                                            echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
+                                                        }
+                                                    }       
                                                 ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                            ?>
-                                        </div>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Good</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 4 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">OK</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 3 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Poor</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 2 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Very bad</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 1 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <button  class="au-btn au-btn--block au-btn--blue m-b-20" type="submit" name="submit" value="" id="1" onclick="showModal(this.id)">Book Now</button>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-4">
-                            <div class="card hover" >
-                                <img class="card-img-top" src="images/icon/logo_laundryshop.png" alt="Card image cap">
-                                <div class="card-body">
-                                    <h4 class="card-title mb-3">GOWASH</h4>
-                                    <p class="card-text">Address: National Highway Pagdalagan Norte Crossing Pagdalagan Norte, San Fernando La Union 
-                                    </p>
-                                    <hr>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="ratings">
-                                        <?php $data_rate = $db->Select("select * from rate_courier where courier_id = ? ", array($id_courier)) ;
-                                            if(count($data_rate)>0){
-                                            $stars = round(count($data_rate) / 5);
-                                            $stars = $stars == 0 ? $stars + 1 : $stars;
-                                            for ($i=0; $i < 5; $i++) { 
-                                                if($i < $stars){
-                                                    echo '<i class="fa fa-star rating-color"></i>&nbsp;';
-                                                } else {
-                                                    echo '<i class="fa fa-star"></i>';
-                                                }
-                                                
-                                            }
-                                            ?>
-                                        </div>
-                                        <h5 class="review-count"><?php echo count($data_rate);?> Reviews</h5>
-                                        <?php
-                                            } else {
-                                            ?>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
+                                                </div>
                                             </div>
-                                            <h5 class="review-count">0 Reviews</h5>
-                                            <?php
-                                            }       
-                                        ?>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Excellent</h5>
-                                        <div class="small-ratings">
-                                            <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 5 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
+                                            <div class="mt-1 d-flex justify-content-between align-items-center">
+                                                <h5 class="review-stat">Poor</h5>
+                                                <div class="small-ratings">
+                                                <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 2 ", array($value["shop_id"])) ;
+                                                    if(count($data_rate_5)>0){
+                                                        
+                                                        $stars = round(count($data_rate_5) / 5);
+                                                        $stars = $stars == 0 ? $stars + 1 : $stars;
+                                                        for ($i=0; $i < 5; $i++) { 
+                                                            if($i < $stars){
+                                                                echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
+                                                            } else {
+                                                                echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
+                                                            }
+                                                        
+                                                        }
+                                                        ?>
+                                                    <?php
                                                     } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
+                                                        for ($i=0; $i < 5; $i++) { 
+                                                            echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
+                                                        }
+                                                    }       
                                                 ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                            ?>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                            <div class="mt-1 d-flex justify-content-between align-items-center">
+                                                <h5 class="review-stat">Very bad</h5>
+                                                <div class="small-ratings">
+                                                <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 1 ", array($value["shop_id"])) ;
+                                                    if(count($data_rate_5)>0){
+                                                        
+                                                        $stars = round(count($data_rate_5) / 5);
+                                                        $stars = $stars == 0 ? $stars + 1 : $stars;
+                                                        for ($i=0; $i < 5; $i++) { 
+                                                            if($i < $stars){
+                                                                echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
+                                                            } else {
+                                                                echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
+                                                            }
+                                                        
+                                                        }
+                                                        ?>
+                                                    <?php
+                                                    } else {
+                                                        for ($i=0; $i < 5; $i++) { 
+                                                            echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
+                                                        }
+                                                    }       
+                                                ?>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <button  class="au-btn au-btn--block au-btn--blue m-b-20" type="submit" name="submit" value="" id="1" onclick="showModal(this.id)">Book Now</button>
                                         </div>
                                     </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Good</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 4 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">OK</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 3 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Poor</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 2 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                    <div class="mt-1 d-flex justify-content-between align-items-center">
-                                        <h5 class="review-stat">Very bad</h5>
-                                        <div class="small-ratings">
-                                        <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 1 ", array($id_courier)) ;
-                                            if(count($data_rate_5)>0){
-                                                
-                                                $stars = round(count($data_rate_5) / 5);
-                                                $stars = $stars == 0 ? $stars + 1 : $stars;
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    if($i < $stars){
-                                                        echo '<i class="fa fa-star rating-color"></i>&nbsp;&nbsp;';
-                                                    } else {
-                                                        echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                    }
-                                                
-                                                }
-                                                ?>
-                                            <?php
-                                            } else {
-                                                for ($i=0; $i < 5; $i++) { 
-                                                    echo '<i class="fa fa-star"></i>&nbsp;&nbsp;';
-                                                }
-                                            }       
-                                        ?>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <button  class="au-btn au-btn--block au-btn--blue m-b-20" type="submit" name="submit" value="" id="1" onclick="showModal(this.id)">Book Now</button>
                                 </div>
-                            </div>
-                        </div>
+                                <?php
+                            }
+                        }
+                        ?>
+
+
                     </div>
                 </div>
             </div>

@@ -1,10 +1,8 @@
 <!-- MENU SIDEBAR-->
 <aside class="menu-sidebar2">
-    <div class="logo" style="background-color: green!important;">
+    <div class="logo" style="background: rgb(24,239,247);background: linear-gradient(90deg, rgba(24,239,247,1) 0%, rgba(148,255,245,1) 53%, rgba(192,251,245,1) 100%);">
         <a href="#">
-            <!-- <img src="images/icon/logo-white.png" alt="Cool Admin" /> -->
-            <!-- <img src="images/icon/logo_courier.png" alt="CoolAdmin" style="height: 70px; weight: 300px;"/> -->
-            <img src="images/icon/log_header.jpg" alt="Pasuyo Delivery" style="height: 70px; "/>
+            <img src="images/icon/logo_laundryshop.png" alt="laundry shop" style="height: 70px; "/>
         </a>
     </div>
     <div class="menu-sidebar2__content js-scrollbar1">
@@ -21,40 +19,6 @@
                     <a href="index.php?page=user_home">
                         <i class="fas fa-user-md"></i>My Profile
                     </a>
-                </li>
-                <li class="<?php if($_GET["page"] == 'parcel') {echo "active";}?>">
-                    <a class="js-arrow" href="#">
-                        <i class="fas  fa-list"></i>Parcels
-                        <span class="arrow">
-                            <i class="fas fa-angle-down"></i>
-                        </span>
-                    </a>
-                    <ul class="list-unstyled navbar__sub-list js-sub-list">
-                        <li>
-                            <a href="index.php?page=new_parcel">
-                                <i class="fas fa-tachometer-alt"></i>New Request</a>
-                        </li>
-                        <li>
-                            <a href="index.php?page=all_list">
-                                <i class="fas fa-tachometer-alt"></i>All list</a>
-                        </li>
-                        <li>
-                            <a href="index.php?page=parcel_status">
-                                <i class="fas fa-tachometer-alt"></i>On Going Transaction</a>
-                        </li>
-                        <li>
-                            <a href="index.php?page=denied">
-                                <i class="fas fa-tachometer-alt"></i>Denied</a>
-                        </li>
-                        <li>
-                            <a href="index.php?page=delivered">
-                                <i class="fas fa-tachometer-alt"></i>Delivered</a>
-                        </li>
-                        <li>
-                            <a href="index.php?page=unsccesfull_deliver">
-                                <i class="fas fa-tachometer-alt"></i>Unsuccessfull Delivery</a>
-                        </li>
-                    </ul>
                 </li>
                 <li class="<?php if($_GET["page"] == 'list_nofity') {echo "active";}?>">
                     <a href="index.php?page=list_nofity">

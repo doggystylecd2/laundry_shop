@@ -29,21 +29,62 @@ function getSystemDetails($db){
 }
 
 function registerCourier($db, $data){
-    $getID = $db->Insert("INSERT INTO users (username,email,`password`,`status`,user_type) VALUES (?,?,?,?,?)", array($data["username"],$data["email"],$data["password"], 0,3) );
-    if($getID){
-        $_SESSION['user_id'] = $getID;
-        $_SESSION["user_type"] = 3;
-        $image = "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg";
-        $get_p_info_id = $db->Insert("INSERT INTO personal_info (`user_id`,`image`,`city`,`province`,`zip_code`,`barangay`,`zone`,`landmark`) VALUES (?,?,?,?,?,?,?,?)", [$getID,$image,"Anao","Tarlac","2310", $data["barangay"], $data["zone"], $data["landmark"]]);
-        if($get_p_info_id){
-            if($db->Insert("INSERT INTO courier_details (`p_info_id`,`resume`,`description`) VALUES (?,?,?)", [$get_p_info_id,$data["resume"],$data["textarea-input"]])){
-                return true;
+    try {
+        $getID = $db->Insert("INSERT INTO users (username,email,`password`,`status`,user_type,`verify`) VALUES (?,?,?,?,?,?)", array($data["username"],$data["email"],$data["password"], 1,3,0) );
+        if($getID){
+            $_SESSION['user_id'] = $getID;
+            $_SESSION["user_type"] = 3;
+            $systemDetails = getSystemDetails($db);
+            $image = "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg";
+            $get_p_info_id = $db->Insert("INSERT INTO personal_info (`user_id`,`image`,`city`,`province`,`zip_code`,`barangay`,`zone`,`landmark`, `first_name`, `last_name`, `middle_name`, `contact_no`)
+             VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", [$getID,$image,$systemDetails["city"],$systemDetails["province"],$systemDetails["zip_code"], $data["list_barangay"], $data["zone_number"], $data["landmark"], $data["first_name"], $data["last_name"], $data["middle_name"], $data["contact_no"] ]);
+            if($get_p_info_id){
+                if($db->Insert("INSERT INTO courier_details (`p_info_id`,`resume`,`description`,`driver_license`) VALUES (?,?,?,?)", [$get_p_info_id,$data["resume"],$data["textarea-input"],
+            $data["driver_license"]])){
+                    return true;
+                }
             }
         }
+        return false;
+    } catch(\Exception $e) {
+        // return $e->getMessage() . $e->getLine();
+        return false;
     }
-    return false;
+    
 }
 
+function registerShop($db, $data){
+    try {
+        $getID = $db->Insert("INSERT INTO users (username,email,`password`,`status`,user_type,`verify`) VALUES (?,?,?,?,?,?)", array($data["username"],$data["email"],$data["password"], 1,3,0) );
+        if($getID){
+            $_SESSION['user_id'] = $getID;
+            $_SESSION["user_type"] = 3;
+            $systemDetails = getSystemDetails($db);
+            $image = "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg";
+            $get_p_info_id = $db->Insert("INSERT INTO personal_info (`user_id`,`image`,`city`,`province`,`zip_code`,`barangay`,`zone`,`landmark`, `first_name`, `last_name`, `middle_name`, `contact_no`)
+             VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", [$getID,$image,$systemDetails["city"],$systemDetails["province"],$systemDetails["zip_code"], $data["list_barangay"], $data["zone_number"], $data["landmark"], $data["first_name"], $data["last_name"], $data["middle_name"], $data["contact_no"] ]);
+            if($get_p_info_id){
+                if($db->Insert("INSERT INTO shops (`p_info_id`,`name`,`descriptions`,`logo`,`permit`,`owner`,`bussiness_id`) VALUES (?,?,?,?,?,?,?)", 
+                    [
+                        $get_p_info_id,
+                        $data["shop_name"],
+                        $data["shop_descriptions"],
+                        $data["logo"],
+                        $data["permit"],
+                        $data["shop_owner"],
+                        $data["shop_bussiness_id"]
+                    ])){
+                    return true;
+                }
+            }
+        }
+        return false;
+    } catch(\Exception $e) {
+        // return $e->getMessage() . $e->getLine();
+        return false;
+    }
+    
+}
 
 function getMyUrl()
 {

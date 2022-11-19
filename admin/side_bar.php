@@ -4,9 +4,9 @@
 
 <!-- MENU SIDEBAR-->
 <aside class="menu-sidebar d-none d-lg-block">
-    <div class="logo">
+     <div class="logo" style="background: rgb(24,239,247);background: linear-gradient(90deg, rgba(24,239,247,1) 0%, rgba(148,255,245,1) 53%, rgba(192,251,245,1) 100%);">
         <a href="#">
-            <!-- <img src="images/icon/logo.png" alt="Cool Admin" /> -->
+            <img src="images/icon/logo_laundryshop.png" alt="laundry shop" style="height: 70px; "/>
         </a>
     </div>
     <div class="menu-sidebar__content js-scrollbar1">

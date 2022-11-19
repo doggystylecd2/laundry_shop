@@ -1,12 +1,13 @@
         <!-- HEADER DESKTOP-->
-        <header class="header-desktop2" style="background-color: green!important;">
+        <header class="header-desktop2" style="background: rgb(192,251,245);
+background: linear-gradient(90deg, rgba(192,251,245,1) 0%, rgba(148,255,245,1) 53%, rgba(24,239,247,1) 100%);">
             <div class="section__content section__content--p30">
                 <div class="container-fluid">
                     <div class="header-wrap2">
                         <div class="logo d-block d-lg-none">
                             <a href="#">
                                 <!-- <img src="images/icon/logo_courier.png" alt="CoolAdmin" style="height: 70px; "/> -->
-                                <img src="images/icon/log_header.jpg" alt="Pasuyo Delivery" style="height: 70px; "/>
+                                <img src="images/icon/logo_laundryshop.png" alt="laundry shop" style="height: 70px; "/>
                             </a>
                         </div>
                         <div class="header-button2">
@@ -115,7 +116,7 @@
             </div>
         </header>
         <aside class="menu-sidebar2 js-right-sidebar d-block d-lg-none" >
-            <div class="logo" style="background-color: green!important;">
+            <div class="logo" style="background-image: url('images/icon/background.jpg');background-position: center;background-repeat: no-repeat;background-size: cover;">
                 <!-- <a href="#">
                     <img src="images/icon/logo-white.png" alt="Cool Admin" />
                 </a> -->
@@ -135,40 +136,7 @@
                                 <i class="fas fa-user-md"></i>My Profile
                             </a>
                         </li>
-                        <li class="<?php if($_GET["page"] == 'parcel') {echo "active";}?>">
-                            <a class="js-arrow" href="#">
-                                <i class="fas  fa-list"></i>Parcels
-                                <span class="arrow">
-                                    <i class="fas fa-angle-down"></i>
-                                </span>
-                            </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="index.php?page=new_parcel">
-                                        <i class="fas fa-tachometer-alt"></i>New Request</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=all_list">
-                                        <i class="fas fa-tachometer-alt"></i>All list</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=parcel_status">
-                                        <i class="fas fa-tachometer-alt"></i>On Going Transaction</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=denied">
-                                        <i class="fas fa-tachometer-alt"></i>Denied</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=delivered">
-                                        <i class="fas fa-tachometer-alt"></i>Delivered</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=unsccesfull_deliver">
-                                        <i class="fas fa-tachometer-alt"></i>Unsuccessfull Delivery</a>
-                                </li>
-                            </ul>
-                        </li>  
+                        
                         <li class="<?php if($_GET["page"] == 'list_nofity') {echo "active";}?>">
                             <a href="index.php?page=list_nofity">
                                 <i class="fas fa-user-md"></i>Notifications

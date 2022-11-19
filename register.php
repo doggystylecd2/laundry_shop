@@ -17,7 +17,7 @@ include('./controller/Portal.php');
 session_start();
 
 if(isset($_SESSION['access_token'])) {
-  header("location:index.php?page=home");
+  header("location:index.php");
 }
 
 $db = new DatabaseClass();
@@ -33,61 +33,204 @@ $zone_number ='';
 $email = '';
 $password = '';
 $username = '';
+$shop_descriptions = '';
+$shop_name = '';
+$shop_owner = '';
+$shop_bussiness_id ='';
+
 if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") {
-    
+
+    $first_name = isset($_POST['first_name']) ? $_POST['first_name'] : '' ;
+    $last_name = isset($_POST['last_name']) ? $_POST['last_name'] : '' ;
+    $middle_name = isset($_POST['middle_name']) ? $_POST['middle_name'] : '' ;
+    $contact_no = isset($_POST['contact_no']) ? $_POST['contact_no'] : '' ;
+    $list_barangay = isset($_POST['list_barangay']) ? $_POST['list_barangay'] : '' ;
+    $zone_number = isset($_POST['zone_number']) ? $_POST['zone_number'] : '' ;
+    $email = isset($_POST['email']) ? $_POST['email'] : '' ;
+    $password = isset($_POST['password']) ? $_POST['password'] : '' ;
+    $username = isset($_POST['username']) ? $_POST['username'] : '' ;
+
+    if (empty($email) && empty($password)) {
+        $message = "Please fill in the form!...";
+    } elseif (empty($email)) {
+        $message = "Email is empty";
+    } elseif (empty($password)) {
+        $message = "Password is empty";
+    }
+
     if(isset($_POST["user_register"]) && $_POST["user_register"] == "submit") {
-        
-
-        $first_name = isset($_POST['first_name']) ? $_POST['first_name'] : '' ;
-        $last_name = isset($_POST['last_name']) ? $_POST['last_name'] : '' ;
-        $middle_name = isset($_POST['middle_name']) ? $_POST['middle_name'] : '' ;
-        $contact_no = isset($_POST['contact_no']) ? $_POST['contact_no'] : '' ;
-        $list_barangay = isset($_POST['list_barangay']) ? $_POST['list_barangay'] : '' ;
-        $zone_number = isset($_POST['zone_number']) ? $_POST['zone_number'] : '' ;
-        $email = isset($_POST['email']) ? $_POST['email'] : '' ;
-        $password = isset($_POST['password']) ? $_POST['password'] : '' ;
-        $username = isset($_POST['username']) ? $_POST['username'] : '' ;
-
-        echo "<pre>";
-          var_dump($_POST);
-        echo "</pre>";
-
-       if (empty($email) && empty($password)) {
-            $message = "Please fill in the form!...";
-        } elseif (empty($email)) {
-            $message = "Email is empty";
-        } elseif (empty($password)) {
-            $message = "Password is empty";
-        }
 
         $data = $db->Select("SELECT * FROM users where email = ?  ", [$email]);
         if(count($data) > 0) {
                 $message = "Email Already Exist!..";
-          }else {
-              $landmark ='';
-                  // $register = new Portal();
-              $data_post = [
-                  "first_name" => $first_name,
-                  "last_name" => $last_name,
-                  "middle_name" => $middle_name,
-                  "list_barangay" => $list_barangay,
-                  "zone_number" => $zone_number,
-                  "contact_no" => $contact_no,
-                  "landmark" => $landmark,
-                  "username" => $username,
-                  "email" => $email,
-                  "password" => $password,
-                  "type" => 2,
-              ];
-              if(registerUsers($db, $data_post)){
-                  // $token = bin2hex(random_bytes(16));
-                  // $_SESSION['access_token'] = $token;
-                  insertToken($db);
-                  header("location:index.php?page=user_home");
-              } else {
+        }else {
+            $landmark ='';
+                // $register = new Portal();
+            $data_post = [
+                "first_name" => $first_name,
+                "last_name" => $last_name,
+                "middle_name" => $middle_name,
+                "list_barangay" => $list_barangay,
+                "zone_number" => $zone_number,
+                "contact_no" => $contact_no,
+                "landmark" => $landmark,
+                "username" => $username,
+                "email" => $email,
+                "password" => $password,
+                "type" => 2,
+            ];
+            if(registerUsers($db, $data_post)){
+                // $token = bin2hex(random_bytes(16));
+                // $_SESSION['access_token'] = $token;
+                insertToken($db);
+                header("location:index.php?page=user_home");
+            } else {
+                $message = "Something is wrong!...";
+            }
+        }    
+    } elseif (isset($_POST["driver_register"]) && $_POST["driver_register"] == "submit") {
+       
+        $data = $db->Select("SELECT * FROM users where email = ?  ", [$email]);
+        if(count($data) > 0) {
+                $message = "Email Already Exist!..";
+        }else {
+            $landmark ='';
+            // RESUME UPLOAD FILE 
+            $folder = "Resume/";
+            $temp = explode(".", $_FILES["file-input"]["name"]);
+            $newfilename = round(microtime(true)).'.'. end($temp);
+            $name = $last_name.$first_name;
+            $new_str = str_replace(' ', '', $name);
+            $name = strtolower($new_str);
+            $resume_path ="$folder".$name.'-'.$newfilename ;
+            $resume = getMyUrl().'/'.$resume_path;
+
+            // DriverLicense UPLOAD FILE 
+            $folder = "DriverLicense/";
+            $temp = explode(".", $_FILES["file-driver_license"]["name"]);
+            $newfilename = round(microtime(true)).'.'. end($temp);
+            $name = $last_name.$first_name;
+            $new_str = str_replace(' ', '', $name);
+            $name = strtolower($new_str);
+            $driver_license_path ="$folder".$name.'-'.$newfilename ;
+            $driver_license = getMyUrl().'/'.$driver_license_path;
+
+            $description = isset($_POST['textarea-input']) ? $_POST['textarea-input'] : '' ;
+
+            // $register = new Portal();
+
+            $listtype = array(
+              '.doc'=>'application/msword',
+              '.docx'=>'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+              '.rtf'=>'application/rtf',
+              '.pdf'=>'application/pdf');
+
+            if ( is_uploaded_file( $_FILES['file-input']['tmp_name'] ) && is_uploaded_file( $_FILES['file-driver_license']['tmp_name'] ) ) {
+                if ( move_uploaded_file($_FILES['file-input'] ['tmp_name'],$resume_path) && move_uploaded_file($_FILES['file-driver_license'] ['tmp_name'],$driver_license_path)) {
+                    $data_post = [
+                      "first_name" => $first_name,
+                      "last_name" => $last_name,
+                      "middle_name" => $middle_name,
+                      "list_barangay" => $list_barangay,
+                      "zone_number" => $zone_number,
+                      "contact_no" => $contact_no,
+                      "landmark" => $landmark,
+                      "username" => $username,
+                      "email" => $email,
+                      "password" => $password,
+                      "type" => 3,
+                      "resume" => $resume,
+                      "textarea-input" => $description,
+                      "driver_license" => $driver_license
+                  ];
+                  if(registerCourier($db, $data_post)){
+                      insertToken($db);
+                      header("location:index.php?page=user_home");
+                  } else {
+                      $message = "Something is wrong!...";
+                  }
+                } else {
                   $message = "Something is wrong!...";
-              }
-          }    
+                }
+            } else {
+              $message = "Something is wrong!...";
+            }
+        }    
+    } elseif (isset($_POST["shop_register"]) && $_POST["shop_register"] == "submit") {
+       
+        $data = $db->Select("SELECT * FROM users where email = ?  ", [$email]);
+        if(count($data) > 0) {
+                $message = "Email Already Exist!..";
+        }else {
+            $landmark ='';
+            // RESUME UPLOAD FILE 
+            $folder = "images/SHOP_LOGO/";
+            $temp = explode(".", $_FILES["file-logo"]["name"]);
+            $newfilename = round(microtime(true)).'.'. end($temp);
+            $name = $last_name.$first_name;
+            $new_str = str_replace(' ', '', $name);
+            $name = strtolower($new_str);
+            $logo_path ="$folder".$name.'-'.$newfilename ;
+            $logo = getMyUrl().'/'.$logo_path;
+
+            // DriverLicense UPLOAD FILE 
+            $folder = "images/BUSSINESS_PERMIT/";
+            $temp = explode(".", $_FILES["file-permit"]["name"]);
+            $newfilename = round(microtime(true)).'.'. end($temp);
+            $name = $last_name.$first_name;
+            $new_str = str_replace(' ', '', $name);
+            $name = strtolower($new_str);
+            $business_path ="$folder".$name.'-'.$newfilename ;
+            $permit = getMyUrl().'/'.$business_path;
+
+            $shop_descriptions = isset($_POST['shop_descriptions']) ? $_POST['shop_descriptions'] : '' ;
+            $shop_name = isset($_POST['shop_name']) ? $_POST['shop_name'] : '' ;
+            $shop_owner = isset($_POST['shop_owner']) ? $_POST['shop_owner'] : '' ;
+            $shop_bussiness_id = isset($_POST['shop_bussiness_id']) ? $_POST['shop_bussiness_id'] : '' ;
+
+            // $register = new Portal();
+
+            $listtype = array(
+              '.doc'=>'application/msword',
+              '.docx'=>'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+              '.rtf'=>'application/rtf',
+              '.pdf'=>'application/pdf');
+
+            if ( is_uploaded_file( $_FILES['file-logo']['tmp_name'] ) && is_uploaded_file( $_FILES['file-permit']['tmp_name'] ) ) {
+                if ( move_uploaded_file($_FILES['file-logo'] ['tmp_name'],$logo_path) && move_uploaded_file($_FILES['file-permit'] ['tmp_name'],$business_path)) {
+                    $data_post = [
+                      "first_name" => $first_name,
+                      "last_name" => $last_name,
+                      "middle_name" => $middle_name,
+                      "list_barangay" => $list_barangay,
+                      "zone_number" => $zone_number,
+                      "contact_no" => $contact_no,
+                      "landmark" => $landmark,
+                      "username" => $username,
+                      "email" => $email,
+                      "password" => $password,
+                      "type" => 4,
+                      "logo" => $logo,
+                      "permit" => $permit,
+                      "shop_descriptions" => $shop_descriptions,
+                      "shop_name" => $shop_name,
+                      "shop_owner" => $shop_owner,
+                      "shop_bussiness_id" => $shop_bussiness_id,
+                      
+                  ];
+                  if(registerShop($db, $data_post)){
+                      insertToken($db);
+                      header("location:index.php?page=user_home");
+                  } else {
+                      $message = "Something is wrong!...";
+                  }
+                } else {
+                  $message = "Something is wrong!...";
+                }
+            } else {
+              $message = "Something is wrong!...";
+            }
+        }    
     }
 }
 ?>
@@ -96,6 +239,7 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
 
 <head>
       <!-- Required meta tags-->
+      <title><?php echo $systemDetails["title"]; ?></title>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta name="description" content="au theme template">
@@ -104,11 +248,14 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
       <!-- Main CSS-->
       <link href="css/theme.css" rel="stylesheet" media="all">
       <!-- Title Page-->
-      <title><?php echo $systemDetails["title"]; ?><</title>
+      
+      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
-      <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+      
+      <!-- <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script> -->
+
    <style type="text/css">
    body {
      margin-top: 40px;
@@ -182,13 +329,19 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
                         <div class="login-form" style="text-align: center;"> 
                            <h5 style="font-size: 20px;">Register as? </h5>
                            <button class="btn btn-primary " data-toggle="modal" data-target="#modalUser" style="margin:10px">
-                             User
+                            <a href="register.php?page=user">
+                                <i class='fas fa-users' style='font-size:30px;color:white' data-toggle="tooltip"  title="Register as User"></i>
+                            </a>
                            </button>
                            <button class="btn btn-primary " data-toggle="modal" data-target="#myModal" style="margin:10px">
-                             Delivery Rider
+                            <a href="register.php?page=driver">
+                             <i class='fas fa-motorcycle' style='font-size:30px;color:white' data-toggle="tooltip"  title="Register as Rider" ></i>
+                            </a>
                            </button>
                            <button class="btn btn-primary " data-toggle="modal" data-target="#myModal" style="margin:10px">
-                             Shop
+                            <a href="register.php?page=shop">
+                             <i class='fas fa-cart-plus' style='font-size:30px;color:white' data-toggle="tooltip"  title="Register Shop"></i>
+                            </a>
                            </button>
 
                            <div class="register-link">
@@ -207,147 +360,26 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
 
 
    <!-- MODAL USER  -->
-   <div id="modalUser" class="modal fade"  data-backdrop="static" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
-     <div class="modal-dialog">
-       <div class="modal-content">
-         <div class="modal-header">
-             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-           <div class="stepwizard" >
-             <div class="stepwizard-row setup-panel">
-               <div class="stepwizard-step">
-                 <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
-                 <p>User Information</p>
-               </div>
-               <div class="stepwizard-step">
-                 <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-                 <p>Address</p>
-               </div>
-               <div class="stepwizard-step">
-                 <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-                 <p>User Account</p>
-               </div>
-             </div>
-           </div>
-         </div>
-         <div class="modal-body">
-           <div class="container" style="width:100%;">
-
-
-
-             <form role="form" action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST" id="userFOrm">
-               <div class="row setup-content" id="step-1">
-                 <div class="col-md-12 ">
-                   <div class="col-md-12">
-                     <h3> Step 1</h3>
-                     <div class="form-group">
-                       <label class="control-label">First Name</label>
-                       <input maxlength="100" required="required" class="form-control" placeholder="Enter First Name" type="text" name="first_name" value="<?php echo $first_name ?>">
-                     </div>
-                     <div class="form-group">
-                       <label class="control-label">Last Name</label>
-                       <input maxlength="100" required="required" class="form-control" placeholder="Enter Last Name" type="text" name="last_name" value="<?php echo $last_name ?>">
-                     </div>
-                     <div class="form-group">
-                       <label class="control-label">Middle Name</label>
-                       <input maxlength="100" required="required" class="form-control" placeholder="Enter Middle Name" type="text" name="middle_name" value="<?php echo $middle_name ?>">
-                     </div>
-                     <div class="form-group">
-                       <label class="control-label">Contact No.</label>
-                       <input maxlength="12" required="required" class="form-control" placeholder="Enter Mobile Number" type="text" name="contact_no" value="<?php echo $contact_no ?>">
-                     </div>
-                     
-                   </div>
-                   <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
-                 </div>
-               </div>
-
-               <div class="row setup-content" id="step-2">
-                 <div class="col-xs-12">
-                   <div class="col-md-12">
-                     <h3> Step 2</h3>
-                     <div class="form-group">
-                       <label class="control-label">City</label>
-                       <input maxlength="100" required="required" class="form-control" placeholder="San Fernando City" disabled >
-                     </div>
-                     <div class="form-group">
-                       <label class="control-label">Province</label>
-                       <input maxlength="100" required="required" class="form-control" placeholder="La Union" disabled >
-                     </div>
-                     <div class="form-group">
-                       <label class="control-label">Zip Code</label>
-                       <input maxlength="100" required="required" class="form-control" placeholder="2500" disabled >
-                     </div>
-                     <div class="form-group">
-                        <label class="control-label">District</label>
-                        <select name="list_barangay" id="list-barangay" class="form-control" required="required">
-                           <?php 
-                             $db = new DatabaseClass();
-                             $data = $db->Select("SELECT * FROM barangay order by name asc  ");
-                             $option = '';
-                             if(count($data) > 0) {
-                                foreach ($data as $key => $value) {
-                                    if($value["barangay_id"] == $list_barangay) {
-                                      $option .= "<option value='".$value["barangay_id"]."' selected>".$value["name"]."</option>";
-                                    } else {
-                                      $option .= "<option value='".$value["barangay_id"]."'>".$value["name"]."</option>";
-                                    }
-                                    
-                                }
-                                echo $option;
-                             } else {
-                                echo "<option>N/A</option>";
-                             }
-                            ?>
-                        </select>
-                    </div>
-                     <div class="form-group">
-                        <label class="control-label">Barangay</label>
-                        <input class="form-control" type="text" name="zone_number" id="zone_number" placeholder="Barangay" required="required" name="barangay" value="<?php echo $zone_number ?>">
-                    </div>
-                     <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Back</button>
-                     <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
-                   </div>
-                 </div>
-               </div>
-               <div class="row setup-content" id="step-3">
-                 <div class="col-xs-12">
-                   <div class="col-md-12">
-                     <h3> Step 3</h3>
-                     <div class="form-group">
-                       <label class="control-label">Username</label>
-                       <input  required="required" class="form-control" placeholder="Enter Username" type="text" name="username" value="<?php echo $username ?>">
-                     </div>
-                     <div class="form-group">
-                       <label class="control-label">Email</label>
-                       <input  required="required" class="form-control" placeholder="Enter Email" type="text" name="email" value="<?php echo $email ?>">
-                     </div>
-                     <div class="form-group">
-                       <label class="control-label">Password</label>
-                       <input  required="required" class="form-control"  type="password" name="password" value="<?php echo $password ?>">
-                     </div>
-                     <?php echo $message; ?>
-                     <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Back</button>
-                     <input class="btn btn-primary  btn-lg pull-right" type="submit" name="user_register" value="submit" />
-                   </div>
-                 </div>
-               </div>
-             </form>
-
-           </div>
-         </div>
-         <div class="modal-footer">
-         </div>
-       </div>
-       <!-- /.modal-content -->
-     </div>
-     <!-- /.modal-dialog -->
-   </div>
+    <?php
+      if (isset($_GET["page"])){
+        if($_GET["page"] == "user") {
+           require 'user_register.php';
+        } elseif ($_GET["page"] == "driver"){
+           require 'driver_register.php';
+        } elseif ($_GET["page"] == "shop") {
+          require 'shop_register.php';
+        }
+      }
+     ?>
    <!-- END OF MODAL USER -->
 </body>
 </html>
 
 <script type="text/javascript">
+// $('#modalUser').show()
+    $('#modalUser').modal('show');
 $(document).ready(function() {
+
   var navListItems = $('div.setup-panel div a'),
     allWells = $('.setup-content'),
     allNextBtn = $('.nextBtn'),
