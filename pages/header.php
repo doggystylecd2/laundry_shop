@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Courier Management System</title>
+    <title><?php echo $systemDetails["title"]; ?></title>
 
    
     

@@ -11,6 +11,12 @@ $repository = Dotenv\Repository\RepositoryBuilder::createWithNoAdapters()
 $dotenv = Dotenv\Dotenv::create($repository, __DIR__);
 $dotenv->load();
 
+include('./database/connection.php');
+include('./controller/Portal.php');
+$db = new DatabaseClass(); // initialize db
+
+$systemDetails = getSystemDetails($db); // initialize system details 
+
 include('./pages/header.php') 
 
 ?>
@@ -34,9 +40,7 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
         } elseif (empty($password)) {
             $message = "Password is empty";
         } else {
-            include('./database/connection.php');
-            include('./controller/Portal.php');
-            $db = new DatabaseClass();
+            
             $data = $db->Select("SELECT * FROM users where email = ? and password = ? ", [$email, $password]);
             if(count($data) > 0) {
                 // $token = bin2hex(random_bytes(16));
