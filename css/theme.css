@@ -322,7 +322,7 @@ section {
 
 @media (max-width: 991px) {
     .main-content {
-        padding-top: 50px;
+        padding-top: 30px;
 	padding-bottom: 100px;
     }
 }
@@ -1426,7 +1426,7 @@ section {
 }
 
 .account-item > .content > a {
-    color: #333;
+    color: white;
     text-transform: capitalize;
     font-weight: 500;
 }
@@ -1603,7 +1603,7 @@ section {
     -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
-    border-right: 1px solid #e5e5e5;
+/*    border-right: 1px solid #e5e5e5;*/
     position: relative;
     z-index: 3;
 }
@@ -4495,8 +4495,8 @@ section {
     border: none;
     font-weight: 600;
     vertical-align: top;
-    padding: 15px 40px;
-    padding-right: 10px;
+/*    padding: 15px 40px;*/
+/*    padding-right: 10px;*/
 }
 
 .table-data2.table thead th:first-child {
@@ -4514,7 +4514,7 @@ section {
     -webkit-border-bottom-left-radius: 3px;
     -moz-border-radius-bottomleft: 3px;
     border-bottom-left-radius: 3px;
-    vertical-align: top;
+/*    vertical-align: top;*/
 }
 
 .table-data2.table tbody tr td:first-child .au-checkbox {
@@ -4538,14 +4538,14 @@ section {
     -webkit-border-bottom-right-radius: 3px;
     -moz-border-radius-bottomright: 3px;
     border-bottom-right-radius: 3px;
-    padding-right: 35px;
+/*    padding-right: 35px;*/
 }
 
 .table-data2.table tbody td {
-    font-size: 14px;
+    font-size: 10px;
     color: #808080;
     vertical-align: middle;
-    padding: 25px 40px;
+/*    padding: 25px 40px;*/
     padding-right: 10px;
     border: none;
 }
@@ -4614,11 +4614,11 @@ section {
     display: -moz-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: end;
+  /*  -webkit-box-pack: end;
     -webkit-justify-content: flex-end;
     -moz-box-pack: end;
     -ms-flex-pack: end;
-    justify-content: flex-end;
+    justify-content: flex-end;*/
 }
 
 .table-data-feature .item {
@@ -4651,7 +4651,7 @@ section {
 }
 
 .block-email {
-    font-size: 14px;
+/*    font-size: 14px;*/
     color: #808080;
     display: inline-block;
     background: #f2f2f2;

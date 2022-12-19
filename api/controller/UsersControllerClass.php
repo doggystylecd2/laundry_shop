@@ -10,7 +10,7 @@ class UsersControllerClass {
 	}
 
 
-	public function getDetailsParcel(){
+	public function formBooking(){
 		try {
 			extract($_POST);
 			// $status = $name == "reject" ? 3 : 1;

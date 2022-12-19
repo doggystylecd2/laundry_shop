@@ -73,21 +73,20 @@ $id_courier = 1;
         <!-- END BREADCRUMB-->
         
         <div style="margin-top:30px;"   >
-            <div class="section__content section__content--p30">
+            <div class="section__content section__content--p10">
                 <div class="container-fluid">
                     <div class="row">
-                        
                         <?php 
-                        $shops_details = $db->Select("select * from shops") ;
+                        $shops_details = $db->Select("select * from shops where status = 0") ;
                         if(count($shops_details)>0){
                             foreach ($shops_details as $key => $value) {
                                 ?>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="card hover" >
                                         <img class="card-img-top" src="<?php echo $value["logo"] ?>" alt="Card image cap" >
                                         <div class="card-body">
                                             <h4 class="card-title mb-3"><?php echo $value["name"] ?></h4>
-                                            <p class="card-text"><?php echo $value["descriptions"] ?>
+                                            <p class="card-text" style="font-size:10px;"><?php echo $value["descriptions"] ?>
                                             </p>
                                             <hr>
                                             <div class="d-flex justify-content-between align-items-center">
@@ -254,7 +253,7 @@ $id_courier = 1;
                                                 </div>
                                             </div>
                                             <hr>
-                                            <button  class="au-btn au-btn--block au-btn--blue m-b-20" type="submit" name="submit" value="" id="1" onclick="showModal(this.id)">Book Now</button>
+                                            <button  class="au-btn au-btn--block au-btn--blue m-b-20" type="submit" name="<?php echo  $value["name"]; ?>" value="" id="<?php echo $value["shop_id"] ?>" onclick="showModal(this.id,this.name)">Book Now</button>
                                         </div>
                                     </div>
                                 </div>
@@ -300,34 +299,94 @@ $id_courier = 1;
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="parcel_modal_body">
-                <div id="parcel_details"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <!-- <button type="button" class="btn btn-primary">Confirm</button> -->
-            </div>
+            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal add_booking">
+                <div class="modal-body" id="parcel_modal_body">
+                    <div id="parcel_details">
+                        
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <input type="submit" class="btn btn-primary" value="Confirm" />
+                </div>
+            </form>
+
         </div>
     </div>
 </div>
 
 <script>
-    function showModal(parcel_ID){
-    //    $('#scrollmodal').toggle();
-    //    alert('dafdaf');
-        $('#scrollmodal').modal('show')
-        $('#parcel_no_value').remove();
-        $('#parcel_details').remove();
+function showModal(shopid,name){
+    $('#scrollmodal').modal('show')
+    $('#parcel_no_value').remove();
 
-        $('#pacel_no').append('<span id="parcel_no_value">Parcel #: '+ parcel_ID +'</span>');
-        // $('#parcel_modal_body').append('<div id="parcel_details">Name: Marvin villanea</div>');
-        // $.post(
-        //     "api/routes.php",
-        //     {parcel_ID: parcel_ID,action:"get_details_parcel",type:"users"},
-        //     function(data){ 
-        //         // location.reload(true); 
-        //         $('#parcel_modal_body').append(data);
-        //     }
-        // );
-    }
+    $('#pacel_no').append('<span id="parcel_no_value">'+ name +'</span>');
+    $.post(
+        "api/view/form_booking.php",
+        {shopid: shopid},
+        function(data){ 
+            $('#parcel_details').remove();
+            $('#parcel_modal_body').append(data);
+        }
+    );
+}
+
+$(document).ready(() => {
+     
+    $(".add_booking").on("submit",(e) => {
+        e.preventDefault();
+        var data = $('.add_booking').serializeArray();
+        //  Swal.fire(
+        //     'Success',
+        //     'Your Booked ID Successfully Added. Please wait for the Confirmation!. Thank you',
+        //     'success'
+        // ).then((result) => {
+        //   location.reload();
+        // });
+
+
+        $.ajax({
+            url : "api/controller/add_booking.php",
+            method: "post",
+            data : data,
+            success: (res) => {
+                console.log(res)
+                if(res.success){
+                     Swal.fire(
+                        'Success',
+                        `${res.message}`,
+                        'success'
+                    ).then((result) => {
+                      location.reload();
+                    });
+                }else{
+                    Swal.fire(
+                        'Failed',
+                        `${res.message}`,
+                        'error'
+                    )
+                }
+            }
+        });
+        
+    });
+});
+
+// function tost(){
+//     const Toast = Swal.mixin({
+//       toast: true,
+//       position: 'top-end',
+//       showConfirmButton: false,
+//       timer: 2000,
+//       timerProgressBar: true,
+//       width: "32em",
+      
+//     })
+
+//      Toast.fire({
+//       icon: 'success',
+//       title: 'Booked Successfully Added!. Please Wait for the Confirmation. Check your sms and eamil. Thank you'
+//     })
+// }
 </script>

@@ -32,48 +32,57 @@ if(!$users_details){
     $level = [
         "admin" => [
             "home",
-            "list_courier",
-            "tracking_parcel",
-            "report",
-            "set_weight",
-            "disapproved_courier",
-            "users",
+            "pending_courier",
+            "pending_shop",
+            // "tracking_parcel",
+            // "report",
+            // "set_weight",
+            // "disapproved_courier",
+            // "users",
         ],
         "users" =>[
             "user_home",
-            "laundry_shop",
-            "parcel",
-            "all_list",
-            "parcel_status",
-            "rate_courier",
-            "pending",
-            "on_process",
-            "denied",
-            "delivered",
-            "unsccesfull_deliver",
-            "rate_courier",
-            "list_nofity",
+            "laundry_shop"
         ],
         "courier" => [
+            "user_home"
+        ], 
+        "shops" => [
             "user_home",
-            "new_parcel",
-            "all_list",
-            "parcel_status",
-            "denied",
-            "delivered",
-            "unsccesfull_deliver",
-            "list_nofity",
+            "shops_details",
+            "new_request"
         ]
     ];
     $accessable = ["logout"];
-    $home_page = $_SESSION["user_type"] == 1 ? 'home' : 'user_home';
-    $home_page = $_SESSION["user_type"] == 3 ? 'user_home' : $home_page;
+    $folder_type = "";
+    $home_page = "";
+    switch ($_SESSION["user_type"] ) {
+        case 1:
+            $folder_type  = 'admin/';
+            $home_page = 'home';
+            break;
+        case 2:
+            $folder_type  = 'users/';
+            $home_page = 'user_home';
+            break;
+        case 3:
+            $folder_type  = 'courier/';
+            $home_page = 'user_home';
+            break;
+        case 4:
+            $folder_type  = 'shops/';
+            $home_page = 'user_home';
+        break;
+        default:
+            $folder_type ='';
+            break;
+    }
     $page = isset($_GET['page']) ? $_GET['page'] : $home_page;
+
     if(!isset($_GET["page"])) {
         header('Location: index.php?page='.$page);//go home
     }
-    $folder_type = $_SESSION["user_type"] == 1 ? 'admin/' : 'users/';
-    $folder_type = $_SESSION["user_type"] == 3 ? 'courier/' : $folder_type;
+
     if(!file_exists($folder_type.$page.".php")){
         if(in_array($page, $accessable)){
             include $page.'.php';
@@ -100,13 +109,23 @@ if(!$users_details){
             } else {
                 include '404.html';
             }
-        }else {
+        } elseif($_SESSION["user_type"] == 2 ) {
             $information = getDetailsUsersInformation($db);
             if(in_array($page, $accessable)){
                 include $page.'.php';
             } elseif (in_array($page, $level["users"])) {
                 // include $page.'.php';
                 include('./users/'.$page.'.php');
+            } else {
+                include '404.html';
+            }
+        } elseif($_SESSION["user_type"] == 4 ) {
+            $information = getDetailsUsersInformation($db);
+            if(in_array($page, $accessable)){
+                include $page.'.php';
+            } elseif (in_array($page, $level["shops"])) {
+                // include $page.'.php';
+                include('./shops/'.$page.'.php');
             } else {
                 include '404.html';
             }

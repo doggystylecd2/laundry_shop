@@ -19,66 +19,36 @@ if(isset($_GET["action"]) ){
 } elseif (isset($_POST["action"])) {
    
     $action = $_POST['action'];
-    if($action == "courier_approval"){
-        include('controller/ActionAdminClass.php');
-        $crud = new ActionAdminClass();
-        $approvalRegister = $crud->ApprovalCourierRegister();
-        if($approvalRegister)
-            echo $approvalRegister;
-    }
-
-    if($action == "getDetailsCourier"){
-        include('controller/ActionAdminClass.php');
-        $crud = new ActionAdminClass();
-        $approvalRegister = $crud->getDetailsCourier();
-        if($approvalRegister)
-            echo $approvalRegister;
-    }
-
-    if($action == "get_details_courier"){
-        include('controller/ActionAdminClass.php');
-        $crud = new ActionAdminClass();
-        $approvalRegister = $crud->viewDetailsCourierStatus();
-        if($approvalRegister)
-            echo $approvalRegister;
-    }
-
-    if($action == "get_details_users"){
-        include('controller/ActionAdminClass.php');
-        $crud = new ActionAdminClass();
-        $approvalRegister = $crud->get_details_users();
-        if($approvalRegister)
-            echo $approvalRegister;
-    }
 
     if(isset($_POST["type"])){
-        if($_POST["type"] == "users"){
-            include('controller/UsersControllerClass.php');
-            if($action == "get_details_parcel"){
-                $crud = new UsersControllerClass();
-                $details = $crud->getDetailsParcel();
+
+        if($_POST["type"] == "admin"){
+            include('controller/ActionAdminClass.php');
+            $crud = new ActionAdminClass();
+            
+            if($action == "getdetailsUserPending"){
+                $details = $crud->get_details_users();
                 if($details)
                     echo $details;
             }
-            if($action == "get_details_parcel_delivered"){
-                $crud = new UsersControllerClass();
-                $details = $crud->getDetailsParcelDelivered();
-                if($details)
-                    echo $details;
+            if($action == "courier_approval"){
+        
+                $approvalRegister = $crud->ApprovalCourierRegister();
+                if($approvalRegister)
+                    echo $approvalRegister;
             }
 
-            if($action == "rate_courier") {
-                $crud = new UsersControllerClass();
-                $details = $crud->rate_courier();
-                if($details)
-                    echo $details;
-            }
-            if($action == "update_notify_courier"){
-                $crud = new UsersControllerClass();
-                $details = $crud->update_notify_courier();
-                if($details)
-                    echo $details;
-            }
+           
+        }
+
+        if($_POST["type"] == "users"){
+            // include('controller/UsersControllerClass.php');
+            // $crud = new UsersControllerClass();
+            // if($action == "getFormBooking") {
+            //     $details = $crud->view();
+            //     if($details)
+            //         echo $details;
+            // }
 
            
         }

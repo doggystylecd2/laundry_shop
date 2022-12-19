@@ -1,7 +1,7 @@
 <?php 
 
 function registerUsers($db, $data){
-    $getID = $db->Insert("INSERT INTO users (username,email,`password`,`status`,user_type) VALUES (?,?,?,?,?)", array($data["username"],$data["email"],$data["password"], 1,2) );
+    $getID = $db->Insert("INSERT INTO users (username,email,`password`,`status`,user_type,`verify`) VALUES (?,?,?,?,?,?)", array($data["username"],$data["email"],$data["password"], 1,2,1) );
     if($getID){
         $_SESSION['user_id'] = $getID;
         $_SESSION["user_type"] =  2;
@@ -55,16 +55,16 @@ function registerCourier($db, $data){
 
 function registerShop($db, $data){
     try {
-        $getID = $db->Insert("INSERT INTO users (username,email,`password`,`status`,user_type,`verify`) VALUES (?,?,?,?,?,?)", array($data["username"],$data["email"],$data["password"], 1,3,0) );
+        $getID = $db->Insert("INSERT INTO users (username,email,`password`,`status`,user_type,`verify`) VALUES (?,?,?,?,?,?)", array($data["username"],$data["email"],$data["password"], 1,4,0) );
         if($getID){
             $_SESSION['user_id'] = $getID;
-            $_SESSION["user_type"] = 3;
+            $_SESSION["user_type"] = 4;
             $systemDetails = getSystemDetails($db);
             $image = "https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg";
             $get_p_info_id = $db->Insert("INSERT INTO personal_info (`user_id`,`image`,`city`,`province`,`zip_code`,`barangay`,`zone`,`landmark`, `first_name`, `last_name`, `middle_name`, `contact_no`)
              VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", [$getID,$image,$systemDetails["city"],$systemDetails["province"],$systemDetails["zip_code"], $data["list_barangay"], $data["zone_number"], $data["landmark"], $data["first_name"], $data["last_name"], $data["middle_name"], $data["contact_no"] ]);
             if($get_p_info_id){
-                if($db->Insert("INSERT INTO shops (`p_info_id`,`name`,`descriptions`,`logo`,`permit`,`owner`,`bussiness_id`) VALUES (?,?,?,?,?,?,?)", 
+                $shps_id =$db->Insert("INSERT INTO shops (`p_info_id`,`name`,`descriptions`,`logo`,`permit`,`owner`,`bussiness_id`) VALUES (?,?,?,?,?,?,?)", 
                     [
                         $get_p_info_id,
                         $data["shop_name"],
@@ -73,7 +73,15 @@ function registerShop($db, $data){
                         $data["permit"],
                         $data["shop_owner"],
                         $data["shop_bussiness_id"]
-                    ])){
+                    ]);
+                if($shps_id){
+                    foreach ($data["services"] as $value) {
+                        $db->Insert("INSERT INTO shops_services (`shop_id`,`services_id`) VALUES (?,?)", 
+                        [
+                            $shps_id,
+                            $value
+                        ]);
+                    }
                     return true;
                 }
             }
@@ -102,8 +110,10 @@ function insertToken($db){
 }
 
 function getDetailsUsers($db){
-    $data = $db->Select("SELECT * FROM access_token
-    inner join users using(user_id)
+    $data = $db->Select("SELECT * ,
+        (case when `verify` = 0 then 'NOT YET VERIFY' when `verify` = 1 then 'VERIFY' else 'DISABLE USER' end ) as status_user
+    FROM access_token
+    inner join users  using(user_id)
      where access_token = ?  order by token_id desc limit 1", array($_SESSION["access_token"]));
     if(count($data) > 0){
         return $data[0];
@@ -118,7 +128,14 @@ function getDetailsUsersInformation($db){
     $data = $db->Select("SELECT * FROM users inner join personal_info using(user_id) where user_id = ? limit 1",array($_SESSION["user_id"]) );
     return $data[0];
 }
-
+function countUserPendingAdminCourier($db){
+    $data = $db->Select("SELECT count(*) as total_users FROM users where `verify` = 0 and user_type in (3)" );
+    return $data[0];
+}
+function countUserPendingAdminShopes($db){
+    $data = $db->Select("SELECT count(*) as total_users FROM users where `verify` = 0 and user_type in (4)" );
+    return $data[0];
+}
 function updateUSerProfile($db){
     extract($_POST);
     try {
@@ -254,10 +271,47 @@ function addParcelUsers($db){
         }
         
        
-    } catch(\Exception $e) {
-        return $e->getMessage();
-        // return false;
+        } catch(\Exception $e) {
+            return $e->getMessage();
+            // return false;
+        }
     }
-}
 
+    function getShopsDetails($db){
+       $data = $db->Select("SELECT * FROM users 
+        inner join personal_info using(user_id) 
+        inner join shops using(p_info_id)
+        where user_id = ? limit 1",array($_SESSION["user_id"]) );
+        return $data[0];
+    }
+
+
+    function message($status,$message){
+        $msg = array(
+            "success" => $status,
+            "message" => $message
+        );
+        echo arraytojson($msg);
+        die();
+    }
+
+
+    function arraytojson($array){
+
+        if(is_array($array)){
+            return json_encode($array,JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        }else{
+            /* $this->showErrors("arraytojson","<span class='method'> arraytojson()</span> expecting an array.",$line); */
+            return false;
+        }
+    }
+
+    function getShopDetailsSpecific($db, $shopid){
+        $data = $db->Select("SELECT * FROM users 
+        inner join personal_info using(user_id) 
+        inner join shops using(p_info_id)
+        where shop_id = ? limit 1",array($shopid) );
+        return $data[0];
+    }
+ 
 ?>

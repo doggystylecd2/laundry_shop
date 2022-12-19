@@ -31,7 +31,7 @@
          <div class="modal-body">
            <div class="container" style="width:100%;">
 
-
+            
 
              <form role="form" action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST" id="driverForm" enctype="multipart/form-data">
                <div class="row setup-content" id="step-1">
@@ -140,6 +140,23 @@
                        <input  required="required" class="form-control" placeholder="Enter Shop Name" type="text" name="shop_name" value="<?php echo $shop_name ?>">
                      </div>
                      <div class="form-group">
+                       <label class="control-label">Services Type: </label><br>
+                       <?php 
+                        $data = $db->Select("SELECT * FROM type_of_services where type = 0 order by name asc  ");
+                         $option = '';
+                         if(count($data) > 0) {
+                            foreach ($data as $key => $value) {
+                                ?>
+                                <input type="checkbox" name="services[]" value="<?php echo $value["services_id"] ?>"> <?php echo $value["name"]; ?>
+                                <?php
+                            }
+                            echo $option;
+                         } else {
+                            // echo "<option>N/A</option>";
+                         }
+                       ?>
+                     </div>
+                     <div class="form-group">
                        <label class="control-label">Descriptions</label>
                        <input  required="required" class="form-control" placeholder="Enter Shop Descriptions" type="text" name="shop_descriptions" value="<?php echo $shop_descriptions ?>">
                      </div>
@@ -170,7 +187,7 @@
                        <input  required="required" class="form-control" type="file" id="file-permit" name="file-permit">
                      </div>
                      
-                     <?php echo $message; ?>
+                     
                      <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Back</button>
                      <input class="btn btn-primary  btn-lg pull-right" type="submit" name="shop_register" value="submit" />
                    </div>

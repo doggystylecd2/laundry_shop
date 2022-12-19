@@ -157,80 +157,87 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
             }
         }    
     } elseif (isset($_POST["shop_register"]) && $_POST["shop_register"] == "submit") {
-       
-        $data = $db->Select("SELECT * FROM users where email = ?  ", [$email]);
-        if(count($data) > 0) {
-                $message = "Email Already Exist!..";
-        }else {
-            $landmark ='';
-            // RESUME UPLOAD FILE 
-            $folder = "images/SHOP_LOGO/";
-            $temp = explode(".", $_FILES["file-logo"]["name"]);
-            $newfilename = round(microtime(true)).'.'. end($temp);
-            $name = $last_name.$first_name;
-            $new_str = str_replace(' ', '', $name);
-            $name = strtolower($new_str);
-            $logo_path ="$folder".$name.'-'.$newfilename ;
-            $logo = getMyUrl().'/'.$logo_path;
+        // echo "<pre>";
+        //     var_dump($_POST);
+        // echo "</pre>";
+        if( isset($_POST["services"]) && count($_POST["services"]) > 0 ){
+            $data = $db->Select("SELECT * FROM users where email = ?  ", [$email]);
+            if(count($data) > 0) {
+                    $message = "Email Already Exist!..";
+            }else {
+                $landmark ='';
+                // RESUME UPLOAD FILE 
+                $folder = "images/SHOP_LOGO/";
+                $temp = explode(".", $_FILES["file-logo"]["name"]);
+                $newfilename = round(microtime(true)).'.'. end($temp);
+                $name = $last_name.$first_name;
+                $new_str = str_replace(' ', '', $name);
+                $name = strtolower($new_str);
+                $logo_path ="$folder".$name.'-'.$newfilename ;
+                $logo = getMyUrl().'/'.$logo_path;
 
-            // DriverLicense UPLOAD FILE 
-            $folder = "images/BUSSINESS_PERMIT/";
-            $temp = explode(".", $_FILES["file-permit"]["name"]);
-            $newfilename = round(microtime(true)).'.'. end($temp);
-            $name = $last_name.$first_name;
-            $new_str = str_replace(' ', '', $name);
-            $name = strtolower($new_str);
-            $business_path ="$folder".$name.'-'.$newfilename ;
-            $permit = getMyUrl().'/'.$business_path;
+                // DriverLicense UPLOAD FILE 
+                $folder = "images/BUSSINESS_PERMIT/";
+                $temp = explode(".", $_FILES["file-permit"]["name"]);
+                $newfilename = round(microtime(true)).'.'. end($temp);
+                $name = $last_name.$first_name;
+                $new_str = str_replace(' ', '', $name);
+                $name = strtolower($new_str);
+                $business_path ="$folder".$name.'-'.$newfilename ;
+                $permit = getMyUrl().'/'.$business_path;
 
-            $shop_descriptions = isset($_POST['shop_descriptions']) ? $_POST['shop_descriptions'] : '' ;
-            $shop_name = isset($_POST['shop_name']) ? $_POST['shop_name'] : '' ;
-            $shop_owner = isset($_POST['shop_owner']) ? $_POST['shop_owner'] : '' ;
-            $shop_bussiness_id = isset($_POST['shop_bussiness_id']) ? $_POST['shop_bussiness_id'] : '' ;
+                $shop_descriptions = isset($_POST['shop_descriptions']) ? $_POST['shop_descriptions'] : '' ;
+                $shop_name = isset($_POST['shop_name']) ? $_POST['shop_name'] : '' ;
+                $shop_owner = isset($_POST['shop_owner']) ? $_POST['shop_owner'] : '' ;
+                $shop_bussiness_id = isset($_POST['shop_bussiness_id']) ? $_POST['shop_bussiness_id'] : '' ;
 
-            // $register = new Portal();
+                // $register = new Portal();
 
-            $listtype = array(
-              '.doc'=>'application/msword',
-              '.docx'=>'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-              '.rtf'=>'application/rtf',
-              '.pdf'=>'application/pdf');
+                $listtype = array(
+                  '.doc'=>'application/msword',
+                  '.docx'=>'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                  '.rtf'=>'application/rtf',
+                  '.pdf'=>'application/pdf');
 
-            if ( is_uploaded_file( $_FILES['file-logo']['tmp_name'] ) && is_uploaded_file( $_FILES['file-permit']['tmp_name'] ) ) {
-                if ( move_uploaded_file($_FILES['file-logo'] ['tmp_name'],$logo_path) && move_uploaded_file($_FILES['file-permit'] ['tmp_name'],$business_path)) {
-                    $data_post = [
-                      "first_name" => $first_name,
-                      "last_name" => $last_name,
-                      "middle_name" => $middle_name,
-                      "list_barangay" => $list_barangay,
-                      "zone_number" => $zone_number,
-                      "contact_no" => $contact_no,
-                      "landmark" => $landmark,
-                      "username" => $username,
-                      "email" => $email,
-                      "password" => $password,
-                      "type" => 4,
-                      "logo" => $logo,
-                      "permit" => $permit,
-                      "shop_descriptions" => $shop_descriptions,
-                      "shop_name" => $shop_name,
-                      "shop_owner" => $shop_owner,
-                      "shop_bussiness_id" => $shop_bussiness_id,
-                      
-                  ];
-                  if(registerShop($db, $data_post)){
-                      insertToken($db);
-                      header("location:index.php?page=user_home");
-                  } else {
+                if ( is_uploaded_file( $_FILES['file-logo']['tmp_name'] ) && is_uploaded_file( $_FILES['file-permit']['tmp_name'] ) ) {
+                    if ( move_uploaded_file($_FILES['file-logo'] ['tmp_name'],$logo_path) && move_uploaded_file($_FILES['file-permit'] ['tmp_name'],$business_path)) {
+                        $data_post = [
+                          "first_name" => $first_name,
+                          "last_name" => $last_name,
+                          "middle_name" => $middle_name,
+                          "list_barangay" => $list_barangay,
+                          "zone_number" => $zone_number,
+                          "contact_no" => $contact_no,
+                          "landmark" => $landmark,
+                          "username" => $username,
+                          "email" => $email,
+                          "password" => $password,
+                          "type" => 4,
+                          "logo" => $logo,
+                          "permit" => $permit,
+                          "shop_descriptions" => $shop_descriptions,
+                          "shop_name" => $shop_name,
+                          "shop_owner" => $shop_owner,
+                          "shop_bussiness_id" => $shop_bussiness_id,
+                          "services" => $_POST["services"]
+                      ];
+                      if(registerShop($db, $data_post)){
+                          insertToken($db);
+                          header("location:index.php?page=user_home");
+                      } else {
+                          $message = "Something is wrong!...";
+                      }
+                    } else {
                       $message = "Something is wrong!...";
-                  }
+                    }
                 } else {
                   $message = "Something is wrong!...";
                 }
-            } else {
-              $message = "Something is wrong!...";
-            }
-        }    
+            }   
+        } else {
+            $message = "Select One Type Services!";
+        }
+         
     }
 }
 ?>
@@ -247,6 +254,7 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
       <meta name="keywords" content="au theme template">
       <!-- Main CSS-->
       <link href="css/theme.css" rel="stylesheet" media="all">
+
       <!-- Title Page-->
       
     
@@ -314,10 +322,14 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
    </style>
    </head>
 <body>
+ 
    <!-- REGISTER  -->
     <div class="page-wrapper"  style="background-image: url('images/icon/background.jpg');height: 100%; background-position: center;background-repeat: no-repeat;background-size: cover;">
         <div class="page-content" style="height: 250vh;">
             <div class="container">
+                <<!-- div class="alert alert-warning">
+                  <strong>Success!</strong> Indicates a successful or positive action.
+                </div> -->
                 <div class="login-wrap">
                     <div class="login-content">
                         <div class="login-logo">
@@ -325,7 +337,7 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"]  == "POST") 
                                 <img src="images/icon/logo_laundryshop.png" alt="pasuyo" style="height: 200px"/>
                             </a>
                         </div>
-                       
+                       <span style="font-size: 20px;padding: 16px;color: red;font-family: monospace;font-style: unset;"><?php echo $message; ?></span>
                         <div class="login-form" style="text-align: center;"> 
                            <h5 style="font-size: 20px;">Register as? </h5>
                            <button class="btn" style="background-color: #ff961d;margin: 10px;" data-toggle="modal" data-target="#modalUser" >
