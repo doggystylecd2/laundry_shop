@@ -21,7 +21,7 @@
                                 </div>
                             </div> -->
                             <?php
-                                $getTotal = $db->select("select count(*) as total from users_notify where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
+                                $getTotal = $db->select("select count(*) as total from notity_system where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
                             ?>
                             <div class="header-button-item has-noti js-item-menu">
                                 <!-- <i class="zmdi zmdi-notifications position-relative"></i> -->
@@ -40,7 +40,7 @@
                                         ?>
                                     </div>
                                     <?php 
-                                        $getNotifcation = $db->select("select * from users_notify where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
+                                        $getNotifcation = $db->select("select * from notity_system where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
                                         if(count($getNotifcation)){
                                             foreach ($getNotifcation as $key => $value){
                                                 ?>
@@ -49,7 +49,7 @@
                                                         <i class="zmdi zmdi-email-open"></i>
                                                     </div>
                                                     <div class="content">
-                                                        <button type="button" id="<?php echo $value["id_notify"] ?>" onclick="updateNotify(this.id)">
+                                                        <button type="button" id="<?php echo $value["notify_id"] ?>" onclick="updateNotify(this.id)">
                                                         <p><?php echo $value["description"] ?></p>
                                                         <span class="date"><?php echo $value["created_at"] ?></span>
                                                         </button>
@@ -110,11 +110,12 @@
                                 <i class="fas fa-user-md"></i>Laundry Shops
                             </a>
                         </li>
+                        
                         <li class="<?php if($_GET["page"] == 'list_nofity') {echo "active";}?>">
                             <a href="index.php?page=list_nofity">
                                 <i class="fas fa-user-md"></i>Notifications
                             </a>
-                        </li>   
+                        </li>    
                     </ul>
                 </nav>
             </div>
@@ -123,8 +124,8 @@
 <script>
     function updateNotify(id){
         $.post(
-            "api/routes.php",
-            {id: id, action:"update_notify_courier",type:"users"},
+            "api/controller/global.php",
+            {id: id},
             function(data){ 
                 // location.reload(true); 
                 window.location.href = data; 

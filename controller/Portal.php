@@ -313,5 +313,20 @@ function addParcelUsers($db){
         where shop_id = ? limit 1",array($shopid) );
         return $data[0];
     }
+
+    function countOrderShops($db){
+         $data = $db->Select("SELECT count(*) as total_new_order FROM form_booking_user  fb
+        inner join shops s  ON fb.shop_id = s.shop_id
+        inner join personal_info pi ON s.p_info_id = pi.p_info_id
+        where pi.user_id = ? and status_booking = 0 limit 1",array($_SESSION["user_id"]) );
+        return $data[0];
+    }
+    
+
+    function countOrderCourier($db){
+         $data = $db->Select("SELECT count(*) as total_new_order FROM form_booking_user  fb
+        where fb.user_id = ? and status_booking = 1 limit 1",array($_SESSION["user_id"]) );
+        return $data[0];
+    }
  
 ?>

@@ -42,15 +42,20 @@ if(!$users_details){
         ],
         "users" =>[
             "user_home",
-            "laundry_shop"
+            "laundry_shop",
+            "all_status",
         ],
         "courier" => [
-            "user_home"
+            "user_home",
+            "new_order",
+            "all_status",
+            "order_accepted",
         ], 
         "shops" => [
             "user_home",
             "shops_details",
-            "new_request"
+            "new_request",
+            "all_status"
         ]
     ];
     $accessable = ["logout"];

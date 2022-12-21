@@ -20,9 +20,9 @@ CREATE TABLE IF NOT EXISTS `access_token` (
   `access_token` varchar(75) DEFAULT NULL,
   `user_id` int DEFAULT NULL,
   PRIMARY KEY (`token_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8mb4 ;
 
--- Dumping data for table laundry_shop.access_token: ~13 rows (approximately)
+-- Dumping data for table laundry_shop.access_token: ~17 rows (approximately)
 INSERT INTO `access_token` (`token_id`, `access_token`, `user_id`) VALUES
 	(48, '1897ff090b8b072b387525b03b0111b4', 1),
 	(49, '32d8e8bbe83760377fb2b0b0f0d766bd', 68),
@@ -37,7 +37,31 @@ INSERT INTO `access_token` (`token_id`, `access_token`, `user_id`) VALUES
 	(58, 'c34d698f887fb12768121de1eb807c43', 68),
 	(59, 'ffc75150fa631d1130463b4031e6cc41', 70),
 	(60, 'cfb34cc4e1bf9c58b262b255fcddd3d5', 70),
-	(61, 'da452b6da870164b33a704e1e4e24316', 1);
+	(61, 'da452b6da870164b33a704e1e4e24316', 1),
+	(62, '0296f9dba87af203eae9fc6470d051e3', 1),
+	(63, 'ad5875b48a81299be754439ec6d68843', 68),
+	(64, 'd02c230064e985bee03af640be2d0fb3', 69),
+	(65, '52e34b88b159b9a56a596ec8d54dd311', 70),
+	(66, 'fd44f913dce00ba5f8c69c6f777a4ed5', 1),
+	(67, 'a2211a455dcf1f651812aeba1b1df0ba', 69),
+	(68, '80809f7a48c0542be0f76f8ab780a222', 68),
+	(69, 'a6eacacbad29c7a98a927b9e07b1af48', 68),
+	(70, 'ccf33d98d14671f0c3d62a3004482d62', 69),
+	(71, '05c7c86eab319f268abfa9c1ded9de10', 68),
+	(72, '5c0a5b0032758469271b1ce2aa780022', 69),
+	(73, '7259465a196c332d8dd111ecff5e046d', 68),
+	(74, 'd558e7cb66a65b38dbfbb584ecae28f3', 69),
+	(75, 'de440c6977f78d59301bf42d7a5af69e', 69),
+	(76, '66163150b2ba07ba3d30569de2aea98f', 68),
+	(77, 'abcf01fb67509a35e4b30b719d87171c', 70),
+	(78, '7a54643d95cac4d3b00034de5842e462', 68),
+	(79, 'd8b1c0c251111a8f43fd4278aaf90b69', 70),
+	(80, '808c5fad17282b9c5c54a61ba3d32ca1', 68),
+	(81, '52ee032252a1b4510a3ba1498ef95f97', 69),
+	(82, 'eb07c695e997e4aff11cd5475808085c', 68),
+	(83, '08bf4272eb3c273d4ad925709096cdc8', 70),
+	(84, '5954d42ca174de01bf314e65c608db44', 68),
+	(85, '52c555af06882d1a6a502f9ad6e470e3', 69);
 
 -- Dumping structure for table laundry_shop.address_info
 CREATE TABLE IF NOT EXISTS `address_info` (
@@ -88,6 +112,20 @@ INSERT INTO `barangay` (`barangay_id`, `name`) VALUES
 	(11, 'District XI'),
 	(12, 'District XII');
 
+-- Dumping structure for table laundry_shop.booking_transaction
+CREATE TABLE IF NOT EXISTS `booking_transaction` (
+  `transaction_id` int NOT NULL AUTO_INCREMENT,
+  `booking_id` int DEFAULT NULL,
+  `shop_available_id` int DEFAULT NULL,
+  `quantity` decimal(13,2) DEFAULT NULL,
+  `total_amount` int DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`transaction_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+
+-- Dumping data for table laundry_shop.booking_transaction: ~0 rows (approximately)
+
 -- Dumping structure for table laundry_shop.courier_details
 CREATE TABLE IF NOT EXISTS `courier_details` (
   `idcourier_details` int NOT NULL AUTO_INCREMENT,
@@ -102,18 +140,6 @@ CREATE TABLE IF NOT EXISTS `courier_details` (
 -- Dumping data for table laundry_shop.courier_details: ~1 rows (approximately)
 INSERT INTO `courier_details` (`idcourier_details`, `p_info_id`, `resume`, `driver_license`, `description`, `created_at`) VALUES
 	(4, 51, 'http://localhost:7070/Resume/marvinvillanea-1671433906.pdf', 'http://localhost:7070/DriverLicense/marvinvillanea-1671433906.png', 'Tell me about your self', '2022-12-19 07:11:46');
-
--- Dumping structure for table laundry_shop.courier_notify
-CREATE TABLE IF NOT EXISTS `courier_notify` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `description` varchar(255) NOT NULL DEFAULT '0',
-  `status` int NOT NULL DEFAULT '0',
-  `user_id` int DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 ;
-
--- Dumping data for table laundry_shop.courier_notify: ~0 rows (approximately)
 
 -- Dumping structure for table laundry_shop.error_logs
 CREATE TABLE IF NOT EXISTS `error_logs` (
@@ -133,22 +159,20 @@ CREATE TABLE IF NOT EXISTS `form_booking_user` (
   `shop_services_id` int DEFAULT NULL,
   `date_time_to_pickup` timestamp NULL DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
+  `delivery_address` varchar(255) CHARACTER SET utf8mb4  DEFAULT NULL,
   `contact_no` varchar(50) DEFAULT NULL,
   `status_booking` smallint DEFAULT '0',
+  `user_id` int DEFAULT NULL COMMENT 'user_id = only the coureir_Id .. after the approval of shops',
+  `date_time_to_delivery` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `date_time_to_delivery` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`booking_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 ;
 
--- Dumping data for table laundry_shop.form_booking_user: ~0 rows (approximately)
-INSERT INTO `form_booking_user` (`booking_id`, `p_info_id`, `shop_id`, `shop_services_id`, `date_time_to_pickup`, `address`, `contact_no`, `status_booking`, `created_at`, `updated_at`, `date_time_to_delivery`) VALUES
-	(1, 50, 4, 4, '2022-12-19 02:14:00', 'Purok 2 Saray', '09755913121', 0, '2022-12-19 02:14:51', '2022-12-19 02:14:51', NULL),
-	(2, 50, 4, 4, '2022-12-19 02:14:00', 'Purok 2 Saray', '09755913121', 0, '2022-12-19 02:14:52', '2022-12-19 02:14:52', NULL),
-	(3, 50, 4, 4, '2022-12-19 02:14:00', 'Purok 2 Saray', '09755913121', 0, '2022-12-19 02:14:59', '2022-12-19 02:14:59', NULL),
-	(4, 50, 4, 4, '2022-12-19 02:15:00', 'cadfasf', 'dsafdsaf', 0, '2022-12-19 02:15:20', '2022-12-19 02:15:20', NULL),
-	(5, 50, 4, 4, '2022-12-19 02:15:00', 'cadfasf', 'dsafdsaf', 0, '2022-12-19 02:16:45', '2022-12-19 02:16:45', NULL),
-	(6, 50, 4, 4, '2022-12-19 02:15:00', 'cadfasf', 'dsafdsaf', 0, '2022-12-19 02:17:18', '2022-12-19 02:17:18', NULL);
+-- Dumping data for table laundry_shop.form_booking_user: ~6 rows (approximately)
+INSERT INTO `form_booking_user` (`booking_id`, `p_info_id`, `shop_id`, `shop_services_id`, `date_time_to_pickup`, `address`, `delivery_address`, `contact_no`, `status_booking`, `user_id`, `date_time_to_delivery`, `created_at`, `updated_at`) VALUES
+	(7, 50, 4, 4, '2022-12-24 13:21:00', 'Tibagan', NULL, '09755983121', 0, 0, NULL, '2022-12-21 13:23:16', '2022-12-21 17:15:42'),
+	(8, 50, 4, 4, '2022-12-21 14:49:00', 'Tibagan', 'Saray', '09755983121', 2, 70, NULL, '2022-12-21 14:49:54', '2022-12-21 18:26:05');
 
 -- Dumping structure for table laundry_shop.notity_system
 CREATE TABLE IF NOT EXISTS `notity_system` (
@@ -159,40 +183,18 @@ CREATE TABLE IF NOT EXISTS `notity_system` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`notify_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 ;
 
 -- Dumping data for table laundry_shop.notity_system: ~8 rows (approximately)
 INSERT INTO `notity_system` (`notify_id`, `user_id`, `description`, `status`, `created_at`, `updated_at`) VALUES
-	(3, 68, 'Account Has been Verify/Confirmed by Admin', NULL, '2022-12-18 16:25:51', '2022-12-18 16:25:51'),
-	(4, 68, 'Account Has been Verify/Confirmed by Admin', NULL, '2022-12-18 16:26:18', '2022-12-18 16:26:18'),
-	(5, 68, 'You got New Order # 1 22-12-19 02:12:51', NULL, '2022-12-19 02:14:51', '2022-12-19 02:14:51'),
-	(6, 68, 'You got New Order # 2 22-12-19 02:12:52', NULL, '2022-12-19 02:14:52', '2022-12-19 02:14:52'),
-	(7, 68, 'You got New Order # 3 22-12-19 02:12:59', NULL, '2022-12-19 02:14:59', '2022-12-19 02:14:59'),
-	(8, 68, 'You got New Order # 4 22-12-19 02:12:20', NULL, '2022-12-19 02:15:20', '2022-12-19 02:15:20'),
-	(9, 68, 'You got New Order # 5 22-12-19 02:12:45', 0, '2022-12-19 02:16:45', '2022-12-19 02:16:45'),
-	(10, 68, 'You got New Order # 6 22-12-19 02:12:18', 0, '2022-12-19 02:17:18', '2022-12-19 02:17:18');
-
--- Dumping structure for table laundry_shop.parcel_details
-CREATE TABLE IF NOT EXISTS `parcel_details` (
-  `idparcel_details` int NOT NULL AUTO_INCREMENT,
-  `user_id` int DEFAULT NULL,
-  `idcourier_details` int DEFAULT NULL,
-  `recepient_name` varchar(255) DEFAULT NULL,
-  `recepient_address` varchar(255) DEFAULT NULL,
-  `recepient_contact_no` varchar(255) DEFAULT NULL,
-  `parcel_number` varchar(55) DEFAULT NULL,
-  `parcel_description` varchar(255) DEFAULT NULL,
-  `type_delivery` varchar(45) DEFAULT NULL,
-  `weight_id` int DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` int DEFAULT '1',
-  `amount` decimal(13,2) DEFAULT NULL,
-  `address_sender` varchar(255) DEFAULT NULL,
-  `recipient_image` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`idparcel_details`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
-
--- Dumping data for table laundry_shop.parcel_details: ~0 rows (approximately)
+	(15, 70, 'You got New Order # 7 22-12-21 04:12:04', 1, '2022-12-21 16:52:04', '2022-12-21 18:49:40'),
+	(16, 68, 'You\'re Order # 7, Has been approved. We\'ll let you know once it done. Thank you!. 22-12-21 04:12:04', 1, '2022-12-21 16:52:04', '2022-12-21 18:47:08'),
+	(17, 70, 'You got New Order # 8 22-12-21 05:12:51', 1, '2022-12-21 17:15:51', '2022-12-21 18:49:31'),
+	(18, 68, 'You\'re Order # 8, Has been approved. We\'ll let you know once it done. Thank you!. 22-12-21 05:12:51', 1, '2022-12-21 17:15:51', '2022-12-21 18:43:49'),
+	(19, 70, 'You got New Order # 8 22-12-21 05:12:53', 1, '2022-12-21 17:17:53', '2022-12-21 18:49:36'),
+	(20, 68, 'You\'re Order # 8, Has been approved. We\'ll let you know once it done. Thank you!. 22-12-21 05:12:53', 1, '2022-12-21 17:17:53', '2022-12-21 18:43:26'),
+	(21, 68, 'Order # 8, Has been approved by Courier. Thank you!. 22-12-21 06:12:06', 1, '2022-12-21 18:26:06', '2022-12-21 18:42:45'),
+	(22, 69, 'Your Order # 8, Has been approved by Courier. Thank you!. 22-12-21 06:12:06', 1, '2022-12-21 18:26:06', '2022-12-21 18:46:30');
 
 -- Dumping structure for table laundry_shop.parcel_status
 CREATE TABLE IF NOT EXISTS `parcel_status` (
@@ -200,22 +202,26 @@ CREATE TABLE IF NOT EXISTS `parcel_status` (
   `description` varchar(100) DEFAULT NULL,
   `details` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_status`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 ;
 
 -- Dumping data for table laundry_shop.parcel_status: ~12 rows (approximately)
 INSERT INTO `parcel_status` (`id_status`, `description`, `details`) VALUES
-	(1, 'Pending Request', 'Waiting Confirmation from Courier'),
-	(2, 'Parcel Accepted by Courier', NULL),
-	(3, 'Item Collected by Courier', 'The Item has been Collected by Courier.'),
-	(4, 'Shipped', 'The item has been Shipped.'),
-	(5, 'In-Transit', 'The parcel will be arrived to day.'),
+	(0, 'Pending Request', 'Waiting Confirmation'),
+	(1, 'Order Accepted', 'Waiting for a Driver Confirmation.'),
+	(2, 'Order Accepted By Courier', 'Please Ready to pick-up your Items.'),
+	(3, 'Ready to Pickup', 'The item are ready to pickup.'),
+	(4, 'Reviewing Items', 'Reviewing the items'),
+	(5, 'Items Collected by Courier', 'The Item has been Collected by Courier.'),
 	(6, 'Arrived at Destination', 'The item has been arrived at destination.'),
-	(7, 'Delivered', NULL),
-	(8, 'Picked-up', 'The item already picked-up by Recipient.'),
-	(9, 'Ready to Pickup', 'The item are ready to pickup.'),
-	(10, 'Out for Delivery', 'Out for Delivery'),
-	(11, 'Unsuccessfull Delivery Attempt', 'The item Unsuccessful Delivered Attempty'),
-	(12, 'Parcel Denied by Courier', 'The Parcel Denied by Courier');
+	(7, 'In-process', 'The Item are now in-process.'),
+	(8, 'Ready to Deliver.', 'The item is ready to deliver.'),
+	(9, 'In-Transit', 'The parcel will be arrived to day.'),
+	(10, 'Arrived at Destination', 'The item has been arrived at destination.'),
+	(11, 'Delivered', NULL),
+	(12, 'Order Declined ', 'The Order has been Declined by Shops. Out of Delivery/ Out of schedule.'),
+	(13, 'Order Declined', 'The Order has been Declined by Courier.'),
+	(14, 'Pending Courier', 'Waiting for the Available Delivery.'),
+	(15, 'Cancel Order', 'The Order has been Canceled.');
 
 -- Dumping structure for table laundry_shop.personal_info
 CREATE TABLE IF NOT EXISTS `personal_info` (
@@ -262,16 +268,6 @@ CREATE TABLE IF NOT EXISTS `rate_courier` (
 
 -- Dumping data for table laundry_shop.rate_courier: ~0 rows (approximately)
 
--- Dumping structure for table laundry_shop.set_weight
-CREATE TABLE IF NOT EXISTS `set_weight` (
-  `weight_id` int NOT NULL AUTO_INCREMENT,
-  `description` varchar(45) DEFAULT NULL,
-  `amount` decimal(13,2) DEFAULT NULL,
-  PRIMARY KEY (`weight_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 ;
-
--- Dumping data for table laundry_shop.set_weight: ~1 rows (approximately)
-
 -- Dumping structure for table laundry_shop.shops
 CREATE TABLE IF NOT EXISTS `shops` (
   `shop_id` int NOT NULL AUTO_INCREMENT,
@@ -312,6 +308,7 @@ INSERT INTO `shops_services` (`shop_services_id`, `shop_id`, `services_id`, `sta
 CREATE TABLE IF NOT EXISTS `shops_services_available` (
   `shop_available_id` int NOT NULL AUTO_INCREMENT,
   `shop_services_id` int DEFAULT NULL,
+  `category` varchar(50) CHARACTER SET utf8mb4  DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `amount` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -364,27 +361,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_type` varchar(45) CHARACTER SET utf8mb4  DEFAULT NULL COMMENT '1 = admin,   2 = user, 3 courier, 4 = shops',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `driver_status` int DEFAULT NULL COMMENT '0 = available, 1 = not available',
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 ;
 
 -- Dumping data for table laundry_shop.users: ~3 rows (approximately)
-INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `status`, `verify`, `user_type`, `created_at`, `updated_at`) VALUES
-	(1, 'admin', 'admin@gmail.com', 'admin123', 1, 1, '1', '2022-09-23 02:36:01', '2022-12-10 17:53:49'),
-	(68, 'marvinvillanea', 'marvinvillanea1@gmail.com', '1234', 1, 1, '4', '2022-12-18 15:22:22', '2022-12-19 00:25:51'),
-	(69, 'marvinvillanea', 'marvin_bound@yahoo.com', 'marvin_bound', 1, 1, '2', '2022-12-18 15:45:44', '2022-12-18 15:45:44'),
-	(70, 'marvinvillana', 'courier@gmail.com', '1234', 1, 0, '3', '2022-12-19 15:11:46', '2022-12-19 15:11:46');
-
--- Dumping structure for table laundry_shop.users_notify
-CREATE TABLE IF NOT EXISTS `users_notify` (
-  `id_notify` bigint NOT NULL AUTO_INCREMENT,
-  `description` varchar(255) NOT NULL DEFAULT '0',
-  `status` tinytext NOT NULL,
-  `user_id` int DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_notify`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
-
--- Dumping data for table laundry_shop.users_notify: ~0 rows (approximately)
+INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `status`, `verify`, `user_type`, `created_at`, `updated_at`, `driver_status`) VALUES
+	(1, 'admin', 'admin@gmail.com', 'admin123', 1, 1, '1', '2022-09-23 02:36:01', '2022-12-10 17:53:49', NULL),
+	(68, 'marvinvillanea', 'shops@gmail.com', '1234', 1, 1, '4', '2022-12-18 15:22:22', '2022-12-21 21:18:16', NULL),
+	(69, 'marvinvillanea', 'users@gmail.com', '1234', 1, 1, '2', '2022-12-18 15:45:44', '2022-12-21 21:18:28', NULL),
+	(70, 'marvinvillana', 'courier@gmail.com', '1234', 1, 1, '3', '2022-12-19 15:11:46', '2022-12-22 00:37:14', NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -22,7 +22,7 @@
                                 </div>
                             </div> -->
                             <?php
-                                $getTotal = $db->select("select count(*) as total from courier_notify where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
+                                $getTotal = $db->select("select count(*) as total from notity_system where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
                             ?>
                             <div class="header-button-item has-noti js-item-menu">
                              <button type="button" class="btn position-relative" style="color:white;">
@@ -36,12 +36,12 @@
                                 <div class="notifi-dropdown js-dropdown">
                                     <div class="notifi__title">
                                         <?php
-                                            $getTotal = $db->select("select count(*) as total from courier_notify where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
+                                            $getTotal = $db->select("select count(*) as total from notity_system where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
                                             echo "<p>You have ".$getTotal[0]["total"]." Notifications</p>";
                                         ?>
                                     </div>
                                     <?php 
-                                        $getNotifcation = $db->select("select * from courier_notify where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
+                                        $getNotifcation = $db->select("select * from notity_system where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
                                         if(count($getNotifcation)){
                                             foreach ($getNotifcation as $key => $value){
                                                 ?>
@@ -50,7 +50,7 @@
                                                         <i class="zmdi zmdi-email-open"></i>
                                                     </div>
                                                     <div class="content">
-                                                        <button type="button" id="<?php echo $value["id"] ?>" onclick="updateNotify(this.id)">
+                                                        <button type="button" id="<?php echo $value["notify_id"] ?>" onclick="updateNotify(this.id)">
                                                         <p><?php echo $value["description"] ?></p>
                                                         <span class="date"><?php echo $value["created_at"] ?></span>
                                                         </button>
@@ -135,13 +135,62 @@
                                 <i class="fas fa-user-md"></i>My Profile
                             </a>
                         </li>
-                        
-                        <li class="<?php if($_GET["page"] == 'list_nofity') {echo "active";}?>">
-                            <a href="index.php?page=list_nofity">
-                                <i class="fas fa-user-md"></i>Notifications
+                         <li class="<?php if($_GET["page"] == 'new_order') {echo "active";}?>">
+                            <a href="index.php?page=new_order">
+                                <i class="fas fa-truck"></i>New Order <span class="badge badge-warning"><?php echo $total_new_order["total_new_order"]; ?>
                             </a>
-                        </li>  
+                        </li>
+                        <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-copy"></i>Tracking Order
+                                <span class="arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li class="<?php if($_GET["page"] == 'all_status') {echo "active";}?>">
+                                    <a href="index.php?page=all_status">All List</a>
+                                </li>
+                                <li class="<?php if($_GET["page"] == 'order_accepted') {echo "active";}?>">
+                                    <a href="index.php?page=order_accepted">Order Accepted</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=order_accepted">Ready to Pickup</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=order_accepted">Reviewing Items</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=order_accepted">Items Collected</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=order_accepted">Arrived at Destination - (Laundry Shops)</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=order_accepted">In-process</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=order_accepted">Packaging</a>
+                                </li>
+                                 <li>
+                                    <a href="index.php?page=order_accepted">Ready to Deliver.</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=order_accepted">In-Transit.</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=order_accepted">Arrived at Destination - (Client).</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=order_accepted">Delivered.</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=order_accepted">Order Declined.</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
+                    
                 </nav>
             </div>
         </aside>
@@ -149,8 +198,8 @@
 <script>
     function updateNotify(id){
         $.post(
-            "api/routes.php",
-            {id: id, action:"update_notify_courier",type:"courier"},
+            "api/controller/global.php",
+            {id: id},
             function(data){ 
                 // location.reload(true); 
                 window.location.href = data; 
@@ -158,6 +207,4 @@
             }
         );
     }
-
-    
 </script>

@@ -1,16 +1,16 @@
 <?php
 session_start();
-require '../../vendor/autoload.php';
+require '../../../vendor/autoload.php';
 $repository = Dotenv\Repository\RepositoryBuilder::createWithNoAdapters()
 ->addAdapter(Dotenv\Repository\Adapter\EnvConstAdapter::class)
 ->addWriter(Dotenv\Repository\Adapter\PutenvAdapter::class)
 ->immutable()
 ->make();
 
-$dotenv = Dotenv\Dotenv::create($repository, '../../');
+$dotenv = Dotenv\Dotenv::create($repository, '../../../');
 $dotenv->load();
-include("../../database/connection.php");
-include("../../controller/Portal.php");    
+include("../../../database/connection.php");
+include("../../../controller/Portal.php");    
 $db = new DatabaseClass();
 
 header("Content-Type: application/json");

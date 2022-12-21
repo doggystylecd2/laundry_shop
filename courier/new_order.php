@@ -14,13 +14,13 @@
 <div class="page-wrapper">
 
      <!-- SIDE BAR MOBILE AND DESKTOP -->
-     <?php include('./shops/side_bar.php');?>
+     <?php include('./courier/side_bar.php');?>
     <!-- END SIDE BAR MOBILE AND DESKTOP -->
 
     <!-- PAGE CONTAINER-->
     <div class="page-container2">
         <!-- HEADER DESKTOP-->
-            <?php include('./shops/header.php') ?>
+            <?php include('./courier/header.php') ?>
         <!-- HEADER DESKTOP-->
 
         <!-- MAIN CONTENT-->
@@ -42,9 +42,9 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                                $user_to_verify = $db->select("SELECT *, CONCAT(last_name, ', ', first_name ) fullname FROM form_booking_user 
+                                                $user_to_verify = $db->select("SELECT *, CONCAT(last_name, ', ', first_name ) fullname FROM form_booking_user  fb
                                                     inner join personal_info USING (p_info_id)
-                                                    where status_booking = 0 and shop_id in (select shop_id from shops where p_info_id = (select p_info_id from personal_info where user_id = ? order by booking_id desc ) ) " , array($_SESSION["user_id"]) );
+                                                    where fb.status_booking = 1 and fb.user_id = ? " , array($_SESSION["user_id"]) );
                                                 if(count($user_to_verify) > 0){
                                                     foreach ($user_to_verify as $key => $value) {
                                                         ?>
@@ -145,7 +145,7 @@
         $('#parcel_details').remove();
         $('#pacel_no').append('<span id="parcel_no_value">Details</span>');
           $.post(
-            "api/view/shops/new_order.php",
+            "api/view/driver/new_order.php",
             {booking_id: booking_id},
             function(data){ 
                 $('#parcel_details').remove();
@@ -169,7 +169,7 @@
             // });
 
             $.ajax({
-                url : "api/controller/shops/assigncourier.php",
+                url : "api/controller/driver/updateStatus.php",
                 method: "post",
                 data : data,
                 success: (res) => {

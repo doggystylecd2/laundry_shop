@@ -76,24 +76,28 @@
                                 </div>
                                 <div class="account-dropdown__body">
                                     <div class="account-dropdown__item">
-                                         <a href="index.php?page=home">
+                                        <a href="index.php?page=home">
                                             <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                                     </div>
                                     <div class="account-dropdown__item">
+                                        <a href="index.php?page=pending_courier">
+                                            <i class="fas fa-user"></i>New Courier <span class="badge badge-warning"><?php echo $total_users_pending["total_users"]; ?></span> </a>
+                                    </div>
+                                    <div class="account-dropdown__item">
+                                        <a href="index.php?page=pending_shop">
+                                             <i class="fas fa-shopping-cart"></i>New Shop <span class="badge badge-warning"><?php echo $total_shops_pending["total_users"]; ?></span> </a>
+                                    </div>
+                                    <div class="account-dropdown__item">
+                                        <a href="index.php?page=list_users">
+                                            <i class="fas fa-list"></i>List Users</a>
+                                    </div>
+                                    <div class="account-dropdown__item">
+                                         <a href="index.php?page=list_shops">
+                                        <i class="fas fa-shopping-cart"></i>List Shops</a>
+                                    </div>
+                                    <div class="account-dropdown__item">
                                         <a href="index.php?page=list_courier">
-                                            <i class="fas fa-tachometer-alt"></i>Active Courier</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="index.php?page=disapproved_courier">
-                                            <i class="fas fa-tachometer-alt"></i>Disapproved Courier</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="index.php?page=users">
-                                            <i class="fas fa-tachometer-alt"></i>Users</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="index.php?page=tracking_parcel">
-                                            <i class="fas fa-tachometer-alt"></i>Tracking Parcel</a>
+                                            <i class="fas fa-truck"></i>List Courier</a>
                                     </div>
                                 </div>
                                 <div class="account-dropdown__footer">

@@ -59,6 +59,14 @@
             </div>
             <div class="row form-group">
                 <div class="col col-md-3">
+                    <label for="delivery_address" class=" form-control-label">Delivery Address</label>
+                </div>
+                <div class="col-12 col-md-9">
+                   <input type="text" name="delivery_address" id="delivery_address"  class="form-control-sm form-control">
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col col-md-3">
                     <label class=" form-control-label">Contact #:</label>
                 </div>
                 <div class="col-12 col-md-9">

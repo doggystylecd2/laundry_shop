@@ -14,13 +14,13 @@
 <div class="page-wrapper">
 
      <!-- SIDE BAR MOBILE AND DESKTOP -->
-     <?php include('./shops/side_bar.php');?>
+     <?php include('./courier/side_bar.php');?>
     <!-- END SIDE BAR MOBILE AND DESKTOP -->
 
     <!-- PAGE CONTAINER-->
     <div class="page-container2">
         <!-- HEADER DESKTOP-->
-            <?php include('./shops/header.php') ?>
+            <?php include('./courier/header.php') ?>
         <!-- HEADER DESKTOP-->
 
         <!-- MAIN CONTENT-->
@@ -30,7 +30,7 @@
                     <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5">New Request</h3>
+                                <h3 class="title-5">All Order</h3>
                                 <div class="table-responsive table-responsive-data2">
                                     <table class="table table-data2" id="table_list">
                                         <thead>
@@ -42,9 +42,9 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                                $user_to_verify = $db->select("SELECT *, CONCAT(last_name, ', ', first_name ) fullname FROM form_booking_user 
-                                                    inner join personal_info USING (p_info_id)
-                                                    where status_booking = 0 and shop_id in (select shop_id from shops where p_info_id = (select p_info_id from personal_info where user_id = ? order by booking_id desc ) ) " , array($_SESSION["user_id"]) );
+                                                $user_to_verify = $db->select("SELECT *, CONCAT(last_name, ', ', first_name ) fullname FROM form_booking_user fb
+                                                    inner join personal_info pf USING (p_info_id)
+                                                    where  fb.user_id = ? " , array($_SESSION["user_id"]) );
                                                 if(count($user_to_verify) > 0){
                                                     foreach ($user_to_verify as $key => $value) {
                                                         ?>
@@ -145,7 +145,7 @@
         $('#parcel_details').remove();
         $('#pacel_no').append('<span id="parcel_no_value">Details</span>');
           $.post(
-            "api/view/shops/new_order.php",
+            "api/view/shops/tracking_data.php",
             {booking_id: booking_id},
             function(data){ 
                 $('#parcel_details').remove();

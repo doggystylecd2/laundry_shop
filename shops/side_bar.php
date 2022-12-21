@@ -1,3 +1,6 @@
+<?php 
+ $total_new_order = countOrderShops($db);
+?>
 <!-- MENU SIDEBAR-->
 <aside class="menu-sidebar2">
     <div class="logo" style="background-color: #5088ff;">
@@ -40,14 +43,69 @@
                 </li>
                 <li class="<?php if($_GET["page"] == 'new_request') {echo "active";}?>">
                     <a href="index.php?page=new_request">
-                        <i class="fas fa-plus-square"></i>New Request
+                        <i class="fas fa-plus-square"></i>New Order <span class="badge badge-warning"><?php echo $total_new_order["total_new_order"]; ?>
                     </a>
                 </li>
-                <li class="<?php if($_GET["page"] == 'list_nofity') {echo "active";}?>">
+                 <li class="has-sub">
+                    <a class="js-arrow" href="#">
+                        <i class="fas fa-copy"></i>Tracking Order
+                        <span class="arrow">
+                            <i class="fas fa-angle-down"></i>
+                        </span>
+                    </a>
+                    <ul class="list-unstyled navbar__sub-list js-sub-list">
+                        <li class="<?php if($_GET["page"] == 'all_status') {echo "active";}?>">
+                            <a href="index.php?page=all_status">All List</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=all_status">Order Accepted</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=all_status">Ready to Pickup</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=all_status">Reviewing Items</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=all_status">Items Collected by Courier</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=all_status">Arrived at Destination - (Laundry Shops)</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=all_status">In-process</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=all_status">Packaging</a>
+                        </li>
+                         <li>
+                            <a href="index.php?page=all_status">Ready to Deliver.</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=all_status">In-Transit.</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=all_status">Arrived at Destination - (Client).</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=all_status">Delivered.</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=all_status">Order Declined.</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=all_status">Pending Courier.</a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=all_status">Cancel Order.</a>
+                        </li>
+                    </ul>
+                </li>
+               <!--  <li class="<?php if($_GET["page"] == 'list_nofity') {echo "active";}?>">
                     <a href="index.php?page=list_nofity">
                         <i class="fas fa-user-md"></i>Notifications
                     </a>
-                </li>   
+                </li>    -->
             </ul>
         </nav>
     </div>

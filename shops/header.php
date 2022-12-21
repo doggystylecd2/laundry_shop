@@ -22,7 +22,7 @@
                                 </div>
                             </div> -->
                             <?php
-                                $getTotal = $db->select("select count(*) as total from users_notify where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
+                                $getTotal = $db->select("select count(*) as total from notity_system where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
                             ?>
                             <div class="header-button-item has-noti js-item-menu">
                                 <!-- <i class="zmdi zmdi-notifications position-relative"></i> -->
@@ -41,7 +41,7 @@
                                         ?>
                                     </div>
                                     <?php 
-                                        $getNotifcation = $db->select("select * from users_notify where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
+                                        $getNotifcation = $db->select("select * from notity_system where user_id = ? and status = 0 order by created_at desc limit 5", [$_SESSION["user_id"]] );
                                         if(count($getNotifcation)){
                                             foreach ($getNotifcation as $key => $value){
                                                 ?>
@@ -50,7 +50,7 @@
                                                         <i class="zmdi zmdi-email-open"></i>
                                                     </div>
                                                     <div class="content">
-                                                        <button type="button" id="<?php echo $value["id_notify"] ?>" onclick="updateNotify(this.id)">
+                                                        <button type="button" id="<?php echo $value["notify_id"] ?>" onclick="updateNotify(this.id)">
                                                         <p><?php echo $value["description"] ?></p>
                                                         <span class="date"><?php echo $value["created_at"] ?></span>
                                                         </button>
@@ -121,14 +121,69 @@
                         </li>
                         <li class="<?php if($_GET["page"] == 'shops_details') {echo "active";}?>">
                             <a href="index.php?page=shops_details">
-                                <i class="fas fa-user-md"></i>Shop Details
+                                <i class="fas fa-shopping-cart"></i>Shop Details
                             </a>
                         </li>
-                        <li class="<?php if($_GET["page"] == 'list_nofity') {echo "active";}?>">
-                            <a href="index.php?page=list_nofity">
-                                <i class="fas fa-user-md"></i>Notifications
+                        <li class="<?php if($_GET["page"] == 'new_request') {echo "active";}?>">
+                            <a href="index.php?page=new_request">
+                                <i class="fas fa-plus-square"></i>New Order <span class="badge badge-warning"><?php echo $total_new_order["total_new_order"]; ?>
                             </a>
-                        </li>   
+                        </li>
+                         <li class="has-sub">
+                            <a class="js-arrow" href="#">
+                                <i class="fas fa-copy"></i>Tracking Order
+                                <span class="arrow">
+                                    <i class="fas fa-angle-down"></i>
+                                </span>
+                            </a>
+                            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                                <li class="<?php if($_GET["page"] == 'all_status') {echo "active";}?>">
+                                    <a href="index.php?page=all_status">All List</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=all_status">Order Accepted</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=all_status">Ready to Pickup</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=all_status">Reviewing Items</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=all_status">Items Collected by Courier</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=all_status">Arrived at Destination - (Laundry Shops)</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=all_status">In-process</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=all_status">Packaging</a>
+                                </li>
+                                 <li>
+                                    <a href="index.php?page=all_status">Ready to Deliver.</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=all_status">In-Transit.</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=all_status">Arrived at Destination - (Client).</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=all_status">Delivered.</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=all_status">Order Declined.</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=all_status">Pending Courier.</a>
+                                </li>
+                                <li>
+                                    <a href="index.php?page=all_status">Cancel Order.</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -138,8 +193,8 @@
 <script>
     function updateNotify(id){
         $.post(
-            "api/routes.php",
-            {id: id, action:"update_notify_courier",type:"users"},
+            "api/controller/global.php",
+            {id: id},
             function(data){ 
                 // location.reload(true); 
                 window.location.href = data; 
