@@ -7,7 +7,7 @@
         <a href="#">
             <!-- <img src="images/icon/logo-white.png" alt="Cool Admin" /> -->
             <!-- <img src="images/icon/logo_courier.png" alt="CoolAdmin" style="height: 70px; weight: 300px;"/> -->
-            <img src="images/icon/logo_laundryshop.png" alt="laundry shop" style="height: 70px; "/>
+            <!-- <img src="images/icon/logo_laundryshop.png" alt="laundry shop" style="height: 70px; "/> -->
         </a>
     </div>
     <div class="menu-sidebar2__content js-scrollbar1">

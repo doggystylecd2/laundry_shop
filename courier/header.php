@@ -6,7 +6,7 @@
                         <div class="logo d-block d-lg-none">
                             <a href="#">
                                 <!-- <img src="images/icon/logo_courier.png" alt="CoolAdmin" style="height: 70px; "/> -->
-                                <img src="images/icon/logo_laundryshop.png" alt="laundry shop" style="height: 70px; "/>
+                                <!-- <img src="images/icon/logo_laundryshop.png" alt="laundry shop" style="height: 70px; "/> -->
                             </a>
                         </div>
                         <div class="header-button2">

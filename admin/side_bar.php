@@ -10,7 +10,7 @@
 <aside class="menu-sidebar d-none d-lg-block">
      <div class="logo"  style="background-color: #5088ff;">
         <a href="#">
-            <img src="images/icon/logo_laundryshop.png" alt="laundry shop" style="height: 70px; "/>
+            <!-- <img src="images/icon/logo_laundryshop.png" alt="laundry shop" style="height: 70px; "/> -->
         </a>
     </div>
     <div class="menu-sidebar__content js-scrollbar1">

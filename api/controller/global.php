@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
        
 
         // message(true,'Your Booked ID Successfully Added. Please wait for the Confirmation!. Thank you');
-       echo "http://localhost:7070/index.php?page=all_status";
+       echo getMyUrl()."/index.php?page=all_status";
     } else {
         // message(false,'Missing input!..');
     }
