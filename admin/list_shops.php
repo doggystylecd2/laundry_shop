@@ -30,7 +30,7 @@
                     <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5">Pending Shops</h3>
+                                <h3 class="title-5">Shop's List</h3>
                                 <div class="table-responsive table-responsive-data2">
                                     <table class="table table-data2" id="table_list">
                                         <thead>
@@ -41,10 +41,11 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                                $user_to_verify = $db->select("SELECT *, (case when user_type = 3 then 'Courier' else 'Shop' end ) as `type` 
+                                                $user_to_verify = $db->select("SELECT *, (case when user_type = 3 then 'Courier' else 'Shop' end ) as `type` ,
+                                                    (select resume from courier_details where p_info_id = pf.p_info_id) as resume
                                                     FROM users u
                                                     inner join personal_info pf using(user_id)
-                                                     where `verify` = 0 and user_type in (4)");
+                                                     where `verify` = 1 and user_type in (4)");
                                                 if(count($user_to_verify) > 0){
                                                     foreach ($user_to_verify as $key => $value) {
                                                         ?>
@@ -54,24 +55,10 @@
                                                             </td>
                                                             <td>
                                                             <div class="table-data-feature">
-                                                                <button class="item" data-toggle="tooltip"  title="View" type="button"  id="<?php echo $value["user_id"]; ?>" name="view_details" name="view" onclick="showModal(this.id,this.name)">
+                                                                <button class="item" data-toggle="tooltip" data-placement="top" title="View" type="button"  id="<?php echo $value["user_id"]; ?>" name="view_details" name="view" onclick="showModal(this.id,this.name)">
                                                                     <i class="zmdi zmdi-eye" style="color:#298afe;"></i> 
                                                                     
                                                                 </button>
-                                                                 <button class="item" data-toggle="tooltip"  title="Logo" type="button"  id="<?php echo $value["user_id"]; ?>"  name="view_resume"  onclick="showModal(this.id,this.name)">
-                                                                   <i class="zmdi zmdi-file" style="color:#298afe;"></i> 
-                                                                    
-                                                                </button>
-                                                                 <button class="item" data-toggle="tooltip"  title="File Permit" type="button"  id="<?php echo $value["user_id"]; ?>" name="view_driver"  onclick="showModal(this.id,this.name)">
-                                                                   <i class="zmdi zmdi-card" style="color:#298afe;"></i> 
-                                                                    
-                                                                </button>
-                                                                 <button class="item" data-toggle="tooltip"  title="Confirm" type="button" name="confirm"  id="<?php echo $value["user_id"]; ?>" onclick="showModal(this.id,this.name)">
-                                                                   <i class="zmdi zmdi-check-circle" style="color:green;"></i> 
-                                                                    
-                                                                </button>
-
-
                                                             </div>
                                                             </td>
                                                         </tr>
@@ -153,7 +140,7 @@
             // $('#parcel_modal_body').append('<div id="parcel_details">Name: Marvin villanea</div>');
             $.post(
                 "api/routes.php",
-                {user_id: user_id,action:"getdetailsUserShopsPending", type: 'admin', name: name},
+                {user_id: user_id,action:"getdetailsUserPending", type: 'admin', name: name},
                 function(data){ 
                     // location.reload(true); 
                     $('#parcel_modal_body').append(data);
@@ -163,30 +150,5 @@
       
     }
 
-    function updateStatus(user_id, name) 
-    {
 
-        // $.post("api/routes.php",{user_id: user_id, name: name,action:"courier_approval", type: 'admin'}, function(data) 
-        // { 
-        //     location.reload(true); 
-        //     // window.location.href = '/index.php?page=list_shops';
-        // }
-        // );
-        
-
-         $.ajax({
-                url : "api/routes.php",
-                method: "post",
-                data : {user_id: user_id, name: name,action:"courier_approval", type: 'admin'},
-                success: (res) => {
-                    Swal.fire(
-                        'Success',
-                        'Account has been confirmed!..',
-                        'success'
-                    ).then((result) => {
-                      location.reload();
-                    });
-                }
-            });
-      }
 </script>

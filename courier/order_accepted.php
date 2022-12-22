@@ -44,7 +44,7 @@
                                             <?php
                                                 $user_to_verify = $db->select("SELECT *, CONCAT(last_name, ', ', first_name ) fullname FROM form_booking_user fb
                                                     inner join personal_info pf USING (p_info_id)
-                                                    where  fb.user_id = ? " , array($_SESSION["user_id"]) );
+                                                    where fb.status_booking = 2 and  fb.user_id = ? " , array($_SESSION["user_id"]) );
                                                 if(count($user_to_verify) > 0){
                                                     foreach ($user_to_verify as $key => $value) {
                                                         ?>
@@ -127,7 +127,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <input type="submit" class="btn btn-primary" value="Confirm" />
+                    <input type="submit" class="btn btn-primary" value="Ready to Pickup " />
 
                 </div>
             </form>
@@ -145,7 +145,7 @@
         $('#parcel_details').remove();
         $('#pacel_no').append('<span id="parcel_no_value">Details</span>');
           $.post(
-            "api/view/shops/tracking_data.php",
+            "api/view/driver/oder_accepted.php",
             {booking_id: booking_id},
             function(data){ 
                 $('#parcel_details').remove();
@@ -169,7 +169,7 @@
             // });
 
             $.ajax({
-                url : "api/controller/shops/assigncourier.php",
+                url : "api/controller/driver/updateToOrderAccept.php",
                 method: "post",
                 data : data,
                 success: (res) => {

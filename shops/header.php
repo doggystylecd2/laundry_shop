@@ -140,49 +140,30 @@
                                 <li class="<?php if($_GET["page"] == 'all_status') {echo "active";}?>">
                                     <a href="index.php?page=all_status">All List</a>
                                 </li>
-                                <li>
-                                    <a href="index.php?page=all_status">Order Accepted</a>
+                                <li class="<?php if($_GET["page"] == 'arrived_at_destination') {echo "active";}?>">    
+                                    <a href="index.php?page=arrived_at_destination">Arrived at Destination - (Laundry Shops)</a>
                                 </li>
-                                <li>
-                                    <a href="index.php?page=all_status">Ready to Pickup</a>
+                                <li class="<?php if($_GET["page"] == 'in_process') {echo "active";}?>">
+                                    <a href="index.php?page=in_process">In-process</a>
                                 </li>
-                                <li>
-                                    <a href="index.php?page=all_status">Reviewing Items</a>
+                                <li class="<?php if($_GET["page"] == 'packaging') {echo "active";}?>">
+                                    <a href="index.php?page=packaging">Packaging</a>
                                 </li>
-                                <li>
-                                    <a href="index.php?page=all_status">Items Collected by Courier</a>
+                                <li class="<?php if($_GET["page"] == 'in_transit') {echo "active";}?>">
+                                    <a href="index.php?page=in_transit">In-Transit.</a>
                                 </li>
-                                <li>
-                                    <a href="index.php?page=all_status">Arrived at Destination - (Laundry Shops)</a>
+                                <li class="<?php if($_GET["page"] == 'delivered') {echo "active";}?>">
+                                    <a href="index.php?page=delivered">Delivered.</a>
                                 </li>
-                                <li>
-                                    <a href="index.php?page=all_status">In-process</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=all_status">Packaging</a>
-                                </li>
-                                 <li>
-                                    <a href="index.php?page=all_status">Ready to Deliver.</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=all_status">In-Transit.</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=all_status">Arrived at Destination - (Client).</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=all_status">Delivered.</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=all_status">Order Declined.</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=all_status">Pending Courier.</a>
-                                </li>
-                                <li>
-                                    <a href="index.php?page=all_status">Cancel Order.</a>
+                                <li class="<?php if($_GET["page"] == 'declient_order') {echo "active";}?>">
+                                    <a href="index.php?page=declient_order">Order Declined.</a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="<?php if($_GET["page"] == 'list_nofity') {echo "active";}?>">
+                            <a href="index.php?page=list_nofity">
+                                <i class="fas fa-user-md"></i>Notifications
+                            </a>
                         </li>
                     </ul>
                 </nav>

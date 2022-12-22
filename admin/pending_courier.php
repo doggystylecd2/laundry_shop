@@ -166,11 +166,26 @@
 
     function updateStatus(user_id, name) 
     {
-        $.post("api/routes.php",{user_id: user_id, name: name,action:"courier_approval", type: 'admin'}, function(data) 
-        { 
-            // location.reload(true); 
-            window.location.href = '/index.php?page=list_courier';
-        }
-        );
+        // $.post("api/routes.php",{user_id: user_id, name: name,action:"courier_approval", type: 'admin'}, function(data) 
+        // { 
+        //     // location.reload(true); 
+        //     window.location.href = '/index.php?page=list_courier';
+        // }
+        // );
+
+          $.ajax({
+                url : "api/routes.php",
+                method: "post",
+                data : {user_id: user_id, name: name,action:"courier_approval", type: 'admin'},
+                success: (res) => {
+                    Swal.fire(
+                        'Success',
+                        'Account has been confirmed!..',
+                        'success'
+                    ).then((result) => {
+                      location.reload();
+                    });
+                }
+            });
       }
 </script>

@@ -25,7 +25,7 @@
             fb.delivery_address,
             fb.status_booking,
             fb.user_id,
-            (select name from shops where shop_id = fb.shop_id) as shop_name,
+             (select name from shops where shop_id = fb.shop_id) as shop_name,
             (select description from parcel_status where id_status = fb.status_booking ) as status_name,
             (select details from parcel_status where id_status = fb.status_booking ) as status_name_details,
             (  SELECT name FROM type_of_services WHERE services_id = (SELECT services_id FROM shops_services WHERE shop_services_id = fb.shop_services_id) ) shop_services_name,
@@ -85,7 +85,7 @@
                     ?>
                 </div>
             </div>
-             <div class="row form-group">
+            <div class="row form-group">
                 <div class="col col-md-3">
                     <label for="shop_name" class="form-control-label">Shop Name:</label>
                 </div>
@@ -154,7 +154,7 @@
             <hr/>
              <div class="row form-group">
                 <div class="col col-md-3">
-                    <label for="user_id" class="form-control-label">Driver</label>
+                    <label for="user_id" class="form-control-label">Available Driver</label>
                 </div>
                 <div class="col-12 col-md-9">
                     <select name="user_id" id="user_id" class="form-control-sm form-control" disabled>
@@ -178,6 +178,48 @@
                          }
                        ?>
                     </select>
+                </div>
+            </div>
+            <hr/>
+            <div class="row form-group">
+                <div class="col col-md-12">
+                        <!-- TOP CAMPAIGN-->
+                            <h3 class="title-2 m-b-20">Services Fee</h3>
+                            <div class="table-responsive">
+                            <table class="table table-top-campaign">
+                                <tbody>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>Amount</td>
+                                        <td>Quantity</td>
+                                    </tr>
+                                     <?php 
+                                        $shops_services_available = $db->Select("SELECT * from shops_services_available where shop_services_id = ? order by category, name, amount asc", array($data["shop_services_id"]));
+                                         $option = '';
+                                         if(count($shops_services_available) > 0) {
+                                            foreach ($shops_services_available as $key => $value) {
+                                                ?>
+                                                 <tr>
+                                                    <td><input type="checkbox" name="shop_available_id[]" value="<?php echo $value["shop_available_id"] ?>" /><?php echo $value["name"] ?></td>
+                                                    <td><input type="hidden" name="amount[]" value="<?php echo $value["amount"] ?>"> <?php echo $value["amount"] ?></td>
+                                                    <td><input type="number" name="Quantity[]" value="" class="form-control-sm form-control"/></td>
+                                                </tr>
+                                                <?php
+                                            }
+                                            echo $option;
+                                         } else {
+                                            echo   "<tr>
+                                                        <td colspan=6>No Data.</td>
+                                                    </tr>";
+                                         }
+                                       ?>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                           
+                        <!--  END TOP CAMPAIGN-->
+
                 </div>
             </div>
             

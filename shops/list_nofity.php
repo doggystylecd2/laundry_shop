@@ -2,13 +2,13 @@
 <div class="page-wrapper" >
     
     <!-- SIDE BAR MOBILE AND DESKTOP -->
-    <?php include('./courier/side_bar.php');?>
+    <?php include('./shops/side_bar.php');?>
     <!-- END SIDE BAR MOBILE AND DESKTOP -->
 
     <!-- PAGE CONTAINER-->
     <div class="page-container2" style="height:150vh">
        
-        <?php include('./courier/header.php');?>
+        <?php include('./shops/header.php');?>
 
         <!-- BREADCRUMB-->
         <section class="au-breadcrumb m-t-75">

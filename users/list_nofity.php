@@ -48,7 +48,7 @@
                                 </thead>
                                 <tbody>
                                 <?php
-                                    $parcel = $db->select("SELECT * FROM users_notify where user_id = ? order by created_at desc ", array($_SESSION["user_id"]));
+                                    $parcel = $db->select("SELECT * FROM notity_system where user_id = ? order by created_at desc ", array($_SESSION["user_id"]));
                                     if(count($parcel) > 0){
                                         foreach ($parcel as $key => $value) {
                                             ?>
@@ -97,29 +97,4 @@
         <!-- END PAGE CONTAINER-->
     </div>
 
-</div>
-
-<!-- modal scroll -->
-<div class="modal fade" id="scrollmodal" tabindex="-1" role="dialog" aria-labelledby="scrollmodalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="scrollmodalLabel" >
-                    <div id="pacel_no">
-                         <span id="parcel_no_value"></span>
-                    </div>
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="parcel_modal_body">
-                <div id="parcel_details"></div>
-            </div>
-            <div id="modal-footer_cancel">
-                <div id="parcel_details2">
-                </div>
-            </div>
-        </div>
-    </div>
 </div>

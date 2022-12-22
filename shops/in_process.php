@@ -14,13 +14,13 @@
 <div class="page-wrapper">
 
      <!-- SIDE BAR MOBILE AND DESKTOP -->
-     <?php include('./admin/side_bar.php');?>
+     <?php include('./shops/side_bar.php');?>
     <!-- END SIDE BAR MOBILE AND DESKTOP -->
 
     <!-- PAGE CONTAINER-->
     <div class="page-container2">
         <!-- HEADER DESKTOP-->
-            <?php include('./pages/header_account.php') ?>
+            <?php include('./shops/header.php') ?>
         <!-- HEADER DESKTOP-->
 
         <!-- MAIN CONTENT-->
@@ -30,46 +30,36 @@
                     <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5">Pending Shops</h3>
+                                <h3 class="title-5">In Process</h3>
                                 <div class="table-responsive table-responsive-data2">
                                     <table class="table table-data2" id="table_list">
                                         <thead>
                                             <tr>
-                                                <th>email</th>
+                                                <th>Order #</th>
+                                                <th>Name:</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php
-                                                $user_to_verify = $db->select("SELECT *, (case when user_type = 3 then 'Courier' else 'Shop' end ) as `type` 
-                                                    FROM users u
-                                                    inner join personal_info pf using(user_id)
-                                                     where `verify` = 0 and user_type in (4)");
+                                             <?php
+                                                $user_to_verify = $db->select("SELECT *, CONCAT(last_name, ', ', first_name ) fullname FROM form_booking_user 
+                                                    inner join personal_info USING (p_info_id)
+                                                    where status_booking = 7 and shop_id in (select shop_id from shops where p_info_id = (select p_info_id from personal_info where user_id = ?) ) " , array($_SESSION["user_id"]) );
                                                 if(count($user_to_verify) > 0){
                                                     foreach ($user_to_verify as $key => $value) {
                                                         ?>
                                                         <tr class="tr-shadow">
                                                             <td>
-                                                                <?php echo $value["email"]; ?>
+                                                                <?php echo $value["booking_id"]; ?>
                                                             </td>
+                                                            <td><?php echo ucwords($value["fullname"]); ?></td>
                                                             <td>
                                                             <div class="table-data-feature">
-                                                                <button class="item" data-toggle="tooltip"  title="View" type="button"  id="<?php echo $value["user_id"]; ?>" name="view_details" name="view" onclick="showModal(this.id,this.name)">
+                                                                <button class="item" data-toggle="tooltip" data-placement="top" title="View Details" type="button"  id="<?php echo $value["booking_id"]; ?>" name="view_details" name="view" onclick="showModal(this.id,this.name)">
                                                                     <i class="zmdi zmdi-eye" style="color:#298afe;"></i> 
                                                                     
                                                                 </button>
-                                                                 <button class="item" data-toggle="tooltip"  title="Logo" type="button"  id="<?php echo $value["user_id"]; ?>"  name="view_resume"  onclick="showModal(this.id,this.name)">
-                                                                   <i class="zmdi zmdi-file" style="color:#298afe;"></i> 
-                                                                    
-                                                                </button>
-                                                                 <button class="item" data-toggle="tooltip"  title="File Permit" type="button"  id="<?php echo $value["user_id"]; ?>" name="view_driver"  onclick="showModal(this.id,this.name)">
-                                                                   <i class="zmdi zmdi-card" style="color:#298afe;"></i> 
-                                                                    
-                                                                </button>
-                                                                 <button class="item" data-toggle="tooltip"  title="Confirm" type="button" name="confirm"  id="<?php echo $value["user_id"]; ?>" onclick="showModal(this.id,this.name)">
-                                                                   <i class="zmdi zmdi-check-circle" style="color:green;"></i> 
-                                                                    
-                                                                </button>
+                                                                
 
 
                                                             </div>
@@ -128,65 +118,80 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="parcel_modal_body">
-                <div id="parcel_details"></div>
-            </div>
-            
+            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal add_booking">
+                <div class="modal-body" id="parcel_modal_body">
+                    <div id="parcel_details">
+                        
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <input type="submit" class="btn btn-primary" value="Packaging" />
+                </div>
+            </form>
+
         </div>
     </div>
 </div>
 
-
 <script>
 
-    function showModal(user_id,name){
+    function showModal(booking_id,name){
     //    $('#scrollmodal').toggle();
         $('#scrollmodal').modal('show')
         $('#parcel_no_value').remove();
         $('#parcel_details').remove();
-        if(name == 'confirm'){
-            $('#pacel_no').append('<span id="parcel_no_value">Confirm Action</span>');
-            div = '<div id="parcel_details"><div class="modal-body">If you`re done reviewing the profile. Please Click the Confirm button below. <br>Thank you</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button><button type="button" onclick="updateStatus('+user_id+','+name+')" class="btn btn-primary" >Confirmed</button></div></div>';
-             $('#parcel_modal_body').append(div);
-        } else {
-            $('#pacel_no').append('<span id="parcel_no_value">Details</span>');
-            // $('#parcel_modal_body').append('<div id="parcel_details">Name: Marvin villanea</div>');
-            $.post(
-                "api/routes.php",
-                {user_id: user_id,action:"getdetailsUserShopsPending", type: 'admin', name: name},
-                function(data){ 
-                    // location.reload(true); 
-                    $('#parcel_modal_body').append(data);
-                }
-            );
-        }
+        $('#pacel_no').append('<span id="parcel_no_value">Details</span>');
+          $.post(
+            "api/view/driver/in_transit.php",
+            {booking_id: booking_id},
+            function(data){ 
+                $('#parcel_details').remove();
+                $('#parcel_modal_body').append(data);
+            }
+        );
       
     }
 
-    function updateStatus(user_id, name) 
-    {
+    $(document).ready(() => {
+     
+        $(".add_booking").on("submit",(e) => {
+            e.preventDefault();
+            var data = $('.add_booking').serializeArray();
+            //  Swal.fire(
+            //     'Success',
+            //     'Your Booked ID Successfully Added. Please wait for the Confirmation!. Thank you',
+            //     'success'
+            // ).then((result) => {
+            //   location.reload();
+            // });
 
-        // $.post("api/routes.php",{user_id: user_id, name: name,action:"courier_approval", type: 'admin'}, function(data) 
-        // { 
-        //     location.reload(true); 
-        //     // window.location.href = '/index.php?page=list_shops';
-        // }
-        // );
-        
-
-         $.ajax({
-                url : "api/routes.php",
+            $.ajax({
+                url : "api/controller/shops/packaging.php",
                 method: "post",
-                data : {user_id: user_id, name: name,action:"courier_approval", type: 'admin'},
+                data : data,
                 success: (res) => {
-                    Swal.fire(
-                        'Success',
-                        'Account has been confirmed!..',
-                        'success'
-                    ).then((result) => {
-                      location.reload();
-                    });
+                    console.log(res)
+                    if(res.success){
+                         Swal.fire(
+                            'Success',
+                            `${res.message}`,
+                            'success'
+                        ).then((result) => {
+                          location.reload();
+                        });
+                    }else{
+                        Swal.fire(
+                            'Failed',
+                            `${res.message}`,
+                            'error'
+                        )
+                    }
                 }
             });
-      }
+            
+        });
+    });
+
 </script>

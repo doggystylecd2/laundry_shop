@@ -25,7 +25,7 @@
             fb.delivery_address,
             fb.status_booking,
             fb.user_id,
-            (select name from shops where shop_id = fb.shop_id) as shop_name,
+             (select name from shops where shop_id = fb.shop_id) as shop_name,
             (select description from parcel_status where id_status = fb.status_booking ) as status_name,
             (select details from parcel_status where id_status = fb.status_booking ) as status_name_details,
             (  SELECT name FROM type_of_services WHERE services_id = (SELECT services_id FROM shops_services WHERE shop_services_id = fb.shop_services_id) ) shop_services_name,
@@ -85,7 +85,7 @@
                     ?>
                 </div>
             </div>
-             <div class="row form-group">
+            <div class="row form-group">
                 <div class="col col-md-3">
                     <label for="shop_name" class="form-control-label">Shop Name:</label>
                 </div>
@@ -154,7 +154,7 @@
             <hr/>
              <div class="row form-group">
                 <div class="col col-md-3">
-                    <label for="user_id" class="form-control-label">Driver</label>
+                    <label for="user_id" class="form-control-label">Available Driver</label>
                 </div>
                 <div class="col-12 col-md-9">
                     <select name="user_id" id="user_id" class="form-control-sm form-control" disabled>

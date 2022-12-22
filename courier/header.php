@@ -154,41 +154,46 @@
                                 <li class="<?php if($_GET["page"] == 'order_accepted') {echo "active";}?>">
                                     <a href="index.php?page=order_accepted">Order Accepted</a>
                                 </li>
-                                <li>
-                                    <a href="index.php?page=order_accepted">Ready to Pickup</a>
+                                <li class="<?php if($_GET["page"] == 'ready_to_pick_up') {echo "active";}?>">
+                                    <a href="index.php?page=ready_to_pick_up">Ready to Pickup</a>
                                 </li>
-                                <li>
-                                    <a href="index.php?page=order_accepted">Reviewing Items</a>
+                                <li class="<?php if($_GET["page"] == 'review_items') {echo "active";}?>">
+                                    <a href="index.php?page=review_items">Reviewing Items</a>
                                 </li>
-                                <li>
-                                    <a href="index.php?page=order_accepted">Items Collected</a>
+                                <li class="<?php if($_GET["page"] == 'item_collected') {echo "active";}?>">
+                                    <a href="index.php?page=item_collected">Items Collected</a>
                                 </li>
-                                <li>
-                                    <a href="index.php?page=order_accepted">Arrived at Destination - (Laundry Shops)</a>
+                                <li class="<?php if($_GET["page"] == 'arrived_at_destination') {echo "active";}?>">    
+                                    <a href="index.php?page=arrived_at_destination">Arrived at Destination - (Laundry Shops)</a>
                                 </li>
-                                <li>
-                                    <a href="index.php?page=order_accepted">In-process</a>
+                                <li class="<?php if($_GET["page"] == 'in_process') {echo "active";}?>">
+                                    <a href="index.php?page=in_process">In-process</a>
                                 </li>
-                                <li>
-                                    <a href="index.php?page=order_accepted">Packaging</a>
+                                <li class="<?php if($_GET["page"] == 'packaging') {echo "active";}?>">
+                                    <a href="index.php?page=packaging">Packaging</a>
                                 </li>
-                                 <li>
-                                    <a href="index.php?page=order_accepted">Ready to Deliver.</a>
+                                <li class="<?php if($_GET["page"] == 'ready_to_delivered') {echo "active";}?>">
+                                    <a href="index.php?page=ready_to_delivered">Ready to Deliver.</a>
                                 </li>
-                                <li>
-                                    <a href="index.php?page=order_accepted">In-Transit.</a>
+                                <li class="<?php if($_GET["page"] == 'in_transit') {echo "active";}?>">
+                                    <a href="index.php?page=in_transit">In-Transit.</a>
                                 </li>
-                                <li>
-                                    <a href="index.php?page=order_accepted">Arrived at Destination - (Client).</a>
+                                <li class="<?php if($_GET["page"] == 'arrived_at_destination_client') {echo "active";}?>">
+                                    <a href="index.php?page=arrived_at_destination_client">Arrived at Destination - (Client).</a>
                                 </li>
-                                <li>
-                                    <a href="index.php?page=order_accepted">Delivered.</a>
+                                <li class="<?php if($_GET["page"] == 'delivered') {echo "active";}?>">
+                                    <a href="index.php?page=delivered">Delivered.</a>
                                 </li>
-                                <li>
-                                    <a href="index.php?page=order_accepted">Order Declined.</a>
+                                <li class="<?php if($_GET["page"] == 'declient_order') {echo "active";}?>">
+                                    <a href="index.php?page=declient_order">Order Declined.</a>
                                 </li>
                             </ul>
                         </li>
+                        <li class="<?php if($_GET["page"] == 'list_nofity') {echo "active";}?>">
+                            <a href="index.php?page=list_nofity">
+                                <i class="fas fa-user-md"></i>Notifications
+                            </a>
+                        </li>   
                     </ul>
                     
                 </nav>

@@ -27,6 +27,12 @@
                         <i class="fas fa-user-md"></i>Laundry Shops
                     </a>
                 </li>
+
+                 <li class="<?php if($_GET["page"] == 'all_status') {echo "active";}?>">
+                    <a href="index.php?page=all_status">
+                        <i class="fas fa-shopping-basket"></i>My Order
+                    </a>
+                </li>
                 
                 <li class="<?php if($_GET["page"] == 'list_nofity') {echo "active";}?>">
                     <a href="index.php?page=list_nofity">

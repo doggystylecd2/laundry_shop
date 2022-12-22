@@ -31,6 +31,12 @@ if(isset($_GET["action"]) ){
                 if($details)
                     echo $details;
             }
+
+            if($action == "getdetailsUserShopsPending"){
+                $details = $crud->get_details_users_shops();
+                if($details)
+                    echo $details;
+            }
             if($action == "courier_approval"){
         
                 $approvalRegister = $crud->ApprovalCourierRegister();

@@ -118,7 +118,6 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal add_booking">
                 <div class="modal-body" id="parcel_modal_body">
                     <div id="parcel_details">
                         
@@ -127,10 +126,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <input type="submit" class="btn btn-primary" value="Confirm" />
 
                 </div>
-            </form>
 
         </div>
     </div>
@@ -145,7 +142,7 @@
         $('#parcel_details').remove();
         $('#pacel_no').append('<span id="parcel_no_value">Details</span>');
           $.post(
-            "api/view/shops/tracking_data.php",
+            "api/view/driver/tracking_data.php",
             {booking_id: booking_id},
             function(data){ 
                 $('#parcel_details').remove();
@@ -155,44 +152,6 @@
       
     }
 
-    $(document).ready(() => {
-     
-        $(".add_booking").on("submit",(e) => {
-            e.preventDefault();
-            var data = $('.add_booking').serializeArray();
-            //  Swal.fire(
-            //     'Success',
-            //     'Your Booked ID Successfully Added. Please wait for the Confirmation!. Thank you',
-            //     'success'
-            // ).then((result) => {
-            //   location.reload();
-            // });
-
-            $.ajax({
-                url : "api/controller/shops/assigncourier.php",
-                method: "post",
-                data : data,
-                success: (res) => {
-                    console.log(res)
-                    if(res.success){
-                         Swal.fire(
-                            'Success',
-                            `${res.message}`,
-                            'success'
-                        ).then((result) => {
-                          location.reload();
-                        });
-                    }else{
-                        Swal.fire(
-                            'Failed',
-                            `${res.message}`,
-                            'error'
-                        )
-                    }
-                }
-            });
-            
-        });
-    });
+    
 
 </script>

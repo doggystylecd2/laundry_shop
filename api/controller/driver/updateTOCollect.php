@@ -30,27 +30,38 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $getDataUser = getDetailsUsersInformation($db);
 
-        $db->Update("update form_booking_user set `status_booking` =  ? WHERE `booking_id` = ? ", array(2, $booking_id)  );
+        $db->Update("update form_booking_user set `status_booking` =  ? WHERE `booking_id` = ? ", array(5, $booking_id)  );
+
+
+        for ($i= 0; $i < count($shop_available_id) ; $i++) { 
+            $total_amount = $amount[$i] * $Quantity[$i];
+            $db->Insert("INSERT INTO booking_transaction (`booking_id`,`shop_available_id`, `quantity` , `total_amount` ) VALUES (?,?,?,?)", [
+                $booking_id,
+                $shop_available_id[$i],
+                $Quantity[$i],
+                $total_amount
+            ]);
+        }
        
 
         $data = $db->Select("select ( select user_id from personal_info where p_info_id = fb.p_info_id ) as clients, 
             (select user_id from personal_info where p_info_id =  ( select p_info_id from shops where shop_id = fb.shop_id ) ) as shopss from form_booking_user fb WHERE booking_id = ?  " , array($booking_id));
         // notify courier
 
-        $description = "Order # ".$booking_id.", Has been approved by Courier. Thank you!. ".date('y-m-d h:m:s');
+        $description = "Order # ".$booking_id.", has been Collected by Courier.. Have a nice day!. ".date('y-m-d h:m:s');
         $db->Insert("INSERT INTO notity_system (`user_id`,`description`) VALUES (?,?)", [
             $data[0]["shopss"],
             $description
         ]);
 
         // notify courier
-        $description = "Your Order # ".$booking_id.", Has been approved by Courier. Thank you!. ".date('y-m-d h:m:s');
+        $description = "Your Order # ".$booking_id.", has been Collected by Courier. Thank you!. ".date('y-m-d h:m:s');
         $db->Insert("INSERT INTO notity_system (`user_id`,`description`) VALUES (?,?)", [
             $data[0]["clients"],
             $description
         ]);
 
-        message(true,'Your Booked ID Successfully Accepted.');
+        message(true,'Your Booked ID Successfully Reviewed.');
     } else {
         message(false,'Missing input!..');
     }
