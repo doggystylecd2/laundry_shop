@@ -147,7 +147,7 @@
         $('#pacel_no').append('<span id="parcel_no_value">Details</span>');
           $.post(
             "api/view/shops/tracking_data.php",
-            {booking_id: booking_id},
+            {booking_id: booking_id , action : "rate"},
             function(data){ 
                 $('#parcel_details').remove();
                 $('#parcel_modal_body').append(data);
@@ -161,14 +161,6 @@
         $(".add_booking").on("submit",(e) => {
             e.preventDefault();
             var data = $('.add_booking').serializeArray();
-            //  Swal.fire(
-            //     'Success',
-            //     'Your Booked ID Successfully Added. Please wait for the Confirmation!. Thank you',
-            //     'success'
-            // ).then((result) => {
-            //   location.reload();
-            // });
-
             $.ajax({
                 url : "api/controller/shops/assigncourier.php",
                 method: "post",
@@ -195,5 +187,32 @@
             
         });
     });
+
+    function storeRateShops(booking_id){ 
+        var data = $('.add_booking').serializeArray();
+         $.ajax({
+            url : "api/controller/user/rate_shops.php",
+            method: "post",
+            data : data,
+            success: (res) => {
+                console.log(res)
+                if(res.success){
+                     Swal.fire(
+                        'Success',
+                        `${res.message}`,
+                        'success'
+                    ).then((result) => {
+                      location.reload();
+                    });
+                }else{
+                    Swal.fire(
+                        'Failed',
+                        `${res.message}`,
+                        'error'
+                    )
+                }
+            }
+        });
+    }
 
 </script>

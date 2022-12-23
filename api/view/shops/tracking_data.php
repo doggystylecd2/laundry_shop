@@ -1,4 +1,5 @@
 <?php 
+    session_start();
     require '../../../vendor/autoload.php';
     $repository = Dotenv\Repository\RepositoryBuilder::createWithNoAdapters()
     ->addAdapter(Dotenv\Repository\Adapter\EnvConstAdapter::class)
@@ -236,6 +237,81 @@
 
                 </div>
             </div>
+
+            <?php 
+
+            if($action && $action == "rate") {
+                if($data["status_booking"] == 12) {
+                    $getReview = $db->Select("select * from rate_shops where booking_id = ? order by id_rate desc limit 1" , array($booking_id));
+                    if(count($getReview) > 0) {
+                        $in_list = [
+                            "1" => "Very Poor",
+                            "2" => "Poor",
+                            "3" => "Good",
+                            "4" => "Very Good",
+                            "5" => "Excellent"
+                        ];
+                        echo $in_list[$getReview[0]["rate_type"]];
+                        ?>
+                        <hr/>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label class=" form-control-label">Rate Shop:</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <input type="text"  class="form-control-sm form-control" value="<?php echo $in_list[$getReview[0]["rate_type"]]; ?>" disabled>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label class=" form-control-label">Comment:</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <textarea class="form-control" name="comments" disabled><?php echo $getReview[0]["comments"] ?></textarea>
+                            </div>
+                        </div>
+                        
+                        <?php
+                    } else {
+                        ?>
+                        <hr/>
+                        <input type="hidden" name="shop_id" id="shop_id"  value="<?php echo $data["shop_id"] ?>" >
+                        <input type="hidden" name="user_id" id="user_id"  value="<?php echo $_SESSION['user_id'] ?>" >
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label class=" form-control-label">Rate Shop:</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <select class="form-control-sm form-control" name="rate" id="rate">
+                                    <option disabled selected>-- Select Rate --</option>
+                                    <option value="1">Very Poor</option>
+                                    <option value="2">Poor</option>
+                                    <option value="3">Good</option>
+                                    <option value="4">Very Good</option>
+                                    <option value="5">Excellent</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3">
+                                <label class=" form-control-label">Comment:</label>
+                            </div>
+                            <div class="col-12 col-md-9">
+                                <textarea class="form-control" name="comments"></textarea>
+                            </div>
+                        </div>
+                         <div class="row form-group">
+                            <div class="col col-md">
+                                <button type="button" class="btn btn-outline-primary btn-sm btn-block" onclick="storeRateShops('<?php  echo $booking_id ?>')">Save</button>
+                            </div>
+                           
+                        </div>
+                        <?php
+                    }
+                }
+            }
+
+            ?>
             
     </div>
 </div>

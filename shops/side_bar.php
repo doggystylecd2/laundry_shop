@@ -41,6 +41,11 @@
                         <i class="fas fa-shopping-cart"></i>Shop Details
                     </a>
                 </li>
+                <li class="<?php if($_GET["page"] == 'shops_services') {echo "active";}?>">
+                    <a href="index.php?page=shops_services">
+                        <i class="fas fa-wrench"></i>Services
+                    </a>
+                </li>
                 <li class="<?php if($_GET["page"] == 'new_request') {echo "active";}?>">
                     <a href="index.php?page=new_request">
                         <i class="fas fa-plus-square"></i>New Order <span class="badge badge-warning"><?php echo $total_new_order["total_new_order"]; ?>

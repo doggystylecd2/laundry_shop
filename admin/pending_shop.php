@@ -166,13 +166,7 @@
     function updateStatus(user_id, name) 
     {
 
-        // $.post("api/routes.php",{user_id: user_id, name: name,action:"courier_approval", type: 'admin'}, function(data) 
-        // { 
-        //     location.reload(true); 
-        //     // window.location.href = '/index.php?page=list_shops';
-        // }
-        // );
-        
+  
 
          $.ajax({
                 url : "api/routes.php",

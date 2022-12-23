@@ -91,7 +91,7 @@ $id_courier = 1;
                                             <hr>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="ratings">
-                                                <?php $data_rate = $db->Select("select * from rate_courier where courier_id = ? ", array($value["shop_id"])) ;
+                                                <?php $data_rate = $db->Select("select * from rate_shops where shop_id = ? ", array($value["shop_id"])) ;
                                                     if(count($data_rate)>0){
                                                     $stars = round(count($data_rate) / 5);
                                                     $stars = $stars == 0 ? $stars + 1 : $stars;
@@ -123,7 +123,7 @@ $id_courier = 1;
                                             <div class="mt-1 d-flex justify-content-between align-items-center">
                                                 <h5 class="review-stat">Excellent</h5>
                                                 <div class="small-ratings">
-                                                    <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 5 ", array($value["shop_id"])) ;
+                                                    <?php $data_rate_5 = $db->Select("select * from rate_shops where shop_id = ? and rate_type = 5 ", array($value["shop_id"])) ;
                                                     if(count($data_rate_5)>0){
                                                         
                                                         $stars = round(count($data_rate_5) / 5);
@@ -147,9 +147,9 @@ $id_courier = 1;
                                                 </div>
                                             </div>
                                             <div class="mt-1 d-flex justify-content-between align-items-center">
-                                                <h5 class="review-stat">Good</h5>
+                                                <h5 class="review-stat">Very Good</h5>
                                                 <div class="small-ratings">
-                                                <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 4 ", array($value["shop_id"])) ;
+                                                <?php $data_rate_5 = $db->Select("select * from rate_shops where shop_id = ? and rate_type = 4 ", array($value["shop_id"])) ;
                                                     if(count($data_rate_5)>0){
                                                         
                                                         $stars = round(count($data_rate_5) / 5);
@@ -173,9 +173,9 @@ $id_courier = 1;
                                                 </div>
                                             </div>
                                             <div class="mt-1 d-flex justify-content-between align-items-center">
-                                                <h5 class="review-stat">OK</h5>
+                                                <h5 class="review-stat">Good</h5>
                                                 <div class="small-ratings">
-                                                <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 3 ", array($value["shop_id"])) ;
+                                                <?php $data_rate_5 = $db->Select("select * from rate_shops where shop_id = ? and rate_type = 3 ", array($value["shop_id"])) ;
                                                     if(count($data_rate_5)>0){
                                                         
                                                         $stars = round(count($data_rate_5) / 5);
@@ -201,7 +201,7 @@ $id_courier = 1;
                                             <div class="mt-1 d-flex justify-content-between align-items-center">
                                                 <h5 class="review-stat">Poor</h5>
                                                 <div class="small-ratings">
-                                                <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 2 ", array($value["shop_id"])) ;
+                                                <?php $data_rate_5 = $db->Select("select * from rate_shops where shop_id = ? and rate_type = 2 ", array($value["shop_id"])) ;
                                                     if(count($data_rate_5)>0){
                                                         
                                                         $stars = round(count($data_rate_5) / 5);
@@ -227,9 +227,9 @@ $id_courier = 1;
                                             
                                             
                                             <div class="mt-1 d-flex justify-content-between align-items-center">
-                                                <h5 class="review-stat">Very bad</h5>
+                                                <h5 class="review-stat">Very Poor</h5>
                                                 <div class="small-ratings">
-                                                <?php $data_rate_5 = $db->Select("select * from rate_courier where courier_id = ? and rate_type = 1 ", array($value["shop_id"])) ;
+                                                <?php $data_rate_5 = $db->Select("select * from rate_shops where shop_id = ? and rate_type = 1 ", array($value["shop_id"])) ;
                                                     if(count($data_rate_5)>0){
                                                         
                                                         $stars = round(count($data_rate_5) / 5);

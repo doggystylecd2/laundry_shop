@@ -75,6 +75,7 @@ if(!$users_details){
             "delivered",
             "declient_order",
             "list_nofity",
+            "shops_services",
         ]
     ];
     $accessable = ["logout"];
