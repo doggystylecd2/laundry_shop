@@ -20,9 +20,9 @@ CREATE TABLE IF NOT EXISTS `access_token` (
   `access_token` varchar(75) DEFAULT NULL,
   `user_id` int DEFAULT NULL,
   PRIMARY KEY (`token_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table laundry_shop.access_token: ~38 rows (approximately)
+-- Dumping data for table laundry_shop.access_token: ~63 rows (approximately)
 INSERT IGNORE INTO `access_token` (`token_id`, `access_token`, `user_id`) VALUES
 	(48, '1897ff090b8b072b387525b03b0111b4', 1),
 	(49, '32d8e8bbe83760377fb2b0b0f0d766bd', 68),
@@ -90,7 +90,13 @@ INSERT IGNORE INTO `access_token` (`token_id`, `access_token`, `user_id`) VALUES
 	(111, '04f317aebbfb1e0803cca8065a423e28', 71),
 	(112, '47d6ead508adcc3b3844a86d85e9c63c', 1),
 	(113, 'f972cc4ac990ec461b9217d56e6fdf11', 74),
-	(114, '5d01566a2291309cc0c5b9a703a44096', 1);
+	(114, '5d01566a2291309cc0c5b9a703a44096', 1),
+	(115, '3ef475ce43796f891a067a8cd496380b', 69),
+	(116, '3b88566d9f684d403bfd2a030bad7cac', 70),
+	(117, 'dbde7954894a5ac417f6e708bec128ce', 68),
+	(118, '912b2d71947595ece03124b2df4d660a', 1),
+	(119, '7d98ad29175896b237a9d99e636b261a', 73),
+	(120, '332a3c3b11282a3b73c5d0e48a30b0e6', 68);
 
 -- Dumping structure for table laundry_shop.address_info
 CREATE TABLE IF NOT EXISTS `address_info` (
@@ -101,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `address_info` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_address_info`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table laundry_shop.address_info: ~0 rows (approximately)
 
@@ -110,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `approval_users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `type` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table laundry_shop.approval_users: ~4 rows (approximately)
 INSERT IGNORE INTO `approval_users` (`id`, `type`) VALUES
@@ -124,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `barangay` (
   `barangay_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`barangay_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table laundry_shop.barangay: ~12 rows (approximately)
 INSERT IGNORE INTO `barangay` (`barangay_id`, `name`) VALUES
@@ -151,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `booking_transaction` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`transaction_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table laundry_shop.booking_transaction: ~2 rows (approximately)
 INSERT IGNORE INTO `booking_transaction` (`transaction_id`, `booking_id`, `shop_available_id`, `quantity`, `total_amount`, `created_at`, `updated_at`) VALUES
@@ -163,13 +169,13 @@ CREATE TABLE IF NOT EXISTS `courier_details` (
   `idcourier_details` int NOT NULL AUTO_INCREMENT,
   `p_info_id` int DEFAULT NULL,
   `resume` varchar(255) DEFAULT NULL,
-  `driver_license` varchar(255) CHARACTER SET utf8mb4  DEFAULT NULL,
+  `driver_license` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idcourier_details`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table laundry_shop.courier_details: ~2 rows (approximately)
+-- Dumping data for table laundry_shop.courier_details: ~0 rows (approximately)
 INSERT IGNORE INTO `courier_details` (`idcourier_details`, `p_info_id`, `resume`, `driver_license`, `description`, `created_at`) VALUES
 	(4, 51, 'http://localhost:7070/DriverLicense/marvinvillanea-1671433906.png', 'http://localhost:7070/DriverLicense/marvinvillanea-1671433906.png', 'Tell me about your self', '2022-12-19 07:11:46'),
 	(5, 53, 'http://localhost:7070/DriverLicense/courier22courier22-1671723708.png', 'http://localhost:7070/DriverLicense/courier22courier22-1671723708.png', '2 years', '2022-12-22 15:41:48');
@@ -180,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `error_logs` (
   `descriptions` text,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`iderror_logs`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table laundry_shop.error_logs: ~0 rows (approximately)
 
@@ -192,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `form_booking_user` (
   `shop_services_id` int DEFAULT NULL,
   `date_time_to_pickup` timestamp NULL DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
-  `delivery_address` varchar(255) CHARACTER SET utf8mb4  DEFAULT NULL,
+  `delivery_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `contact_no` varchar(50) DEFAULT NULL,
   `status_booking` smallint DEFAULT '0',
   `user_id` int DEFAULT NULL COMMENT 'user_id = only the coureir_Id .. after the approval of shops',
@@ -200,9 +206,9 @@ CREATE TABLE IF NOT EXISTS `form_booking_user` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`booking_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table laundry_shop.form_booking_user: ~3 rows (approximately)
+-- Dumping data for table laundry_shop.form_booking_user: ~2 rows (approximately)
 INSERT IGNORE INTO `form_booking_user` (`booking_id`, `p_info_id`, `shop_id`, `shop_services_id`, `date_time_to_pickup`, `address`, `delivery_address`, `contact_no`, `status_booking`, `user_id`, `date_time_to_delivery`, `created_at`, `updated_at`) VALUES
 	(7, 50, 4, 4, '2022-12-24 13:21:00', 'Tibagan', NULL, '09755983121', 2, 70, NULL, '2022-12-21 13:23:16', '2022-12-22 12:38:53'),
 	(8, 50, 4, 4, '2022-12-21 14:49:00', 'Tibagan', 'Saray', '09755983121', 12, 70, NULL, '2022-12-21 14:49:54', '2022-12-22 13:09:17'),
@@ -217,9 +223,9 @@ CREATE TABLE IF NOT EXISTS `notity_system` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`notify_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table laundry_shop.notity_system: ~8 rows (approximately)
+-- Dumping data for table laundry_shop.notity_system: ~39 rows (approximately)
 INSERT IGNORE INTO `notity_system` (`notify_id`, `user_id`, `description`, `status`, `created_at`, `updated_at`) VALUES
 	(109, 71, 'Account Has been Verify/Confirmed by Admin', 1, '2022-12-22 15:39:30', '2022-12-22 15:40:14'),
 	(110, 72, 'Account Has been Verify/Confirmed by Admin', 0, '2022-12-22 15:42:25', '2022-12-22 15:42:25'),
@@ -270,7 +276,7 @@ CREATE TABLE IF NOT EXISTS `parcel_status` (
   `description` varchar(100) DEFAULT NULL,
   `details` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_status`)
-) ENGINE=InnoDB AUTO_INCREMENT=23546 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=23546 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table laundry_shop.parcel_status: ~17 rows (approximately)
 INSERT IGNORE INTO `parcel_status` (`id_status`, `description`, `details`) VALUES
@@ -316,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `personal_info` (
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `verify_number` int DEFAULT '0' COMMENT '0 = not verify, 1 = full verify',
   PRIMARY KEY (`p_info_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table laundry_shop.personal_info: ~7 rows (approximately)
 INSERT IGNORE INTO `personal_info` (`p_info_id`, `user_id`, `first_name`, `last_name`, `middle_name`, `street`, `city`, `province`, `zip_code`, `zone`, `landmark`, `barangay`, `house_no`, `discrict_code`, `birthdate`, `gender`, `contact_no`, `image`, `created_at`, `updated_at`, `verify_number`) VALUES
@@ -337,9 +343,25 @@ CREATE TABLE IF NOT EXISTS `rate_courier` (
   `parcel_id` varchar(45) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_rate`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table laundry_shop.rate_courier: ~0 rows (approximately)
+
+-- Dumping structure for table laundry_shop.rate_shops
+CREATE TABLE IF NOT EXISTS `rate_shops` (
+  `id_rate` int NOT NULL AUTO_INCREMENT,
+  `user_id` bigint DEFAULT NULL COMMENT 'users  = only',
+  `rate_type` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '1 , 2 , 3 , 4, 5',
+  `shop_id` bigint DEFAULT NULL,
+  `comments` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `booking_id` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_rate`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table laundry_shop.rate_shops: ~1 rows (approximately)
+INSERT IGNORE INTO `rate_shops` (`id_rate`, `user_id`, `rate_type`, `shop_id`, `comments`, `booking_id`, `created_at`) VALUES
+	(5, 73, '5', 5, 'Good Washing', '9', '2022-12-23 19:30:16');
 
 -- Dumping structure for table laundry_shop.shops
 CREATE TABLE IF NOT EXISTS `shops` (
@@ -354,7 +376,7 @@ CREATE TABLE IF NOT EXISTS `shops` (
   `status` int DEFAULT '0' COMMENT '0 = ACTIVE . 1 = NOT ACTIVE',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`shop_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table laundry_shop.shops: ~3 rows (approximately)
 INSERT IGNORE INTO `shops` (`shop_id`, `p_info_id`, `name`, `descriptions`, `logo`, `permit`, `owner`, `bussiness_id`, `status`, `created_at`) VALUES
@@ -371,9 +393,9 @@ CREATE TABLE IF NOT EXISTS `shops_services` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`shop_services_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table laundry_shop.shops_services: ~3 rows (approximately)
+-- Dumping data for table laundry_shop.shops_services: ~6 rows (approximately)
 INSERT IGNORE INTO `shops_services` (`shop_services_id`, `shop_id`, `services_id`, `status`, `created_at`, `updated_at`) VALUES
 	(4, 4, 1, NULL, '2022-12-18 07:22:22', '2022-12-18 07:22:22'),
 	(5, 4, 2, NULL, '2022-12-18 07:22:22', '2022-12-18 07:22:22'),
@@ -386,13 +408,13 @@ INSERT IGNORE INTO `shops_services` (`shop_services_id`, `shop_id`, `services_id
 CREATE TABLE IF NOT EXISTS `shops_services_available` (
   `shop_available_id` int NOT NULL AUTO_INCREMENT,
   `shop_services_id` int DEFAULT NULL,
-  `category` varchar(50) CHARACTER SET utf8mb4  DEFAULT NULL,
+  `category` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `amount` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`shop_available_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table laundry_shop.shops_services_available: ~5 rows (approximately)
 INSERT IGNORE INTO `shops_services_available` (`shop_available_id`, `shop_services_id`, `category`, `name`, `amount`, `created_at`, `updated_at`) VALUES
@@ -405,7 +427,7 @@ INSERT IGNORE INTO `shops_services_available` (`shop_available_id`, `shop_servic
 -- Dumping structure for table laundry_shop.system_info
 CREATE TABLE IF NOT EXISTS `system_info` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8mb4  DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `descriptions` varchar(255) DEFAULT NULL,
   `version` varchar(50) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -413,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `system_info` (
   `province` varchar(50) DEFAULT NULL,
   `zip_code` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table laundry_shop.system_info: ~0 rows (approximately)
 INSERT IGNORE INTO `system_info` (`id`, `title`, `descriptions`, `version`, `created_at`, `city`, `province`, `zip_code`) VALUES
@@ -422,11 +444,11 @@ INSERT IGNORE INTO `system_info` (`id`, `title`, `descriptions`, `version`, `cre
 -- Dumping structure for table laundry_shop.type_of_services
 CREATE TABLE IF NOT EXISTS `type_of_services` (
   `services_id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4  DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `type` smallint DEFAULT '0' COMMENT '0 = BASIC ITEMS, 1 = OTHRES',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`services_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table laundry_shop.type_of_services: ~2 rows (approximately)
 INSERT IGNORE INTO `type_of_services` (`services_id`, `name`, `type`, `created_at`) VALUES
@@ -441,12 +463,12 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(45) DEFAULT NULL,
   `status` int DEFAULT '1' COMMENT '0= not active, 1 = actrive',
   `verify` tinyint DEFAULT NULL COMMENT '0 = not verify , 1 = verfit by admin, 2 = reject',
-  `user_type` varchar(45) CHARACTER SET utf8mb4  DEFAULT NULL COMMENT '1 = admin,   2 = user, 3 courier, 4 = shops',
+  `user_type` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '1 = admin,   2 = user, 3 courier, 4 = shops',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `driver_status` int DEFAULT NULL COMMENT '0 = available, 1 = not available',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table laundry_shop.users: ~8 rows (approximately)
 INSERT IGNORE INTO `users` (`user_id`, `username`, `email`, `password`, `status`, `verify`, `user_type`, `created_at`, `updated_at`, `driver_status`) VALUES
